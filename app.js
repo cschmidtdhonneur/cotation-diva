@@ -505,7 +505,7 @@ function renderEvidenceRow(itemId, example, index, periods) {
       ${periods.map(period => {
         const evidence = getEvidence(itemId, index, period.id);
         return `
-          <div class="evidence-period">
+          <div class="evidence-period" data-period-label="${escapeHtml(period.label)}">
             <label class="mini-check">
               <input type="checkbox" data-evidence-item="${itemId}" data-evidence-index="${index}" data-evidence-period="${period.id}" ${evidence.checked ? "checked" : ""}>
               <span>Coché</span>
