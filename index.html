@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cotation DIVA</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Navigation de la cotation">
+        <div class="brand">
+          <div class="mark" aria-hidden="true">D</div>
+          <div>
+            <h1>Cotation DIVA</h1>
+            <p>Entretien, notes et export PDF</p>
+          </div>
+        </div>
+
+        <section class="panel compact">
+          <label for="scale-select">Évaluation</label>
+          <select id="scale-select">
+            <option value="adult">DIVA 2.0 adulte</option>
+            <option value="young">Young DIVA-5</option>
+          </select>
+        </section>
+
+        <section class="panel compact">
+          <label for="search">Filtrer les items</label>
+          <input id="search" type="search" placeholder="Mot-clé, domaine...">
+        </section>
+
+        <section class="panel compact save-panel">
+          <p class="panel-title">Sauvegarde ordinateur</p>
+          <button class="sidebar-btn" id="save-file-btn" type="button">Choisir le fichier</button>
+          <button class="sidebar-btn" id="download-save-btn" type="button">Télécharger</button>
+          <button class="sidebar-btn" id="import-save-btn" type="button">Importer</button>
+          <input id="import-save-input" type="file" accept="application/json,.json" hidden>
+          <p id="save-status" class="save-status">Sauvegarde navigateur active.</p>
+        </section>
+
+        <nav class="section-nav" id="section-nav" aria-label="Sections"></nav>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Grille clinique</p>
+            <h2 id="scale-title">DIVA 2.0 adulte</h2>
+          </div>
+          <div class="actions">
+            <button class="ghost" id="reset-btn" type="button" title="Effacer cette cotation">Réinitialiser</button>
+            <button class="primary" id="print-btn" type="button" title="Exporter en PDF">Exporter PDF</button>
+          </div>
+        </header>
+
+        <section class="patient-strip" aria-label="Informations générales">
+          <label>
+            Patient
+            <input id="patient-name" type="text" placeholder="Nom / identifiant">
+          </label>
+          <label>
+            Date de naissance
+            <input id="patient-birthdate" type="date">
+          </label>
+          <label>
+            Profession
+            <input id="patient-profession" type="text" placeholder="Profession / niveau scolaire">
+          </label>
+          <label>
+            Date
+            <input id="assessment-date" type="date">
+          </label>
+          <label>
+            Clinicien
+            <input id="clinician-name" type="text" placeholder="Votre nom">
+          </label>
+          <label>
+            Source
+            <input id="informant" type="text" placeholder="Patient, parent, enseignant...">
+          </label>
+        </section>
+
+        <section class="summary-band" aria-label="Résumé de cotation">
+          <article>
+            <span id="attention-score">0</span>
+            <p>Inattention</p>
+          </article>
+          <article>
+            <span id="hyper-score">0</span>
+            <p>Hyperactivité / impulsivité</p>
+          </article>
+          <article>
+            <span id="impact-score">0</span>
+            <p>Retentissements cochés</p>
+          </article>
+          <article class="wide">
+            <span id="status-label">À compléter</span>
+            <p id="status-detail">La synthèse se met à jour pendant la saisie.</p>
+          </article>
+        </section>
+
+        <section class="notes-panel">
+          <label for="global-notes">Notes générales d’entretien</label>
+          <textarea id="global-notes" rows="4" placeholder="Éléments spontanés, contexte, verbatim importants, discordances entre sources..."></textarea>
+        </section>
+
+        <div id="form-root" class="form-root"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
