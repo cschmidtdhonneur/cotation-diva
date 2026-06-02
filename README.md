@@ -7,10 +7,12 @@ Application locale pour coter une grille DIVA adulte ou Young DIVA-5 pendant l'e
 Ouvrir `index.html` dans un navigateur suffit pour :
 
 - choisir DIVA adulte ou Young DIVA-5 ;
+- renseigner le motif de consultation et les plaintes rapportées ;
 - cocher les éléments rapportés ;
 - noter les éléments cliniques ;
 - coter chaque item en Oui / Non / N/A ;
 - exporter en PDF avec le bouton `Exporter PDF` ;
+- générer un compte rendu éditable avec le bouton `Compte rendu` ;
 - télécharger ou importer une sauvegarde JSON.
 
 ## Sauvegarde automatique sur l'ordinateur
@@ -28,6 +30,8 @@ http://localhost:4173
 ```
 
 Les fichiers JSON créés dans `sauvegardes/` contiennent des données cliniques. Ce dossier est ignoré par Git et ne doit pas être publié.
+
+Quand `server.py` est lancé, la liste `Dossiers locaux` permet de reprendre une sauvegarde existante pour continuer ou modifier la complétion.
 
 ## Publication GitHub Pages
 

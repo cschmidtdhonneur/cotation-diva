@@ -315,7 +315,9 @@ const GUIDANCE = {
 const state = {
   scale: "adult",
   meta: {},
+  context: {},
   notes: "",
+  report: "",
   evidence: {},
   responses: {}
 };
@@ -328,18 +330,26 @@ const els = {
   search: document.querySelector("#search"),
   print: document.querySelector("#print-btn"),
   reset: document.querySelector("#reset-btn"),
+  report: document.querySelector("#report-btn"),
   patient: document.querySelector("#patient-name"),
   birthdate: document.querySelector("#patient-birthdate"),
   profession: document.querySelector("#patient-profession"),
   date: document.querySelector("#assessment-date"),
   clinician: document.querySelector("#clinician-name"),
   informant: document.querySelector("#informant"),
+  reason: document.querySelector("#consultation-reason"),
+  complaints: document.querySelector("#patient-complaints"),
+  savedCases: document.querySelector("#saved-cases-select"),
+  loadCase: document.querySelector("#load-case-btn"),
   saveFile: document.querySelector("#save-file-btn"),
   downloadSave: document.querySelector("#download-save-btn"),
   importSave: document.querySelector("#import-save-btn"),
   importInput: document.querySelector("#import-save-input"),
   saveStatus: document.querySelector("#save-status"),
   notes: document.querySelector("#global-notes"),
+  generatedReport: document.querySelector("#generated-report"),
+  copyReport: document.querySelector("#copy-report-btn"),
+  downloadReport: document.querySelector("#download-report-btn"),
   attention: document.querySelector("#attention-score"),
   hyper: document.querySelector("#hyper-score"),
   impact: document.querySelector("#impact-score"),
@@ -364,7 +374,10 @@ function loadState() {
     }
   }
   if (!state.meta.date) state.meta.date = new Date().toISOString().slice(0, 10);
+  if (!state.context) state.context = {};
   if (!state.evidence) state.evidence = {};
+  if (!state.responses) state.responses = {};
+  if (!state.report) state.report = "";
 }
 
 function saveState() {
@@ -568,11 +581,33 @@ function bindStaticFields() {
     });
   });
 
+  const contextBindings = [
+    [els.reason, "reason"],
+    [els.complaints, "complaints"]
+  ];
+
+  contextBindings.forEach(([el, key]) => {
+    el.value = state.context[key] || "";
+    el.addEventListener("input", () => {
+      state.context[key] = el.value;
+      saveState();
+      autoGrow(el);
+    });
+    autoGrow(el);
+  });
+
   els.notes.value = state.notes || "";
   els.notes.addEventListener("input", () => {
     state.notes = els.notes.value;
     saveState();
     autoGrow(els.notes);
+  });
+
+  els.generatedReport.value = state.report || "";
+  els.generatedReport.addEventListener("input", () => {
+    state.report = els.generatedReport.value;
+    saveState();
+    autoGrow(els.generatedReport);
   });
 
   els.scale.addEventListener("change", () => {
@@ -583,12 +618,17 @@ function bindStaticFields() {
 
   els.search.addEventListener("input", filterItems);
   els.print.addEventListener("click", () => window.print());
+  els.report.addEventListener("click", generateReport);
   els.reset.addEventListener("click", resetCurrentScale);
+  els.loadCase.addEventListener("click", loadSelectedCase);
   els.saveFile.addEventListener("click", chooseSaveFile);
   els.downloadSave.addEventListener("click", downloadBackup);
   els.importSave.addEventListener("click", () => els.importInput.click());
   els.importInput.addEventListener("change", importBackup);
+  els.copyReport.addEventListener("click", copyReport);
+  els.downloadReport.addEventListener("click", downloadReport);
   autoGrow(els.notes);
+  autoGrow(els.generatedReport);
 }
 
 function resetCurrentScale() {
@@ -636,6 +676,126 @@ function updateSummary() {
     els.status.textContent = "À compléter";
     els.detail.textContent = "La synthèse se met à jour pendant la saisie.";
   }
+}
+
+function generateReport() {
+  updateSummary();
+  const scale = SCALES[state.scale];
+  const checkedItems = collectCheckedResponses();
+  const evidenceLines = collectCheckedEvidence();
+  const responseComments = collectResponseComments();
+  const lines = [];
+
+  lines.push(`Compte rendu de cotation ${scale.title}`);
+  lines.push("");
+  lines.push("Informations générales");
+  lines.push(`Patient : ${state.meta.patient || "Non renseigné"}`);
+  lines.push(`Date de naissance : ${state.meta.birthdate || "Non renseignée"}`);
+  lines.push(`Profession / niveau scolaire : ${state.meta.profession || "Non renseigné"}`);
+  lines.push(`Date de l’entretien : ${state.meta.date || "Non renseignée"}`);
+  lines.push(`Clinicien : ${state.meta.clinician || "Non renseigné"}`);
+  lines.push(`Source(s) : ${state.meta.informant || "Non renseignée(s)"}`);
+  lines.push("");
+  lines.push("Motif de consultation");
+  lines.push(state.context.reason || "Non renseigné.");
+  lines.push("");
+  lines.push("Plaintes rapportées");
+  lines.push(state.context.complaints || "Non renseignées.");
+  lines.push("");
+  lines.push("Résultats de la cotation");
+  lines.push(`Inattention : ${latestSummary.attention} item(s) coté(s) positivement.`);
+  lines.push(`Hyperactivité / impulsivité : ${latestSummary.hyper} item(s) coté(s) positivement.`);
+  lines.push(`Retentissements cochés : ${latestSummary.impact}.`);
+  lines.push(`${els.status.textContent} : ${els.detail.textContent}`);
+  lines.push("");
+  lines.push("Items cotés positivement");
+  lines.push(checkedItems.length ? checkedItems.map(item => `- ${item}`).join("\n") : "Aucun item coté positivement pour le moment.");
+  lines.push("");
+  lines.push("Éléments cliniques cochés");
+  lines.push(evidenceLines.length ? evidenceLines.map(item => `- ${item}`).join("\n") : "Aucun élément coché pour le moment.");
+  lines.push("");
+  lines.push("Commentaires de cotation");
+  lines.push(responseComments.length ? responseComments.map(item => `- ${item}`).join("\n") : "Aucun commentaire spécifique renseigné.");
+  lines.push("");
+  lines.push("Notes générales d’entretien");
+  lines.push(state.notes || "Non renseignées.");
+
+  state.report = lines.join("\n");
+  els.generatedReport.value = state.report;
+  autoGrow(els.generatedReport);
+  saveState();
+  document.querySelector(".report-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function collectCheckedResponses() {
+  const scale = SCALES[state.scale];
+  const labels = [];
+
+  scale.sections.forEach(section => {
+    const periods = section.responseMode === "single" ? [{ id: "global", label: "Cotation" }] : scale.periods;
+    section.items.forEach(([code, title]) => {
+      const yesPeriods = periods
+        .filter(period => getResponse(code, period.id).value === "yes")
+        .map(period => period.label);
+      if (yesPeriods.length) labels.push(`${code} ${title} (${yesPeriods.join(", ")})`);
+    });
+  });
+
+  return labels;
+}
+
+function collectCheckedEvidence() {
+  const scale = SCALES[state.scale];
+  const labels = [];
+
+  scale.sections.forEach(section => {
+    const periods = section.responseMode === "single" ? [{ id: "global", label: "Éléments" }] : scale.periods;
+    section.items.forEach(([code, title]) => {
+      const guidance = getGuidance(code);
+      if (!guidance) return;
+      const examples = guidance.examples.some(example => example.toLowerCase().includes("autre"))
+        ? guidance.examples
+        : [...guidance.examples, "autre élément rapporté"];
+
+      examples.forEach((example, index) => {
+        periods.forEach(period => {
+          const evidence = getEvidence(code, index, period.id);
+          if (!evidence.checked && !evidence.note) return;
+          const note = evidence.note ? ` : ${evidence.note}` : "";
+          const marker = evidence.checked ? "coché" : "noté";
+          labels.push(`${code} ${title} - ${period.label} - ${example} (${marker})${note}`);
+        });
+      });
+    });
+  });
+
+  return labels;
+}
+
+function collectResponseComments() {
+  const scale = SCALES[state.scale];
+  const comments = [];
+
+  scale.sections.forEach(section => {
+    const periods = section.responseMode === "single" ? [{ id: "global", label: "Cotation" }] : scale.periods;
+    section.items.forEach(([code, title]) => {
+      periods.forEach(period => {
+        const response = getResponse(code, period.id);
+        if (!response.comment) return;
+        const value = response.value ? responseLabel(response.value) : "non coté";
+        comments.push(`${code} ${title} - ${period.label} (${value}) : ${response.comment}`);
+      });
+    });
+  });
+
+  return comments;
+}
+
+function responseLabel(value) {
+  if (value === "yes") return "Oui";
+  if (value === "no") return "Non";
+  if (value === "na") return "N/A";
+  return value;
 }
 
 function filterItems() {
@@ -699,6 +859,39 @@ function downloadBackup() {
   setSaveStatus("Sauvegarde téléchargée.");
 }
 
+async function copyReport() {
+  const text = els.generatedReport.value || "";
+  if (!text.trim()) {
+    setSaveStatus("Générez d’abord un compte rendu.");
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    setSaveStatus("Compte rendu copié.");
+  } catch {
+    els.generatedReport.select();
+    setSaveStatus("Compte rendu sélectionné, vous pouvez le copier.");
+  }
+}
+
+function downloadReport() {
+  const text = els.generatedReport.value || "";
+  if (!text.trim()) {
+    setSaveStatus("Générez d’abord un compte rendu.");
+    return;
+  }
+
+  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = backupFilename().replace(/\.json$/, "_compte-rendu.txt");
+  link.click();
+  URL.revokeObjectURL(url);
+  setSaveStatus("Compte rendu téléchargé.");
+}
+
 async function chooseSaveFile() {
   if (!window.showSaveFilePicker) {
     setSaveStatus("Sauvegarde auto non disponible ici. Utilisez Télécharger.");
@@ -752,10 +945,47 @@ async function writeServerBackup() {
     if (!response.ok) return;
     const result = await response.json();
     setSaveStatus(`Sauvegardé dans sauvegardes/${result.path}.`);
+    await refreshSavedCases(result.path);
   } catch {
     if (!diskFileHandle) {
       setSaveStatus("Sauvegarde navigateur active. Utilisez Télécharger pour un fichier.");
     }
+  }
+}
+
+async function refreshSavedCases(selectedPath = "") {
+  try {
+    const response = await fetch("/api/list");
+    if (!response.ok) return;
+    const payload = await response.json();
+    const cases = payload.cases || [];
+
+    els.savedCases.innerHTML = [
+      `<option value="">${cases.length ? "Choisir un dossier" : "Aucun dossier local"}</option>`,
+      ...cases.map(item => `<option value="${escapeHtml(item.path)}">${escapeHtml(item.label)}</option>`)
+    ].join("");
+
+    if (selectedPath) els.savedCases.value = selectedPath;
+  } catch {
+    els.savedCases.innerHTML = `<option value="">Dossiers locaux indisponibles</option>`;
+  }
+}
+
+async function loadSelectedCase() {
+  const path = els.savedCases.value;
+  if (!path) {
+    setSaveStatus("Choisissez d’abord un dossier sauvegardé.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/load?file=${encodeURIComponent(path)}`);
+    if (!response.ok) throw new Error("Load failed");
+    const imported = await response.json();
+    applyImportedState(imported);
+    setSaveStatus(`Dossier repris : ${path}.`);
+  } catch {
+    setSaveStatus("Impossible de reprendre ce dossier.");
   }
 }
 
@@ -790,23 +1020,29 @@ async function importBackup(event) {
 
   try {
     const imported = JSON.parse(await file.text());
-    const nextState = imported.data || imported;
-    if (!nextState || !nextState.responses || !nextState.meta) throw new Error("Invalid backup");
-
-    state.scale = nextState.scale || "adult";
-    state.meta = nextState.meta || {};
-    state.notes = nextState.notes || "";
-    state.evidence = nextState.evidence || {};
-    state.responses = nextState.responses || {};
-    saveState();
-    bindMetaValues();
-    renderForm();
+    applyImportedState(imported);
     setSaveStatus("Sauvegarde importée.");
   } catch {
     setSaveStatus("Ce fichier ne ressemble pas à une sauvegarde DIVA.");
   } finally {
     event.target.value = "";
   }
+}
+
+function applyImportedState(imported) {
+  const nextState = imported.data || imported;
+  if (!nextState || !nextState.responses || !nextState.meta) throw new Error("Invalid backup");
+
+  state.scale = nextState.scale || "adult";
+  state.meta = nextState.meta || {};
+  state.context = nextState.context || {};
+  state.notes = nextState.notes || "";
+  state.report = nextState.report || "";
+  state.evidence = nextState.evidence || {};
+  state.responses = nextState.responses || {};
+  saveState();
+  bindMetaValues();
+  renderForm();
 }
 
 function bindMetaValues() {
@@ -816,8 +1052,14 @@ function bindMetaValues() {
   els.date.value = state.meta.date || "";
   els.clinician.value = state.meta.clinician || "";
   els.informant.value = state.meta.informant || "";
+  els.reason.value = state.context.reason || "";
+  els.complaints.value = state.context.complaints || "";
   els.notes.value = state.notes || "";
+  els.generatedReport.value = state.report || "";
+  autoGrow(els.reason);
+  autoGrow(els.complaints);
   autoGrow(els.notes);
+  autoGrow(els.generatedReport);
 }
 
 function setSaveStatus(message) {
@@ -872,6 +1114,7 @@ async function init() {
   bindStaticFields();
   bindMetaValues();
   renderForm();
+  await refreshSavedCases();
   await restoreFileHandle();
 }
 

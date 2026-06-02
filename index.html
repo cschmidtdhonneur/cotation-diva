@@ -31,7 +31,11 @@
         </section>
 
         <section class="panel compact save-panel">
-          <p class="panel-title">Sauvegarde ordinateur</p>
+          <p class="panel-title">Dossiers locaux</p>
+          <select id="saved-cases-select">
+            <option value="">Aucun dossier chargé</option>
+          </select>
+          <button class="sidebar-btn" id="load-case-btn" type="button">Reprendre le dossier</button>
           <button class="sidebar-btn" id="save-file-btn" type="button">Choisir le fichier</button>
           <button class="sidebar-btn" id="download-save-btn" type="button">Télécharger</button>
           <button class="sidebar-btn" id="import-save-btn" type="button">Importer</button>
@@ -49,6 +53,7 @@
             <h2 id="scale-title">DIVA 2.0 adulte</h2>
           </div>
           <div class="actions">
+            <button class="ghost" id="report-btn" type="button" title="Générer un compte rendu">Compte rendu</button>
             <button class="ghost" id="reset-btn" type="button" title="Effacer cette cotation">Réinitialiser</button>
             <button class="primary" id="print-btn" type="button" title="Exporter en PDF">Exporter PDF</button>
           </div>
@@ -81,6 +86,13 @@
           </label>
         </section>
 
+        <section class="notes-panel clinical-context">
+          <label for="consultation-reason">Motif de consultation</label>
+          <textarea id="consultation-reason" rows="3" placeholder="Demande initiale, contexte de l’évaluation, objectif de l’entretien..."></textarea>
+          <label for="patient-complaints">Plaintes rapportées</label>
+          <textarea id="patient-complaints" rows="3" placeholder="Difficultés rapportées par la personne, les parents, l’enseignant, l’entourage..."></textarea>
+        </section>
+
         <section class="summary-band" aria-label="Résumé de cotation">
           <article>
             <span id="attention-score">0</span>
@@ -103,6 +115,17 @@
         <section class="notes-panel">
           <label for="global-notes">Notes générales d’entretien</label>
           <textarea id="global-notes" rows="4" placeholder="Éléments spontanés, contexte, verbatim importants, discordances entre sources..."></textarea>
+        </section>
+
+        <section class="notes-panel report-panel">
+          <div class="report-header">
+            <label for="generated-report">Compte rendu généré</label>
+            <div class="report-actions">
+              <button class="ghost" id="copy-report-btn" type="button">Copier</button>
+              <button class="ghost" id="download-report-btn" type="button">Télécharger</button>
+            </div>
+          </div>
+          <textarea id="generated-report" rows="12" placeholder="Cliquez sur “Compte rendu” pour générer une synthèse éditable."></textarea>
         </section>
 
         <div id="form-root" class="form-root"></div>
