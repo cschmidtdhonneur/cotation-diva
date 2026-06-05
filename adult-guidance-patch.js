@@ -311,32 +311,35 @@
     const hyper = sectionForSummary("hyper");
     const evidence = checkedEvidenceDetails();
     const responses = responseDetails().filter(item => item.comment || item.value);
-    const adultAttention = countPeriodYes(attention, "current");
-    const childAttention = countPeriodYes(attention, "childhood");
-    const adultHyper = countPeriodYes(hyper, "current");
-    const childHyper = countPeriodYes(hyper, "childhood");
+    const primaryPeriod = scale.periods[0] || { id: "current", label: "Âge adulte" };
+    const secondaryPeriod = scale.periods[1] || { id: "childhood", label: "Enfance" };
+    const adultAttention = countPeriodYes(attention, primaryPeriod.id);
+    const childAttention = countPeriodYes(attention, secondaryPeriod.id);
+    const adultHyper = countPeriodYes(hyper, primaryPeriod.id);
+    const childHyper = countPeriodYes(hyper, secondaryPeriod.id);
     const adultPositiveCodes = [
-      ...yesItemsForPeriod("attention", "current"),
-      ...yesItemsForPeriod("hyper", "current")
+      ...yesItemsForPeriod("attention", primaryPeriod.id),
+      ...yesItemsForPeriod("hyper", primaryPeriod.id)
     ];
     const childPositiveCodes = [
-      ...yesItemsForPeriod("attention", "childhood"),
-      ...yesItemsForPeriod("hyper", "childhood")
+      ...yesItemsForPeriod("attention", secondaryPeriod.id),
+      ...yesItemsForPeriod("hyper", secondaryPeriod.id)
     ];
     const adultCodes = adultPositiveCodes.map(label => label.split(" ")[0]);
     const childCodes = childPositiveCodes.map(label => label.split(" ")[0]);
-    const adultEvidence = paragraphFromEvidence(evidence, "Âge adulte", adultCodes);
-    const childEvidence = paragraphFromEvidence(evidence, "Enfance", childCodes);
+    const adultEvidence = paragraphFromEvidence(evidence, primaryPeriod.label, adultCodes);
+    const childEvidence = paragraphFromEvidence(evidence, secondaryPeriod.label, childCodes);
     const responseComments = responses.filter(item => item.comment);
+    const sectionNotes = typeof collectSectionNotes === "function" ? collectSectionNotes() : [];
     const lines = [];
 
     lines.push(`Compte rendu de cotation ${scale.title}`);
     lines.push("");
     lines.push("Informations générales");
     lines.push(`Patient : ${state.meta.patient || "Non renseigné"}`);
-    lines.push(`Date de naissance : ${state.meta.birthdate || "Non renseignée"}`);
+    lines.push(`Date de naissance : ${formatDisplayDate(state.meta.birthdate) || "Non renseignée"}`);
     lines.push(`Profession / niveau scolaire : ${state.meta.profession || "Non renseigné"}`);
-    lines.push(`Date de l’entretien : ${state.meta.date || "Non renseignée"}`);
+    lines.push(`Date de l’entretien : ${formatDisplayDate(state.meta.date) || "Non renseignée"}`);
     lines.push(`Clinicien : ${state.meta.clinician || "Non renseigné"}`);
     lines.push(`Source(s) : ${state.meta.informant || "Non renseignée(s)"}`);
     lines.push("");
@@ -347,17 +350,17 @@
     lines.push(state.context.complaints || "Non renseignées.");
     lines.push("");
     lines.push("Synthèse de la cotation");
-    lines.push(`À l’âge adulte, ${adultAttention}/9 critère(s) d’inattention et ${adultHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
-    lines.push(`Pendant l’enfance, ${childAttention}/9 critère(s) d’inattention et ${childHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
+    lines.push(`${primaryPeriod.label} : ${adultAttention}/9 critère(s) d’inattention et ${adultHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
+    lines.push(`${secondaryPeriod.label} : ${childAttention}/9 critère(s) d’inattention et ${childHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
     lines.push(`Retentissements/contextes cochés : ${latestSummary.impact}. ${els.status.textContent} : ${els.detail.textContent}`);
     lines.push("");
-    lines.push("Éléments rapportés à l’âge adulte");
-    lines.push(adultPositiveCodes.length ? `Items positifs : ${adultPositiveCodes.join(", ")}.` : "Aucun item coté positivement pour l’âge adulte.");
-    lines.push(adultEvidence.length ? adultEvidence.map(item => `- ${item}`).join("\n") : "Aucun élément clinique adulte coché ou renseigné.");
+    lines.push(`Éléments rapportés - ${primaryPeriod.label}`);
+    lines.push(adultPositiveCodes.length ? `Items positifs : ${adultPositiveCodes.join(", ")}.` : `Aucun item coté positivement pour ${primaryPeriod.label.toLowerCase()}.`);
+    lines.push(adultEvidence.length ? adultEvidence.map(item => `- ${item}`).join("\n") : `Aucun élément clinique coché ou renseigné pour ${primaryPeriod.label.toLowerCase()}.`);
     lines.push("");
-    lines.push("Éléments rapportés dans l’enfance");
-    lines.push(childPositiveCodes.length ? `Items positifs : ${childPositiveCodes.join(", ")}.` : "Aucun item coté positivement pour l’enfance.");
-    lines.push(childEvidence.length ? childEvidence.map(item => `- ${item}`).join("\n") : "Aucun élément clinique d’enfance coché ou renseigné.");
+    lines.push(`Éléments rapportés - ${secondaryPeriod.label}`);
+    lines.push(childPositiveCodes.length ? `Items positifs : ${childPositiveCodes.join(", ")}.` : `Aucun item coté positivement pour ${secondaryPeriod.label.toLowerCase()}.`);
+    lines.push(childEvidence.length ? childEvidence.map(item => `- ${item}`).join("\n") : `Aucun élément clinique coché ou renseigné pour ${secondaryPeriod.label.toLowerCase()}.`);
     lines.push("");
     lines.push("Commentaires et verbatims associés aux cotations");
     lines.push(responseComments.length
@@ -367,8 +370,14 @@
     lines.push("Notes générales d’entretien");
     lines.push(state.notes || "Non renseignées.");
     lines.push("");
+    lines.push("Notes par domaine");
+    lines.push(sectionNotes.length ? sectionNotes.map(item => `- ${item}`).join("\n") : "Aucune note par domaine renseignée.");
+    lines.push("");
     lines.push("Conclusion à compléter cliniquement");
     lines.push("Les éléments ci-dessus doivent être interprétés en tenant compte de l’anamnèse, du retentissement fonctionnel, du caractère chronique des symptômes, de leur présence dans plusieurs contextes et des diagnostics différentiels.");
+    lines.push("");
+    lines.push("Encadré de référence clinique");
+    lines.push(HAS_NOTICE);
 
     state.report = lines.join("\n");
     els.generatedReport.value = state.report;
