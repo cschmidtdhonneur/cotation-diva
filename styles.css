@@ -465,6 +465,63 @@ button {
   font-size: 0.84rem;
 }
 
+.period-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--period-count), minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.period-evidence-column {
+  display: grid;
+  gap: 9px;
+}
+
+.period-evidence-column h5 {
+  color: var(--accent-dark);
+  font-size: 0.9rem;
+  font-weight: 850;
+  margin: 0;
+}
+
+.period-evidence-list {
+  display: grid;
+  gap: 8px;
+}
+
+.period-evidence-item {
+  display: grid;
+  gap: 7px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fbfcfc;
+}
+
+.period-evidence-item .mini-check {
+  align-items: flex-start;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.period-evidence-item .mini-check input {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.period-evidence-item textarea {
+  min-height: 34px;
+  padding: 7px 9px;
+  font-weight: 500;
+  font-size: 0.84rem;
+}
+
+.guidance-note {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
 .response-grid {
   display: grid;
   gap: 12px;
@@ -500,6 +557,12 @@ button {
 
 .segmented input {
   position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
   opacity: 0;
   pointer-events: none;
 }
@@ -584,6 +647,7 @@ button {
   .item-card,
   .evidence-head,
   .evidence-row,
+  .period-evidence-grid,
   .response-row {
     grid-template-columns: 1fr;
   }
@@ -653,6 +717,13 @@ button {
     color: var(--accent-dark);
     font-size: 0.78rem;
     font-weight: 850;
+  }
+
+  .period-evidence-column {
+    padding: 9px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
   }
 }
 
@@ -743,6 +814,7 @@ button {
 
   .guidance-body p,
   .evidence-label,
+  .period-evidence-item .mini-check,
   .item-title p {
     font-size: 0.9rem;
   }

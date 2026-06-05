@@ -1,108 +1,385 @@
 (() => {
   const adultGuidance = {
     A1: {
-      question: "Dans votre vie actuelle, vous arrive-t-il de faire des erreurs d’inattention ou de passer à côté de détails importants ? Était-ce déjà présent enfant ?",
-      examples: ["erreurs d’étourderie dans le travail, les papiers ou les comptes", "oublie des détails importants", "ne lit pas ou survole les consignes", "travail rendu incomplet ou imprécis", "relit plusieurs fois sans voir l’erreur", "doit travailler lentement pour éviter les erreurs", "fait des erreurs parce qu’il va trop vite", "remarques répétées sur le manque de soin", "a besoin de plus de temps pour finir correctement", "autre élément rapporté"]
+      question: "Avez-vous souvent du mal à prêter attention aux détails, ou faites-vous souvent des erreurs d’étourderie dans votre travail ou dans d’autres activités ? Comment était-ce dans votre enfance (dans le travail scolaire ou dans d’autres activités) ?",
+      examplesByPeriod: {
+        current: ["Fait des erreurs d’étourderie", "Travaille lentement pour éviter les erreurs", "Le travail est imprécis", "Ne lit pas les instructions avec soin", "Néglige ou manque des détails", "Besoin de trop de temps pour mener à leur terme des tâches minutieuses ou comportant de nombreux détails", "Facilement empêtré par les détails", "Commet des erreurs parce que travaille trop rapidement", "Autre:"],
+        childhood: ["Erreurs d’étourderie dans le travail scolaire", "Erreurs parce qu’il ne lisait pas les questions correctement", "Néglige ou manque des détails", "Le travail est imprécis", "Ne répondait pas à des questions parce qu’il ne les lisait pas correctement", "Ne répondait pas aux questions posées au verso d’un examen", "Les autres faisaient remarquer que le travail n’était pas soigné", "Ne vérifiait pas ses réponses dans les devoirs scolaires", "Besoin de trop de temps pour mener à leur terme des tâches minutieuses ou comportant de nombreux détails", "Autre:"]
+      }
     },
     A2: {
-      question: "Avez-vous du mal à maintenir votre attention jusqu’au bout d’une tâche, d’une lecture, d’une réunion ou d’une conversation ?",
-      examples: ["difficulté à maintenir longtemps son attention", "décroche en réunion ou en formation", "lit une page sans retenir", "perd le fil d’une conversation", "a du mal à regarder un film ou une émission jusqu’au bout", "abandonne les tâches longues", "s’ennuie rapidement", "a besoin d’une structure pour rester concentré", "a besoin de pauses très fréquentes", "pose des questions sur des sujets déjà abordés", "autre élément rapporté"]
+      question: "Trouvez-vous souvent difficile de maintenir votre attention sur des tâches ? Comment était-ce dans votre enfance (dans les activités de jeu) ?",
+      examplesByPeriod: {
+        current: ["Incapable de maintenir longtemps l’attention sur des tâches*", "Facilement distrait par ses propres pensées ou associations d’idées", "Facilement distrait par des pensées sans rapport avec la tâche ou le contexte", "Du mal à rester concentré pendant des conférences et/ou des conversations", "Difficile de suivre un film jusqu’à la fin, ou de lire un livre*", "Rapidement ennuyé par les choses*", "Pose des questions sur des sujets déjà discutés", "Autre:"],
+        childhood: ["Du mal à maintenir l’attention lors du travail scolaire", "Du mal à maintenir l’attention sur un jeu*", "Du mal à rester concentré pendant des cours et/ou des conversations", "Facilement distrait", "Du mal à se concentrer*", "Besoin d’un environnement structuré pour ne pas être distrait", "Rapidement lassé dans ses activités*", "Autre:"]
+      },
+      note: "*A moins que le patient trouve le sujet particulièrement intéressant (par exemple, ordinateur ou hobby)"
     },
     A3: {
-      question: "Quand quelqu’un vous parle directement, vous dit-on que vous semblez ne pas écouter ou que vous êtes ailleurs ?",
-      examples: ["semble ne pas écouter quand on lui parle directement", "fait répéter", "perd le fil", "répond à côté", "pense à autre chose pendant l’échange", "ne retient pas ce qui vient d’être dit", "a besoin d’un contact visuel ou d’une relance", "change souvent de sujet", "est décrit comme rêveur ou préoccupé", "autre élément rapporté"]
+      question: "Donnez-vous souvent l’impression de ne pas écouter lorsqu’on vous parle directement ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Rêveur ou préoccupé", "Du mal à se concentrer pendant une conversation", "Après-coup, ne se rappelle pas du sujet d’une conversation", "Change souvent de sujet dans une conversation", "D’autres personnes vous disent que vos pensées sont ailleurs", "L’esprit est ailleurs, même en l’absence d’une distraction évidente", "Autre:"],
+        childhood: ["Ne sait plus ce que les parents/enseignants ont dit", "Rêveur ou préoccupé", "Besoin d’un contact visuel ou qu’on élève la voix pour écouter", "L’esprit est ailleurs, même en l’absence d’une distraction évidente", "Souvent il faut l’appeler plusieurs fois", "Les questions doivent être répétées", "Autre:"]
+      }
     },
     A4: {
-      question: "Vous arrive-t-il de ne pas aller au bout des consignes, démarches ou tâches commencées ?",
-      examples: ["difficulté à suivre des consignes en plusieurs étapes", "commence plusieurs choses sans finir", "oublie une étape", "commence puis se déconcentre rapidement", "fait les choses de manière confuse", "laisse des démarches administratives en attente", "ne termine pas les projets malgré l’intention", "a besoin d’une échéance précise pour finir", "a besoin d’aide ou de structure pour aller au bout", "autre élément rapporté"]
+      question: "Avez-vous souvent du mal à suivre les consignes et à mener à terme vos tâches domestiques ou vos obligations professionnelles au travail ? Comment était-ce dans votre enfance (dans le travail scolaire) ?",
+      examplesByPeriod: {
+        current: ["Fait plusieurs tâches en même temps sans les terminer", "Commence quelque chose mais perd très vite sa concentration et est facilement détourné du but", "Besoin de fixer une durée limite pour terminer les tâches", "Du mal à terminer les tâches administratives", "Du mal à suivre les instructions dans un manuel", "Autre:"],
+        childhood: ["Du mal à suivre les consignes", "En difficulté lorsque les tâches comprennent plusieurs étapes successives", "Commence quelque chose mais perd très vite sa concentration et est facilement détourné du but", "Ne termine pas les choses", "Ne termine pas les devoirs ou ne les rend pas", "A besoin de structure pour pouvoir terminer les tâches", "Autre:"]
+      }
     },
     A5: {
-      question: "Comment vous organisez-vous au quotidien ? Est-ce difficile de planifier, prioriser, ranger ou respecter les délais ?",
-      examples: ["difficulté à planifier les activités quotidiennes", "difficulté avec les tâches séquentielles", "priorités changeantes", "désordre envahissant", "objets, papiers ou espace difficiles à garder en ordre", "agenda peu fiable ou non consulté", "retards répétés", "difficulté à estimer le temps", "dates limites non respectées", "besoin de routines strictes", "besoin que d’autres structurent les choses", "autre élément rapporté"]
+      question: "Trouvez-vous souvent difficile d’organiser les tâches ou les activités ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Du mal à planifier les activités de la vie quotidienne", "Du mal à gérer des tâches séquentielles", "La maison et/ou l’espace de travail est en désordre", "Du mal à maintenir en ordre des documents ou des effets personnels", "Travaille de manière brouillonne ou désorganisée", "Planifie trop de tâches ou planification inefficace", "Prévoit régulièrement de faire plusieurs choses au même moment (doublons)", "Arrive en retard", "Ne respecte pas les dates limites", "Incapable d’utiliser un agenda ou un journal personnel de manière efficace", "Rigide pour arriver à respecter le planning", "Faible conscience et mauvaise gestion du temps", "Établit des plannings sans les utiliser", "Besoin qu’un tiers structure les choses", "Autre:"],
+        childhood: ["Du mal à être prêt à temps", "Chambre / bureau en désordre et/ou travail brouillon", "Du mal à maintenir en ordre des documents ou des effets personnels", "Du mal à jouer seul", "Du mal à planifier des tâches ou ses devoirs", "Ne respecte pas les dates limites", "Fait les choses de manière embrouillée", "Arrive en retard", "Faible conscience du temps", "Du mal à s’occuper seul", "Autre:"]
+      }
     },
     A6: {
-      question: "Avez-vous tendance à éviter ou repousser les tâches qui demandent un effort mental prolongé ?",
-      examples: ["évite les tâches qui demandent une concentration soutenue", "repousse les tâches ennuyeuses ou difficiles", "fait d’abord les choses faciles ou agréables", "paperasse administrative", "devis, factures ou impôts", "rapports, dossiers ou comptes rendus", "lectures longues", "formation ou révisions", "travail monotone difficile à commencer", "a besoin de pression ou d’un délai proche pour s’y mettre", "autre élément rapporté"]
+      question: "Évitez-vous souvent (ou avez-vous en aversion, ou faites-vous à contrecœur) les tâches qui nécessitent un effort mental soutenu ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Fait en premier les choses les plus faciles ou les plus agréables", "Remet souvent à plus tard les tâches ennuyeuses ou difficiles", "Remet à plus tard les tâches jusqu’à dépasser les échéances", "Évite les tâches monotones, comme les tâches administratives", "Évite de rédiger des rapports, remplir des formulaires ou vérifier des documents longs", "N’aime pas lire à cause de l’effort mental", "Évite des tâches qui demandent beaucoup de concentration", "Autre:"],
+        childhood: ["Évite les devoirs ou les a en aversion", "Lit peu de livres ou n’aime pas lire à cause de l’effort mental", "Évite des tâches qui demandent beaucoup de concentration", "Déteste les sujets scolaires qui demandent beaucoup de concentration", "Remet à plus tard les tâches ennuyeuses ou difficiles", "Autre:"]
+      }
     },
     A7: {
-      question: "Perdez-vous souvent des objets nécessaires à votre quotidien ?",
-      examples: ["perd clés, téléphone ou portefeuille", "perd papiers, courriers ou documents", "perd lunettes, badge, carte ou moyens de paiement", "perd outils de travail ou matériel utile", "égare des objets dans la maison", "pose les objets au mauvais endroit", "passe beaucoup de temps à chercher ses affaires", "panique ou s’énerve quand les objets sont déplacés", "a besoin d’un emplacement fixe pour tout", "autre élément rapporté"]
+      question: "Perdez-vous souvent les objets nécessaires à votre travail ou vos activités ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Égare outils, paperasse, lunettes, téléphone portable, portefeuille, clés, ou agenda", "Oublie des choses en quittant un lieu", "Perd des papiers pour son travail", "Perd beaucoup de temps à chercher des choses", "Panique si des gens ont changé des choses de place", "Range les choses au mauvais endroit", "Perd des notes, listes ou numéros de téléphone", "Autre:"],
+        childhood: ["Perd son matériel scolaire, crayons, livres, ou d’autres choses encore", "Égare des jouets, habits ou devoirs scolaires", "Perd beaucoup de temps à chercher des choses", "Panique si des gens ont changé des choses de place", "Les parents et/ou les enseignants font remarquer qu’il a perdu des choses", "Autre:"]
+      }
     },
     A8: {
-      question: "Êtes-vous facilement distrait par ce qui se passe autour de vous ou par vos propres pensées ?",
-      examples: ["facilement distrait par les bruits", "facilement distrait par les notifications", "distrait par les personnes qui passent ou parlent", "regarde souvent ailleurs pendant une tâche", "pensées ou idées qui surgissent", "change d’activité sans s’en rendre compte", "a du mal à reprendre le fil après interruption", "difficulté à filtrer les informations non pertinentes", "a besoin d’un environnement très calme", "autre élément rapporté"]
+      question: "Vous laissez-vous souvent facilement distraire par des stimuli externes ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Du mal à ignorer des stimuli externes", "Du mal à reprendre le fil après avoir été distrait", "Facilement distrait par des bruits ou des événements", "Facilement distrait par une conversation entre d’autres personnes", "Du mal à filtrer et/ou sélectionner des informations", "Autre:"],
+        childhood: ["En classe, il regarde souvent dehors", "Facilement distrait par des bruits ou des événements", "Du mal à reprendre le fil après avoir été distrait", "Autre:"]
+      }
     },
     A9: {
-      question: "Vous arrive-t-il d’oublier des choses du quotidien, même importantes ?",
-      examples: ["oublie des rendez-vous", "oublie de répondre à un message ou un appel", "oublie de payer une facture ou d’envoyer un document", "oublie des courses ou démarches", "oublie de prendre ou rapporter quelque chose", "oublie des consignes ou obligations", "s’arrête à mi-chemin en oubliant ce qu’il allait faire", "a besoin de nombreux rappels, listes ou alarmes", "oublie de consulter son agenda ou ses listes", "autre élément rapporté"]
+      question: "Oubliez-vous souvent ce que vous avez à faire dans vos activités quotidiennes ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Oublie des rendez-vous ou des obligations", "Oublie les clés, l’agenda, etc.", "A besoin de rappels fréquents concernant les rendez-vous", "Oublie de payer des factures ou de rappeler des personnes", "Retourne à la maison pour récupérer des choses oubliées", "Utilise des listes de manière rigide pour être sûr de ne rien oublier", "Ne tient pas à jour son agenda et/ou oublie de consulter son agenda", "Oublie de faire ses corvées ou ses courses", "Autre:"],
+        childhood: ["Oublie des rendez-vous ou des consignes", "Oublie de faire ses corvées ou ses courses", "On doit souvent lui rappeler les choses", "S’arrête en chemin parce qu’il a oublié ce qu’il devait faire", "Oublie d’apporter des affaires à l’école", "Oublie des choses à l’école ou chez des amis", "Autre:"]
+      }
     },
     H1: {
-      question: "Avez-vous souvent besoin de bouger, de manipuler quelque chose ou ressentez-vous une agitation physique ?",
-      examples: ["remue les mains ou les pieds", "remue les jambes", "tapote avec les doigts ou un objet", "se tortille ou change souvent de position", "tripote un objet, un stylo ou ses vêtements", "ronge les ongles ou touche ses cheveux", "difficulté à rester immobile", "contrôle l’agitation au prix d’une tension interne", "l’entourage remarque une agitation motrice", "autre élément rapporté"]
+      question: "Remuez-vous souvent les mains ou les pieds, tapotez-vous souvent des doigts ou tapez-vous souvent des pieds, ou vous tortillez-vous souvent sur votre siège ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Du mal à rester assis immobile", "Remue les jambes", "Tapote avec un stylo ou joue avec un objet", "Tortille les cheveux ou ronge les ongles", "Capable de contrôler l’agitation mais ressent du stress", "Autre:"],
+        childhood: ["Les parents disent souvent des choses comme « tiens-toi tranquille »", "Remue les jambes", "Tapote avec un stylo ou joue avec un objet", "Tortille les cheveux ou ronge les ongles", "Incapable de rester assis de façon relaxée", "Capable de contrôler l’agitation mais ressent du stress", "Autre:"]
+      }
     },
     H2: {
-      question: "Est-ce difficile pour vous de rester assis dans les situations où c’est attendu ?",
-      examples: ["difficulté à rester assis en réunion", "difficulté à rester assis pendant un repas", "difficulté au cinéma, théâtre ou conférence", "difficulté en salle d’attente", "se lève pour marcher sans vraie nécessité", "trouve des excuses pour se déplacer", "préfère marcher plutôt que rester assis", "évite les situations longues où il faut rester assis", "tension importante quand il faut rester immobile", "autre élément rapporté"]
+      question: "Vous levez-vous souvent dans des situations où vous êtes supposé rester assis ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Se lève souvent de son siège au bureau ou sur son lieu de travail", "Évite les réunions, les conférences, les cérémonies religieuses, etc.", "Préfère marcher plutôt que rester assis", "Ne reste jamais longtemps assis tranquille, bouge sans cesse", "Stressé par l’obligation de rester assis", "Cherche des excuses pour pouvoir se déplacer", "Autre:"],
+        childhood: ["Se lève souvent pendant les repas ou quitte sa place en classe", "Trouve très difficile de rester assis en classe ou pendant les repas", "On lui dit souvent de rester assis", "Cherche des excuses pour pouvoir se déplacer", "Autre:"]
+      }
     },
     H3: {
-      question: "Ressentez-vous une agitation intérieure ou un besoin de faire quelque chose en permanence ?",
-      examples: ["agitation intérieure", "impatience corporelle", "tension interne", "sentiment d’être sous pression", "besoin constant de faire quelque chose", "cherche une activité dès qu’il y a un temps vide", "difficulté à se détendre", "multiplie les activités ou projets", "se sent nerveux ou agité même sans bouger", "autre élément rapporté"]
+      question: "Vous sentez-vous souvent agité ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Se sent agité ou nerveux à l’intérieur", "Ressent constamment le sentiment d’avoir quelque chose à faire", "Trouve difficile de se relaxer", "Autre:"],
+        childhood: ["Toujours court alors cela n’est pas approprié", "Grimpe sur les meubles ou saute sur les fauteuils", "Monte aux arbres", "Se sent agité à l’intérieur", "Autre:"]
+      }
     },
     H4: {
-      question: "Avez-vous du mal à vous détendre ou à pratiquer une activité calme sans vous sentir agité ?",
-      examples: ["difficulté à profiter d’un moment de détente", "repos difficile", "vacances peu reposantes", "activité calme rapidement interrompue", "difficulté à lire ou regarder tranquillement", "difficulté à rester silencieux dans une activité calme", "parle ou bouge pendant les moments calmes", "méditation, relaxation ou repos presque impossible", "l’entourage demande de se calmer ou de parler moins fort", "autre élément rapporté"]
+      question: "Trouvez-vous souvent difficile de profiter tranquillement d’un moment de détente ? Comment était-ce dans votre enfance (dans les activités de jeu) ?",
+      examplesByPeriod: {
+        current: ["Parle pendant les activités alors que cela n’est pas approprié", "Se met rapidement en avant en public", "Bruyant dans tout type de situations", "Du mal à faire des activités tranquillement", "Du mal à parler doucement", "Autre:"],
+        childhood: ["Parle à voix haute en jouant ou en classe", "Incapable de regarder la TV ou un film tranquillement", "On lui demande souvent de se calmer ou d’être plus tranquille", "Se met rapidement en avant en public", "Autre:"]
+      }
     },
     H5: {
-      question: "Votre entourage vous décrit-il comme quelqu’un de toujours en action ou difficile à ralentir ?",
-      examples: ["constamment occupé", "enchaîne les activités", "fait plusieurs choses à la fois", "rythme fatigant pour l’entourage", "se sent poussé à agir", "a du mal à s’arrêter", "dépasse ses propres limites", "se surcharge d’activités", "inconfort marqué quand il n’y a rien à faire", "autre élément rapporté"]
+      question: "Êtes-vous souvent « sur la brèche » ou comme si vous étiez « dirigé par un moteur » ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Toujours occupé à faire quelque chose", "Pas à l’aise de devoir rester assis pour une longue durée, par exemple au restaurant ou dans des réunions", "Déborde d’énergie, toujours en mouvement", "On vous trouve agité ou difficile à suivre", "Dépasse ses propres limites", "Lâche difficilement prise, excessivement insistant", "Autre:"],
+        childhood: ["Constamment occupé", "On vous trouve agité ou difficile à suivre", "Pas à l’aise de devoir rester assis pour une longue durée", "Se fait remarquer par son activité en classe ou à la maison", "Déborde d’énergie", "Toujours sur la brèche, monté sur ressorts", "Autre:"]
+      }
     },
     H6: {
-      question: "Vous arrive-t-il de parler beaucoup ou d’avoir du mal à vous arrêter une fois lancé ?",
-      examples: ["parle beaucoup", "monopolise l’échange", "digressions fréquentes", "parle vite", "difficulté à s’arrêter de parler", "difficulté à synthétiser", "ne laisse pas toujours l’autre intervenir", "remarques de l’entourage sur le bavardage", "parle pour combler les silences", "autre élément rapporté"]
+      question: "Parlez-vous souvent trop ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Parle tellement que les gens trouvent cela fatigant", "Connu pour parler de manière incessante", "Trouve difficile d’arrêter de parler", "Tendance à trop parler", "Ne laisse pas l’occasion aux autres d’intervenir dans une conversation", "Besoin de beaucoup de mots pour dire quelque chose", "Autre:"],
+        childhood: ["Connu comme un « moulin à paroles »", "Les enfants ou les enseignants demandent souvent de se taire", "Les bulletins scolaires mentionnent souvent des bavardages", "Puni pour avoir trop parler", "Gêne le travail scolaire des autres en parlant trop", "Ne laisse pas les autres parler dans une conversation", "Autre:"]
+      }
     },
     H7: {
-      question: "Répondez-vous parfois trop vite, avant que la question soit terminée ou avant d’avoir tout entendu ?",
-      examples: ["répond avant la fin de la question", "coupe la fin des phrases", "termine les phrases des autres", "répond puis regrette", "parle ou agit sans réfléchir", "envoie trop vite un message ou un mail", "décisions immédiates", "donne une impression de manque de tact", "commence une action avant le signal ou la consigne complète", "autre élément rapporté"]
+      question: "Laissez-vous souvent échapper la réponse à une question qui n’est pas encore entièrement posée ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Pipelette, dit ce qu’il pense", "Dit les choses sans réfléchir", "Donne des réponses avant que les gens aient fini de parler", "Finit les phrases des autres", "Manque de tact", "Autre:"],
+        childhood: ["Pipelette, dit les choses sans réfléchir", "Veut être le premier à répondre aux questions en classe", "Donne la première réponse qui lui vient à l’esprit", "Interrompt les autres avant que les phrases soient finies", "Du mal à attendre son tour dans des conversations", "Donne l’impression de manquer de tact", "Autre:"]
+      }
     },
     H8: {
-      question: "Est-ce difficile d’attendre votre tour ou de supporter l’attente ?",
-      examples: ["difficulté dans les files d’attente", "impatience en salle d’attente ou dans l’administratif", "difficulté à attendre son tour dans une conversation", "intervient avant que ce soit son tour", "impatience visible ou irritabilité", "coupe la file ou cherche à éviter l’attente", "frustration rapide", "difficulté à attendre dans les transports ou la circulation", "débute ou termine rapidement des relations par impulsivité", "autre élément rapporté"]
+      question: "Trouvez-vous souvent difficile d’attendre votre tour ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Difficulté à attendre dans une file d’attente, veut doubler dans une file d’attente", "Du mal à attendre patiemment dans la circulation ou les embouteillages", "Impatient", "Démarre rapidement ou met brutalement un terme à des relations ou des emplois par impatience", "Autre:"],
+        childhood: ["Du mal à attendre son tour dans les activités en groupe", "Du mal à attendre son tour en classe", "Toujours le premier à parler ou agir", "Rapidement impatient", "Traverse la route sans regarder", "Autre:"]
+      }
     },
     H9: {
-      question: "Vous arrive-t-il d’interrompre les autres, de vous imposer dans une activité ou de finir les phrases ?",
-      examples: ["coupe la parole", "interrompt les conversations", "s’immisce dans une activité", "intervient sans y être invité", "finit les phrases des autres", "prend une décision à la place d’autrui", "prend ou utilise les objets des autres sans demander", "réagit sur tout ou donne son avis immédiatement", "difficulté à respecter l’espace ou le rythme des autres", "autre élément rapporté"]
-    },
-    R1: {
-      question: "Quel impact ces difficultés ont-elles eu sur les études ou formations ?",
-      examples: ["résultats irréguliers", "potentiel jugé supérieur aux résultats", "redoublement ou réorientation", "devoirs ou dossiers non rendus", "difficultés de révision", "procrastination avant examens", "absences, retards ou oublis de matériel", "besoin d’aide importante pour s’organiser", "arrêt ou changement de formation", "autre élément rapporté"]
-    },
-    R2: {
-      question: "Quel impact observez-vous dans le travail ou l’organisation professionnelle ?",
-      examples: ["délais non respectés", "erreurs ou oublis au travail", "retards", "difficultés en réunion", "difficultés à prioriser", "changements de poste ou instabilité", "conflits autour de l’organisation", "épuisement compensatoire", "surinvestissement pour masquer les difficultés", "autre élément rapporté"]
-    },
-    R3: {
-      question: "Quel impact cela a-t-il dans la gestion de la maison, des papiers ou des routines ?",
-      examples: ["désordre ou accumulation", "factures ou démarches administratives en retard", "rendez-vous oubliés", "tâches domestiques non terminées", "difficulté à tenir les routines", "gestion financière compliquée", "charge mentale importante", "oublis familiaux", "dépendance aux rappels d’autrui", "autre élément rapporté"]
-    },
-    R4: {
-      question: "Ces symptômes créent-ils des tensions dans les relations ?",
-      examples: ["coupe la parole", "oublis perçus comme un manque d’attention", "retards ou désorganisation générant des tensions", "impulsivité verbale", "conflits de couple ou familiaux", "difficulté à écouter jusqu’au bout", "promesses ou engagements oubliés", "reproches répétés de l’entourage", "isolement ou évitement secondaire", "autre élément rapporté"]
-    },
-    R5: {
-      question: "Y a-t-il des prises de risque ou décisions impulsives à explorer ?",
-      examples: ["conduite rapide ou inattentive", "accidents ou quasi-accidents", "dépenses impulsives", "addictions ou usages problématiques", "changements brusques", "messages envoyés sous impulsion", "prises de décision rapides regrettées", "conflits liés à l’impatience", "difficulté à mesurer les conséquences", "autre élément rapporté"]
-    },
-    R6: {
-      question: "Quels éléments indiquent que ces difficultés existaient déjà dans l’enfance ?",
-      examples: ["bulletins scolaires", "remarques parentales", "agitation dans l’enfance", "rêverie ou distractibilité précoce", "oublis fréquents", "désorganisation précoce", "matériel perdu", "devoirs non faits ou non rendus", "bavardage ou impatience signalés", "besoin d’encadrement important", "autre élément rapporté"]
+      question: "Interrompez-vous souvent les autres ou imposez-vous votre présence ? Comment était-ce dans votre enfance ?",
+      examplesByPeriod: {
+        current: ["Prompt à gêner les autres", "Impose sa présence aux autres (intrusif)", "Dérange les autres dans leurs activités sans qu’on lui ait rien demandé, ou fait à leur place", "Les autres font remarquer qu’il est intrusif", "Du mal à respecter les limites des autres", "A une opinion sur tout et la donne immédiatement", "Autre:"],
+        childhood: ["Interrompt les autres dans leurs jeux ou leurs activités", "Utilise les affaires des autres sans leur demander ou sans leur permission", "Interrompt les conversations des autres", "Réagit sur tout", "Incapable d’attendre", "Autre:"]
+      }
     }
   };
 
-  if (typeof GUIDANCE !== "undefined" && GUIDANCE.adult) {
-    Object.assign(GUIDANCE.adult, adultGuidance);
+  const periodLabelById = {
+    current: "Exemples à l’âge adulte",
+    childhood: "Exemples pendant l’enfance"
+  };
+
+  Object.assign(GUIDANCE.adult, adultGuidance);
+
+  function getGuidanceExamples(guidance, periods) {
+    if (guidance.examplesByPeriod) {
+      return periods.flatMap(period => guidance.examplesByPeriod[period.id] || []);
+    }
+    return guidance.examples || [];
   }
 
-  if (typeof state !== "undefined" && state.scale === "adult" && typeof renderForm === "function") {
-    renderForm();
+  renderGuidance = function renderGuidance(itemId, guidance, periods) {
+    if (guidance.examplesByPeriod) {
+      return `
+        <details class="guidance" open>
+          <summary>Question à poser et éléments à cocher</summary>
+          <div class="guidance-body">
+            <p><strong>Question.</strong> ${escapeHtml(guidance.question)}</p>
+            <div class="period-evidence-grid" style="--period-count: ${periods.length}">
+              ${periods.map(period => renderPeriodEvidenceColumn(itemId, guidance, period)).join("")}
+            </div>
+            ${guidance.note ? `<p class="guidance-note">${escapeHtml(guidance.note)}</p>` : ""}
+          </div>
+        </details>
+      `;
+    }
+
+    const examples = guidance.examples.some(example => example.toLowerCase().includes("autre"))
+      ? guidance.examples
+      : [...guidance.examples, "autre élément rapporté"];
+    return `
+      <details class="guidance" open>
+        <summary>Question à poser et éléments à cocher</summary>
+        <div class="guidance-body">
+          <p><strong>Question.</strong> ${escapeHtml(guidance.question)}</p>
+          <div class="evidence-head" style="--period-count: ${periods.length}">
+            <span>Élément</span>
+            ${periods.map(period => `<span>${escapeHtml(period.label)}</span>`).join("")}
+          </div>
+          <div class="evidence-list">
+            ${examples.map((example, index) => renderEvidenceRow(itemId, example, index, periods)).join("")}
+          </div>
+        </div>
+      </details>
+    `;
+  };
+
+  function renderPeriodEvidenceColumn(itemId, guidance, period) {
+    const examples = guidance.examplesByPeriod[period.id] || [];
+    return `
+      <div class="period-evidence-column">
+        <h5>${escapeHtml(periodLabelById[period.id] || period.label)}</h5>
+        <div class="period-evidence-list">
+          ${examples.map((example, index) => renderPeriodEvidenceItem(itemId, example, index, period)).join("")}
+        </div>
+      </div>
+    `;
   }
+
+  function renderPeriodEvidenceItem(itemId, example, index, period) {
+    const evidence = getEvidence(itemId, index, period.id);
+    return `
+      <div class="period-evidence-item" data-period-label="${escapeHtml(period.label)}">
+        <label class="mini-check">
+          <input type="checkbox" data-evidence-item="${itemId}" data-evidence-index="${index}" data-evidence-period="${period.id}" ${evidence.checked ? "checked" : ""}>
+          <span>${escapeHtml(example)}</span>
+        </label>
+        <textarea rows="1" data-evidence-note="${itemId}:${index}:${period.id}" data-evidence-item="${itemId}" data-evidence-index="${index}" data-evidence-period="${period.id}" placeholder="Élément rapporté">${escapeHtml(evidence.note || "")}</textarea>
+      </div>
+    `;
+  }
+
+  const originalRenderForm = renderForm;
+  renderForm = function renderFormWithExactAdultItems() {
+    originalRenderForm();
+    els.root.querySelectorAll(".item-card").forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.dataset.filter = `${card.dataset.filter || ""} ${text}`;
+    });
+  };
+
+  function sectionForSummary(summaryKey) {
+    return SCALES[state.scale].sections.find(section => section.summaryKey === summaryKey);
+  }
+
+  function countPeriodYes(section, periodId) {
+    if (!section) return 0;
+    return section.items.reduce((total, [code]) => total + (getResponse(code, periodId).value === "yes" ? 1 : 0), 0);
+  }
+
+  function checkedEvidenceDetails() {
+    const scale = SCALES[state.scale];
+    const details = [];
+
+    scale.sections.forEach(section => {
+      const periods = section.responseMode === "single" ? [{ id: "global", label: "Cotation" }] : scale.periods;
+      section.items.forEach(([code, title]) => {
+        const guidance = getGuidance(code);
+        if (!guidance) return;
+
+        periods.forEach(period => {
+          const examples = guidance.examplesByPeriod
+            ? (guidance.examplesByPeriod[period.id] || [])
+            : (guidance.examples.some(example => example.toLowerCase().includes("autre")) ? guidance.examples : [...guidance.examples, "autre élément rapporté"]);
+
+          examples.forEach((example, index) => {
+            const evidence = getEvidence(code, index, period.id);
+            if (!evidence.checked && !evidence.note) return;
+            details.push({
+              code,
+              title,
+              period: period.label,
+              example,
+              checked: evidence.checked,
+              note: evidence.note || ""
+            });
+          });
+        });
+      });
+    });
+
+    return details;
+  }
+
+  collectCheckedEvidence = function collectCheckedEvidenceWithExactAdultItems() {
+    return checkedEvidenceDetails().map(item => {
+      const marker = item.checked ? "coché" : "noté";
+      const note = item.note ? ` : ${item.note}` : "";
+      return `${item.code} ${item.title} - ${item.period} - ${item.example} (${marker})${note}`;
+    });
+  };
+
+  function responseDetails() {
+    const scale = SCALES[state.scale];
+    const details = [];
+
+    scale.sections.forEach(section => {
+      const periods = section.responseMode === "single" ? [{ id: "global", label: "Cotation" }] : scale.periods;
+      section.items.forEach(([code, title]) => {
+        periods.forEach(period => {
+          const response = getResponse(code, period.id);
+          details.push({
+            code,
+            title,
+            period: period.label,
+            value: response.value || "",
+            comment: response.comment || ""
+          });
+        });
+      });
+    });
+
+    return details;
+  }
+
+  function yesItemsForPeriod(summaryKey, periodId) {
+    const section = sectionForSummary(summaryKey);
+    if (!section) return [];
+    return section.items
+      .filter(([code]) => getResponse(code, periodId).value === "yes")
+      .map(([code, title]) => `${code} ${title}`);
+  }
+
+  function paragraphFromEvidence(details, periodLabel, codes) {
+    return details
+      .filter(item => item.period === periodLabel && codes.includes(item.code))
+      .map(item => {
+        const note = item.note ? ` (« ${item.note} »)` : "";
+        return `${item.code} ${item.example}${note}`;
+      });
+  }
+
+  generateReport = function generateClinicalReport() {
+    updateSummary();
+    const scale = SCALES[state.scale];
+    const attention = sectionForSummary("attention");
+    const hyper = sectionForSummary("hyper");
+    const evidence = checkedEvidenceDetails();
+    const responses = responseDetails().filter(item => item.comment || item.value);
+    const adultAttention = countPeriodYes(attention, "current");
+    const childAttention = countPeriodYes(attention, "childhood");
+    const adultHyper = countPeriodYes(hyper, "current");
+    const childHyper = countPeriodYes(hyper, "childhood");
+    const adultPositiveCodes = [
+      ...yesItemsForPeriod("attention", "current"),
+      ...yesItemsForPeriod("hyper", "current")
+    ];
+    const childPositiveCodes = [
+      ...yesItemsForPeriod("attention", "childhood"),
+      ...yesItemsForPeriod("hyper", "childhood")
+    ];
+    const adultCodes = adultPositiveCodes.map(label => label.split(" ")[0]);
+    const childCodes = childPositiveCodes.map(label => label.split(" ")[0]);
+    const adultEvidence = paragraphFromEvidence(evidence, "Âge adulte", adultCodes);
+    const childEvidence = paragraphFromEvidence(evidence, "Enfance", childCodes);
+    const responseComments = responses.filter(item => item.comment);
+    const lines = [];
+
+    lines.push(`Compte rendu de cotation ${scale.title}`);
+    lines.push("");
+    lines.push("Informations générales");
+    lines.push(`Patient : ${state.meta.patient || "Non renseigné"}`);
+    lines.push(`Date de naissance : ${state.meta.birthdate || "Non renseignée"}`);
+    lines.push(`Profession / niveau scolaire : ${state.meta.profession || "Non renseigné"}`);
+    lines.push(`Date de l’entretien : ${state.meta.date || "Non renseignée"}`);
+    lines.push(`Clinicien : ${state.meta.clinician || "Non renseigné"}`);
+    lines.push(`Source(s) : ${state.meta.informant || "Non renseignée(s)"}`);
+    lines.push("");
+    lines.push("Motif de consultation");
+    lines.push(state.context.reason || "Non renseigné.");
+    lines.push("");
+    lines.push("Plaintes rapportées");
+    lines.push(state.context.complaints || "Non renseignées.");
+    lines.push("");
+    lines.push("Synthèse de la cotation");
+    lines.push(`À l’âge adulte, ${adultAttention}/9 critère(s) d’inattention et ${adultHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
+    lines.push(`Pendant l’enfance, ${childAttention}/9 critère(s) d’inattention et ${childHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
+    lines.push(`Retentissements/contextes cochés : ${latestSummary.impact}. ${els.status.textContent} : ${els.detail.textContent}`);
+    lines.push("");
+    lines.push("Éléments rapportés à l’âge adulte");
+    lines.push(adultPositiveCodes.length ? `Items positifs : ${adultPositiveCodes.join(", ")}.` : "Aucun item coté positivement pour l’âge adulte.");
+    lines.push(adultEvidence.length ? adultEvidence.map(item => `- ${item}`).join("\n") : "Aucun élément clinique adulte coché ou renseigné.");
+    lines.push("");
+    lines.push("Éléments rapportés dans l’enfance");
+    lines.push(childPositiveCodes.length ? `Items positifs : ${childPositiveCodes.join(", ")}.` : "Aucun item coté positivement pour l’enfance.");
+    lines.push(childEvidence.length ? childEvidence.map(item => `- ${item}`).join("\n") : "Aucun élément clinique d’enfance coché ou renseigné.");
+    lines.push("");
+    lines.push("Commentaires et verbatims associés aux cotations");
+    lines.push(responseComments.length
+      ? responseComments.map(item => `- ${item.code} ${item.title} - ${item.period} (${responseLabel(item.value || "non coté")}) : ${item.comment}`).join("\n")
+      : "Aucun commentaire spécifique renseigné dans les cotations.");
+    lines.push("");
+    lines.push("Notes générales d’entretien");
+    lines.push(state.notes || "Non renseignées.");
+    lines.push("");
+    lines.push("Conclusion à compléter cliniquement");
+    lines.push("Les éléments ci-dessus doivent être interprétés en tenant compte de l’anamnèse, du retentissement fonctionnel, du caractère chronique des symptômes, de leur présence dans plusieurs contextes et des diagnostics différentiels.");
+
+    state.report = lines.join("\n");
+    els.generatedReport.value = state.report;
+    autoGrow(els.generatedReport);
+    saveState();
+    document.querySelector(".report-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  if (els?.report) {
+    els.report.addEventListener("click", () => setTimeout(generateReport, 0));
+  }
+
+  renderForm();
 })();
