@@ -117,99 +117,99 @@ const GUIDANCE = {
   adult: {
     A1: {
       question: "Dans votre vie actuelle, vous arrive-t-il de faire des erreurs d’inattention ou de passer à côté de détails importants ? Était-ce déjà présent enfant ?",
-      examples: ["erreurs dans les papiers, les mails ou les comptes", "relire plusieurs fois sans voir l’erreur", "travail rendu incomplet ou imprécis", "remarques répétées sur le manque de soin"]
+      examples: ["erreurs d’étourderie dans le travail, les papiers ou les comptes", "oublie des détails importants", "ne lit pas ou survole les consignes", "travail rendu incomplet ou imprécis", "relit plusieurs fois sans voir l’erreur", "doit travailler lentement pour éviter les erreurs", "fait des erreurs parce qu’il va trop vite", "remarques répétées sur le manque de soin", "a besoin de plus de temps pour finir correctement", "autre élément rapporté"]
     },
     A2: {
       question: "Avez-vous du mal à maintenir votre attention jusqu’au bout d’une tâche, d’une lecture, d’une réunion ou d’une conversation ?",
-      examples: ["décrocher en réunion", "lire une page sans retenir", "abandonner les tâches longues", "avoir besoin de pauses très fréquentes"]
+      examples: ["difficulté à maintenir longtemps son attention", "décroche en réunion ou en formation", "lit une page sans retenir", "perd le fil d’une conversation", "a du mal à regarder un film ou une émission jusqu’au bout", "abandonne les tâches longues", "s’ennuie rapidement", "a besoin d’une structure pour rester concentré", "a besoin de pauses très fréquentes", "pose des questions sur des sujets déjà abordés", "autre élément rapporté"]
     },
     A3: {
       question: "Quand quelqu’un vous parle directement, vous dit-on que vous semblez ne pas écouter ou que vous êtes ailleurs ?",
-      examples: ["faire répéter", "perdre le fil", "répondre à côté", "penser à autre chose pendant l’échange"]
+      examples: ["semble ne pas écouter quand on lui parle directement", "fait répéter", "perd le fil", "répond à côté", "pense à autre chose pendant l’échange", "ne retient pas ce qui vient d’être dit", "a besoin d’un contact visuel ou d’une relance", "change souvent de sujet", "est décrit comme rêveur ou préoccupé", "autre élément rapporté"]
     },
     A4: {
       question: "Vous arrive-t-il de ne pas aller au bout des consignes, démarches ou tâches commencées ?",
-      examples: ["commencer plusieurs choses sans finir", "oublier une étape", "laisser des démarches administratives en attente", "ne pas terminer les projets malgré l’intention"]
+      examples: ["difficulté à suivre des consignes en plusieurs étapes", "commence plusieurs choses sans finir", "oublie une étape", "commence puis se déconcentre rapidement", "fait les choses de manière confuse", "laisse des démarches administratives en attente", "ne termine pas les projets malgré l’intention", "a besoin d’une échéance précise pour finir", "a besoin d’aide ou de structure pour aller au bout", "autre élément rapporté"]
     },
     A5: {
       question: "Comment vous organisez-vous au quotidien ? Est-ce difficile de planifier, prioriser, ranger ou respecter les délais ?",
-      examples: ["retards répétés", "agenda peu fiable", "désordre envahissant", "difficulté à estimer le temps", "priorités changeantes"]
+      examples: ["difficulté à planifier les activités quotidiennes", "difficulté avec les tâches séquentielles", "priorités changeantes", "désordre envahissant", "objets, papiers ou espace difficiles à garder en ordre", "agenda peu fiable ou non consulté", "retards répétés", "difficulté à estimer le temps", "dates limites non respectées", "besoin de routines strictes", "besoin que d’autres structurent les choses", "autre élément rapporté"]
     },
     A6: {
       question: "Avez-vous tendance à éviter ou repousser les tâches qui demandent un effort mental prolongé ?",
-      examples: ["paperasse", "lectures longues", "devis, factures ou impôts", "rapports", "formation ou révisions"]
+      examples: ["évite les tâches qui demandent une concentration soutenue", "repousse les tâches ennuyeuses ou difficiles", "fait d’abord les choses faciles ou agréables", "paperasse administrative", "devis, factures ou impôts", "rapports, dossiers ou comptes rendus", "lectures longues", "formation ou révisions", "travail monotone difficile à commencer", "a besoin de pression ou d’un délai proche pour s’y mettre", "autre élément rapporté"]
     },
     A7: {
       question: "Perdez-vous souvent des objets nécessaires à votre quotidien ?",
-      examples: ["clés, téléphone, portefeuille", "documents", "lunettes", "outils de travail", "objets égarés dans la maison"]
+      examples: ["perd clés, téléphone ou portefeuille", "perd papiers, courriers ou documents", "perd lunettes, badge, carte ou moyens de paiement", "perd outils de travail ou matériel utile", "égare des objets dans la maison", "pose les objets au mauvais endroit", "passe beaucoup de temps à chercher ses affaires", "panique ou s’énerve quand les objets sont déplacés", "a besoin d’un emplacement fixe pour tout", "autre élément rapporté"]
     },
     A8: {
       question: "Êtes-vous facilement distrait par ce qui se passe autour de vous ou par vos propres pensées ?",
-      examples: ["bruits", "notifications", "personnes qui passent", "idées qui surgissent", "changer d’activité sans s’en rendre compte"]
+      examples: ["facilement distrait par les bruits", "facilement distrait par les notifications", "distrait par les personnes qui passent ou parlent", "regarde souvent ailleurs pendant une tâche", "pensées ou idées qui surgissent", "change d’activité sans s’en rendre compte", "a du mal à reprendre le fil après interruption", "difficulté à filtrer les informations non pertinentes", "a besoin d’un environnement très calme", "autre élément rapporté"]
     },
     A9: {
       question: "Vous arrive-t-il d’oublier des choses du quotidien, même importantes ?",
-      examples: ["rendez-vous", "répondre à un message", "payer une facture", "faire une course", "prendre ou rapporter quelque chose"]
+      examples: ["oublie des rendez-vous", "oublie de répondre à un message ou un appel", "oublie de payer une facture ou d’envoyer un document", "oublie des courses ou démarches", "oublie de prendre ou rapporter quelque chose", "oublie des consignes ou obligations", "s’arrête à mi-chemin en oubliant ce qu’il allait faire", "a besoin de nombreux rappels, listes ou alarmes", "oublie de consulter son agenda ou ses listes", "autre élément rapporté"]
     },
     H1: {
       question: "Avez-vous souvent besoin de bouger, de manipuler quelque chose ou ressentez-vous une agitation physique ?",
-      examples: ["remuer les jambes", "tapoter", "changer de position", "tripoter un objet", "difficulté à rester immobile"]
+      examples: ["remue les mains ou les pieds", "remue les jambes", "tapote avec les doigts ou un objet", "se tortille ou change souvent de position", "tripote un objet, un stylo ou ses vêtements", "ronge les ongles ou touche ses cheveux", "difficulté à rester immobile", "contrôle l’agitation au prix d’une tension interne", "l’entourage remarque une agitation motrice", "autre élément rapporté"]
     },
     H2: {
       question: "Est-ce difficile pour vous de rester assis dans les situations où c’est attendu ?",
-      examples: ["réunions", "repas", "cinéma", "salle d’attente", "se lever pour marcher sans vraie nécessité"]
+      examples: ["difficulté à rester assis en réunion", "difficulté à rester assis pendant un repas", "difficulté au cinéma, théâtre ou conférence", "difficulté en salle d’attente", "se lève pour marcher sans vraie nécessité", "trouve des excuses pour se déplacer", "préfère marcher plutôt que rester assis", "évite les situations longues où il faut rester assis", "tension importante quand il faut rester immobile", "autre élément rapporté"]
     },
     H3: {
       question: "Ressentez-vous une agitation intérieure ou un besoin de faire quelque chose en permanence ?",
-      examples: ["impatience corporelle", "tension interne", "sentiment d’être sous pression", "chercher une activité dès qu’il y a un temps vide"]
+      examples: ["agitation intérieure", "impatience corporelle", "tension interne", "sentiment d’être sous pression", "besoin constant de faire quelque chose", "cherche une activité dès qu’il y a un temps vide", "difficulté à se détendre", "multiplie les activités ou projets", "se sent nerveux ou agité même sans bouger", "autre élément rapporté"]
     },
     H4: {
       question: "Avez-vous du mal à vous détendre ou à pratiquer une activité calme sans vous sentir agité ?",
-      examples: ["repos difficile", "vacances peu reposantes", "méditation impossible", "activité calme interrompue par autre chose"]
+      examples: ["difficulté à profiter d’un moment de détente", "repos difficile", "vacances peu reposantes", "activité calme rapidement interrompue", "difficulté à lire ou regarder tranquillement", "difficulté à rester silencieux dans une activité calme", "parle ou bouge pendant les moments calmes", "méditation, relaxation ou repos presque impossible", "l’entourage demande de se calmer ou de parler moins fort", "autre élément rapporté"]
     },
     H5: {
       question: "Votre entourage vous décrit-il comme quelqu’un de toujours en action ou difficile à ralentir ?",
-      examples: ["enchaîner les activités", "faire plusieurs choses à la fois", "rythme fatigant pour l’entourage", "se sentir poussé à agir"]
+      examples: ["constamment occupé", "enchaîne les activités", "fait plusieurs choses à la fois", "rythme fatigant pour l’entourage", "se sent poussé à agir", "a du mal à s’arrêter", "dépasse ses propres limites", "se surcharge d’activités", "inconfort marqué quand il n’y a rien à faire", "autre élément rapporté"]
     },
     H6: {
       question: "Vous arrive-t-il de parler beaucoup ou d’avoir du mal à vous arrêter une fois lancé ?",
-      examples: ["monopoliser l’échange", "digressions", "parler vite", "remarques de l’entourage", "difficulté à synthétiser"]
+      examples: ["parle beaucoup", "monopolise l’échange", "digressions fréquentes", "parle vite", "difficulté à s’arrêter de parler", "difficulté à synthétiser", "ne laisse pas toujours l’autre intervenir", "remarques de l’entourage sur le bavardage", "parle pour combler les silences", "autre élément rapporté"]
     },
     H7: {
       question: "Répondez-vous parfois trop vite, avant que la question soit terminée ou avant d’avoir tout entendu ?",
-      examples: ["couper la fin des phrases", "répondre puis regretter", "envoyer trop vite un message", "décisions immédiates"]
+      examples: ["répond avant la fin de la question", "coupe la fin des phrases", "termine les phrases des autres", "répond puis regrette", "parle ou agit sans réfléchir", "envoie trop vite un message ou un mail", "décisions immédiates", "donne une impression de manque de tact", "commence une action avant le signal ou la consigne complète", "autre élément rapporté"]
     },
     H8: {
       question: "Est-ce difficile d’attendre votre tour ou de supporter l’attente ?",
-      examples: ["files d’attente", "conversation de groupe", "jeux", "administratif", "impatience visible ou irritabilité"]
+      examples: ["difficulté dans les files d’attente", "impatience en salle d’attente ou dans l’administratif", "difficulté à attendre son tour dans une conversation", "intervient avant que ce soit son tour", "impatience visible ou irritabilité", "coupe la file ou cherche à éviter l’attente", "frustration rapide", "difficulté à attendre dans les transports ou la circulation", "débute ou termine rapidement des relations par impulsivité", "autre élément rapporté"]
     },
     H9: {
       question: "Vous arrive-t-il d’interrompre les autres, de vous imposer dans une activité ou de finir les phrases ?",
-      examples: ["couper la parole", "prendre une décision à la place d’autrui", "s’immiscer", "finir les phrases", "intervenir sans y être invité"]
+      examples: ["coupe la parole", "interrompt les conversations", "s’immisce dans une activité", "intervient sans y être invité", "finit les phrases des autres", "prend une décision à la place d’autrui", "prend ou utilise les objets des autres sans demander", "réagit sur tout ou donne son avis immédiatement", "difficulté à respecter l’espace ou le rythme des autres", "autre élément rapporté"]
     },
     R1: {
       question: "Quel impact ces difficultés ont-elles eu sur les études ou formations ?",
-      examples: ["résultats irréguliers", "redoublement", "devoirs non rendus", "difficultés de révision", "potentiel jugé supérieur aux résultats"]
+      examples: ["résultats irréguliers", "potentiel jugé supérieur aux résultats", "redoublement ou réorientation", "devoirs ou dossiers non rendus", "difficultés de révision", "procrastination avant examens", "absences, retards ou oublis de matériel", "besoin d’aide importante pour s’organiser", "arrêt ou changement de formation", "autre élément rapporté"]
     },
     R2: {
       question: "Quel impact observez-vous dans le travail ou l’organisation professionnelle ?",
-      examples: ["délais", "erreurs", "retards", "changements de poste", "épuisement compensatoire", "conflits autour de l’organisation"]
+      examples: ["délais non respectés", "erreurs ou oublis au travail", "retards", "difficultés en réunion", "difficultés à prioriser", "changements de poste ou instabilité", "conflits autour de l’organisation", "épuisement compensatoire", "surinvestissement pour masquer les difficultés", "autre élément rapporté"]
     },
     R3: {
       question: "Quel impact cela a-t-il dans la gestion de la maison, des papiers ou des routines ?",
-      examples: ["désordre", "factures", "rendez-vous", "tâches domestiques", "charge mentale", "oublis familiaux"]
+      examples: ["désordre ou accumulation", "factures ou démarches administratives en retard", "rendez-vous oubliés", "tâches domestiques non terminées", "difficulté à tenir les routines", "gestion financière compliquée", "charge mentale importante", "oublis familiaux", "dépendance aux rappels d’autrui", "autre élément rapporté"]
     },
     R4: {
       question: "Ces symptômes créent-ils des tensions dans les relations ?",
-      examples: ["couper la parole", "oublis perçus comme un manque d’attention", "impulsivité verbale", "conflits de couple ou familiaux"]
+      examples: ["coupe la parole", "oublis perçus comme un manque d’attention", "retards ou désorganisation générant des tensions", "impulsivité verbale", "conflits de couple ou familiaux", "difficulté à écouter jusqu’au bout", "promesses ou engagements oubliés", "reproches répétés de l’entourage", "isolement ou évitement secondaire", "autre élément rapporté"]
     },
     R5: {
       question: "Y a-t-il des prises de risque ou décisions impulsives à explorer ?",
-      examples: ["conduite", "dépenses", "addictions", "changements brusques", "messages envoyés sous impulsion"]
+      examples: ["conduite rapide ou inattentive", "accidents ou quasi-accidents", "dépenses impulsives", "addictions ou usages problématiques", "changements brusques", "messages envoyés sous impulsion", "prises de décision rapides regrettées", "conflits liés à l’impatience", "difficulté à mesurer les conséquences", "autre élément rapporté"]
     },
     R6: {
       question: "Quels éléments indiquent que ces difficultés existaient déjà dans l’enfance ?",
-      examples: ["bulletins scolaires", "remarques parentales", "agitation", "rêverie", "oublis", "désorganisation précoce"]
+      examples: ["bulletins scolaires", "remarques parentales", "agitation dans l’enfance", "rêverie ou distractibilité précoce", "oublis fréquents", "désorganisation précoce", "matériel perdu", "devoirs non faits ou non rendus", "bavardage ou impatience signalés", "besoin d’encadrement important", "autre élément rapporté"]
     }
   },
   young: {
@@ -317,6 +317,7 @@ const state = {
   meta: {},
   context: {},
   notes: "",
+  sectionNotes: {},
   report: "",
   evidence: {},
   responses: {}
@@ -340,6 +341,8 @@ const els = {
   reason: document.querySelector("#consultation-reason"),
   complaints: document.querySelector("#patient-complaints"),
   savedCases: document.querySelector("#saved-cases-select"),
+  newCase: document.querySelector("#new-case-btn"),
+  saveCase: document.querySelector("#save-case-btn"),
   loadCase: document.querySelector("#load-case-btn"),
   saveFile: document.querySelector("#save-file-btn"),
   downloadSave: document.querySelector("#download-save-btn"),
@@ -358,13 +361,44 @@ const els = {
 };
 
 const STORAGE_KEY = "diva-cotation-v1";
+const CASES_KEY = "diva-cotation-cases-v1";
+const ACTIVE_CASE_KEY = "diva-active-case-v1";
 const HANDLE_STORE = "diva-save-handle";
 let diskFileHandle = null;
 let diskSaveTimer = null;
 let serverSaveTimer = null;
+let caseSaveTimer = null;
+let activeCaseId = "";
 let latestSummary = { attention: 0, hyper: 0, impact: 0 };
 
+const HAS_NOTICE = "Conformément aux recommandations de bonne pratique publiées en septembre 2024 par la Haute Autorité de Santé, le diagnostic de Trouble Déficit de l’Attention avec ou sans Hyperactivité (TDAH) repose avant tout sur l’entretien clinique approfondi, l’analyse du parcours développemental et fonctionnel de la personne, ainsi que le recueil d’informations auprès de différentes sources.\n\nLa HAS précise que la réalisation d’un bilan neuropsychologique n’est pas une condition obligatoire pour poser un diagnostic de TDAH. Les outils standardisés (questionnaires, échelles, entretiens diagnostiques tels que la DIVA) viennent étayer l’évaluation clinique, sans s’y substituer.\n\nL’élément central du diagnostic demeure donc l’évaluation clinique menée par un professionnel formé, intégrant les critères diagnostiques, le retentissement fonctionnel et le contexte de vie de la personne évaluée.";
+
+function formatDateForInput(value) {
+  if (!value) return "";
+  if (value instanceof Date && !Number.isNaN(value.valueOf())) {
+    return value.toLocaleDateString("fr-FR");
+  }
+
+  const raw = String(value).trim();
+  const iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (iso) return `${iso[3]}/${iso[2]}/${iso[1]}`;
+
+  const compact = raw.replace(/[.\-\s]/g, "/");
+  const fr = compact.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/);
+  if (!fr) return raw;
+
+  const day = fr[1].padStart(2, "0");
+  const month = fr[2].padStart(2, "0");
+  const year = fr[3].length === 2 ? `20${fr[3]}` : fr[3];
+  return `${day}/${month}/${year}`;
+}
+
+function formatDisplayDate(value) {
+  return formatDateForInput(value);
+}
+
 function loadState() {
+  activeCaseId = localStorage.getItem(ACTIVE_CASE_KEY) || "";
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     try {
@@ -373,8 +407,11 @@ function loadState() {
       localStorage.removeItem(STORAGE_KEY);
     }
   }
-  if (!state.meta.date) state.meta.date = new Date().toISOString().slice(0, 10);
+  if (!state.meta.date) state.meta.date = formatDateForInput(new Date());
+  state.meta.date = formatDateForInput(state.meta.date);
+  state.meta.birthdate = formatDateForInput(state.meta.birthdate || "");
   if (!state.context) state.context = {};
+  if (!state.sectionNotes) state.sectionNotes = {};
   if (!state.evidence) state.evidence = {};
   if (!state.responses) state.responses = {};
   if (!state.report) state.report = "";
@@ -382,8 +419,103 @@ function loadState() {
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  scheduleCaseSave();
   scheduleDiskSave();
   scheduleServerSave();
+}
+
+function createEmptyState(keepClinician = true) {
+  const clinician = keepClinician ? state.meta.clinician || "" : "";
+  return {
+    scale: state.scale || "adult",
+    meta: {
+      date: formatDateForInput(new Date()),
+      clinician
+    },
+    context: {},
+    notes: "",
+    sectionNotes: {},
+    report: "",
+    evidence: {},
+    responses: {}
+  };
+}
+
+function replaceState(nextState) {
+  state.scale = nextState.scale || "adult";
+  state.meta = nextState.meta || {};
+  state.context = nextState.context || {};
+  state.notes = nextState.notes || "";
+  state.sectionNotes = nextState.sectionNotes || {};
+  state.report = nextState.report || "";
+  state.evidence = nextState.evidence || {};
+  state.responses = nextState.responses || {};
+  if (!state.meta.date) state.meta.date = formatDateForInput(new Date());
+  state.meta.date = formatDateForInput(state.meta.date);
+  state.meta.birthdate = formatDateForInput(state.meta.birthdate || "");
+}
+
+function cloneState() {
+  return JSON.parse(JSON.stringify(state));
+}
+
+function readBrowserCases() {
+  try {
+    const cases = JSON.parse(localStorage.getItem(CASES_KEY) || "[]");
+    return Array.isArray(cases) ? cases : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeBrowserCases(cases) {
+  localStorage.setItem(CASES_KEY, JSON.stringify(cases));
+}
+
+function caseLabel(data) {
+  const meta = data.meta || {};
+  const patient = meta.patient || "Dossier sans nom";
+  const date = formatDisplayDate(meta.date) || "sans date";
+  const scale = SCALES[data.scale]?.title || data.scale || "DIVA";
+  return `${patient} - ${date} - ${scale}`;
+}
+
+function makeCaseId() {
+  if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+  return `case-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function saveCurrentCaseToBrowser({ silent = false } = {}) {
+  const now = new Date().toISOString();
+  const cases = readBrowserCases();
+  if (!activeCaseId) {
+    activeCaseId = makeCaseId();
+    localStorage.setItem(ACTIVE_CASE_KEY, activeCaseId);
+  }
+
+  const data = cloneState();
+  const nextCase = {
+    id: activeCaseId,
+    label: caseLabel(data),
+    updatedAt: now,
+    data
+  };
+  const existingIndex = cases.findIndex(item => item.id === activeCaseId);
+  if (existingIndex >= 0) cases[existingIndex] = nextCase;
+  else cases.unshift(nextCase);
+
+  cases.sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
+  writeBrowserCases(cases);
+  renderSavedCases(activeCaseId);
+  if (!silent) setSaveStatus(`Dossier enregistré : ${nextCase.label}.`);
+}
+
+function scheduleCaseSave() {
+  if (!activeCaseId) return;
+  clearTimeout(caseSaveTimer);
+  caseSaveTimer = setTimeout(() => {
+    saveCurrentCaseToBrowser({ silent: true });
+  }, 500);
 }
 
 function responseName(itemId, periodId) {
@@ -415,6 +547,20 @@ function setResponse(itemId, periodId, patch) {
   state.responses[key] = { ...state.responses[key], ...patch };
   saveState();
   updateSummary();
+}
+
+function sectionNoteName(sectionId) {
+  return `${state.scale}:${sectionId}`;
+}
+
+function getSectionNote(sectionId) {
+  return state.sectionNotes?.[sectionNoteName(sectionId)] || "";
+}
+
+function setSectionNote(sectionId, value) {
+  if (!state.sectionNotes) state.sectionNotes = {};
+  state.sectionNotes[sectionNoteName(sectionId)] = value;
+  saveState();
 }
 
 function renderNav(scale) {
@@ -458,6 +604,7 @@ function renderForm() {
           </div>
         </div>
         ${items}
+        ${renderSectionNotes(section)}
       </section>
     `;
   }).join("");
@@ -465,6 +612,15 @@ function renderForm() {
   bindDynamicFields();
   filterItems();
   updateSummary();
+}
+
+function renderSectionNotes(section) {
+  return `
+    <div class="section-notes">
+      <label for="section-notes-${escapeHtml(section.id)}">Notes cliniques - ${escapeHtml(section.title)}</label>
+      <textarea id="section-notes-${escapeHtml(section.id)}" rows="3" data-section-note="${escapeHtml(section.id)}" placeholder="Notes libres pour ce domaine, hypothèses, nuances, éléments à reprendre dans le compte rendu...">${escapeHtml(getSectionNote(section.id))}</textarea>
+    </div>
+  `;
 }
 
 function renderResponseRow(itemId, period) {
@@ -561,6 +717,14 @@ function bindDynamicFields() {
     });
     autoGrow(area);
   });
+
+  els.root.querySelectorAll("[data-section-note]").forEach(area => {
+    area.addEventListener("input", event => {
+      setSectionNote(event.target.dataset.sectionNote, event.target.value);
+      autoGrow(event.target);
+    });
+    autoGrow(area);
+  });
 }
 
 function bindStaticFields() {
@@ -576,7 +740,8 @@ function bindStaticFields() {
   metaBindings.forEach(([el, key]) => {
     el.value = state.meta[key] || "";
     el.addEventListener("input", () => {
-      state.meta[key] = el.value;
+      state.meta[key] = key === "date" || key === "birthdate" ? formatDateForInput(el.value) : el.value;
+      if (key === "date" || key === "birthdate") el.value = state.meta[key];
       saveState();
     });
   });
@@ -620,6 +785,8 @@ function bindStaticFields() {
   els.print.addEventListener("click", () => window.print());
   els.report.addEventListener("click", generateReport);
   els.reset.addEventListener("click", resetCurrentScale);
+  els.newCase?.addEventListener("click", createNewCase);
+  els.saveCase?.addEventListener("click", () => saveCurrentCaseToBrowser());
   els.loadCase.addEventListener("click", loadSelectedCase);
   els.saveFile.addEventListener("click", chooseSaveFile);
   els.downloadSave.addEventListener("click", downloadBackup);
@@ -639,10 +806,17 @@ function resetCurrentScale() {
   Object.keys(state.evidence).forEach(key => {
     if (key.startsWith(prefix)) delete state.evidence[key];
   });
+  Object.keys(state.sectionNotes || {}).forEach(key => {
+    if (key.startsWith(prefix)) delete state.sectionNotes[key];
+  });
   state.notes = "";
+  state.report = "";
   els.notes.value = "";
+  els.generatedReport.value = "";
   saveState();
   renderForm();
+  bindMetaValues();
+  setSaveStatus("Cotation réinitialisée pour ce dossier.");
 }
 
 function countYes(section, periodIds) {
@@ -690,9 +864,9 @@ function generateReport() {
   lines.push("");
   lines.push("Informations générales");
   lines.push(`Patient : ${state.meta.patient || "Non renseigné"}`);
-  lines.push(`Date de naissance : ${state.meta.birthdate || "Non renseignée"}`);
+  lines.push(`Date de naissance : ${formatDisplayDate(state.meta.birthdate) || "Non renseignée"}`);
   lines.push(`Profession / niveau scolaire : ${state.meta.profession || "Non renseigné"}`);
-  lines.push(`Date de l’entretien : ${state.meta.date || "Non renseignée"}`);
+  lines.push(`Date de l’entretien : ${formatDisplayDate(state.meta.date) || "Non renseignée"}`);
   lines.push(`Clinicien : ${state.meta.clinician || "Non renseigné"}`);
   lines.push(`Source(s) : ${state.meta.informant || "Non renseignée(s)"}`);
   lines.push("");
@@ -719,12 +893,28 @@ function generateReport() {
   lines.push("");
   lines.push("Notes générales d’entretien");
   lines.push(state.notes || "Non renseignées.");
+  lines.push("");
+  lines.push("Notes par domaine");
+  lines.push(collectSectionNotes().length ? collectSectionNotes().map(item => `- ${item}`).join("\n") : "Aucune note par domaine renseignée.");
+  lines.push("");
+  lines.push("Encadré de référence clinique");
+  lines.push(HAS_NOTICE);
 
   state.report = lines.join("\n");
   els.generatedReport.value = state.report;
   autoGrow(els.generatedReport);
   saveState();
   document.querySelector(".report-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function collectSectionNotes() {
+  const scale = SCALES[state.scale];
+  return scale.sections
+    .map(section => {
+      const note = getSectionNote(section.id).trim();
+      return note ? `${section.title} : ${note}` : "";
+    })
+    .filter(Boolean);
 }
 
 function collectCheckedResponses() {
@@ -834,7 +1024,7 @@ function backupText() {
 
 function backupFilename() {
   const patient = sanitizePart(state.meta.patient || "patient");
-  const date = sanitizePart(state.meta.date || new Date().toISOString().slice(0, 10));
+  const date = sanitizePart(formatDisplayDate(state.meta.date) || formatDateForInput(new Date()));
   const scale = sanitizePart(SCALES[state.scale].title);
   return `${date}_${patient}_${scale}.json`;
 }
@@ -928,10 +1118,15 @@ function scheduleDiskSave() {
 }
 
 function scheduleServerSave() {
+  if (!isLocalDevServer()) return;
   clearTimeout(serverSaveTimer);
   serverSaveTimer = setTimeout(() => {
     writeServerBackup();
   }, 700);
+}
+
+function isLocalDevServer() {
+  return ["localhost", "127.0.0.1"].includes(window.location.hostname);
 }
 
 async function writeServerBackup() {
@@ -944,8 +1139,10 @@ async function writeServerBackup() {
 
     if (!response.ok) return;
     const result = await response.json();
-    setSaveStatus(`Sauvegardé dans sauvegardes/${result.path}.`);
-    await refreshSavedCases(result.path);
+    if (!readBrowserCases().length) {
+      setSaveStatus(`Sauvegardé dans sauvegardes/${result.path}.`);
+      await refreshSavedCases(result.path);
+    }
   } catch {
     if (!diskFileHandle) {
       setSaveStatus("Sauvegarde navigateur active. Utilisez Télécharger pour un fichier.");
@@ -954,6 +1151,17 @@ async function writeServerBackup() {
 }
 
 async function refreshSavedCases(selectedPath = "") {
+  const browserCases = readBrowserCases();
+  if (browserCases.length) {
+    renderSavedCases(selectedPath || activeCaseId);
+    return;
+  }
+
+  if (!isLocalDevServer()) {
+    renderSavedCases("");
+    return;
+  }
+
   try {
     const response = await fetch("/api/list");
     if (!response.ok) return;
@@ -967,23 +1175,44 @@ async function refreshSavedCases(selectedPath = "") {
 
     if (selectedPath) els.savedCases.value = selectedPath;
   } catch {
-    els.savedCases.innerHTML = `<option value="">Dossiers locaux indisponibles</option>`;
+    renderSavedCases("");
+  }
+}
+
+function renderSavedCases(selectedId = "") {
+  const cases = readBrowserCases();
+  els.savedCases.innerHTML = [
+    `<option value="">${cases.length ? "Choisir un dossier patient" : "Aucun dossier enregistré"}</option>`,
+    ...cases.map(item => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.label)}</option>`)
+  ].join("");
+  if (selectedId && cases.some(item => item.id === selectedId)) {
+    els.savedCases.value = selectedId;
   }
 }
 
 async function loadSelectedCase() {
-  const path = els.savedCases.value;
-  if (!path) {
+  const selected = els.savedCases.value;
+  if (!selected) {
     setSaveStatus("Choisissez d’abord un dossier sauvegardé.");
     return;
   }
 
+  const browserCase = readBrowserCases().find(item => item.id === selected);
+  if (browserCase) {
+    activeCaseId = browserCase.id;
+    localStorage.setItem(ACTIVE_CASE_KEY, activeCaseId);
+    applyImportedState(browserCase.data, { skipCaseSave: true });
+    renderSavedCases(activeCaseId);
+    setSaveStatus(`Dossier repris : ${browserCase.label}.`);
+    return;
+  }
+
   try {
-    const response = await fetch(`/api/load?file=${encodeURIComponent(path)}`);
+    const response = await fetch(`/api/load?file=${encodeURIComponent(selected)}`);
     if (!response.ok) throw new Error("Load failed");
     const imported = await response.json();
     applyImportedState(imported);
-    setSaveStatus(`Dossier repris : ${path}.`);
+    setSaveStatus(`Dossier repris : ${selected}.`);
   } catch {
     setSaveStatus("Impossible de reprendre ce dossier.");
   }
@@ -1021,6 +1250,8 @@ async function importBackup(event) {
   try {
     const imported = JSON.parse(await file.text());
     applyImportedState(imported);
+    saveCurrentCaseToBrowser({ silent: true });
+    refreshSavedCases(activeCaseId);
     setSaveStatus("Sauvegarde importée.");
   } catch {
     setSaveStatus("Ce fichier ne ressemble pas à une sauvegarde DIVA.");
@@ -1029,27 +1260,55 @@ async function importBackup(event) {
   }
 }
 
-function applyImportedState(imported) {
+function createNewCase() {
+  if (hasMeaningfulContent()) {
+    saveCurrentCaseToBrowser({ silent: true });
+  }
+
+  activeCaseId = makeCaseId();
+  localStorage.setItem(ACTIVE_CASE_KEY, activeCaseId);
+  replaceState(createEmptyState(true));
+  saveState();
+  bindMetaValues();
+  renderForm();
+  saveCurrentCaseToBrowser({ silent: true });
+  renderSavedCases(activeCaseId);
+  setSaveStatus("Nouveau dossier patient créé.");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function hasMeaningfulContent() {
+  return Boolean(
+    state.meta.patient ||
+    state.context.reason ||
+    state.context.complaints ||
+    state.notes ||
+    state.report ||
+    Object.keys(state.responses || {}).length ||
+    Object.keys(state.evidence || {}).length ||
+    Object.keys(state.sectionNotes || {}).length
+  );
+}
+
+function applyImportedState(imported, options = {}) {
   const nextState = imported.data || imported;
   if (!nextState || !nextState.responses || !nextState.meta) throw new Error("Invalid backup");
 
-  state.scale = nextState.scale || "adult";
-  state.meta = nextState.meta || {};
-  state.context = nextState.context || {};
-  state.notes = nextState.notes || "";
-  state.report = nextState.report || "";
-  state.evidence = nextState.evidence || {};
-  state.responses = nextState.responses || {};
-  saveState();
+  replaceState(nextState);
+  if (options.skipCaseSave) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } else {
+    saveState();
+  }
   bindMetaValues();
   renderForm();
 }
 
 function bindMetaValues() {
   els.patient.value = state.meta.patient || "";
-  els.birthdate.value = state.meta.birthdate || "";
+  els.birthdate.value = formatDateForInput(state.meta.birthdate || "");
   els.profession.value = state.meta.profession || "";
-  els.date.value = state.meta.date || "";
+  els.date.value = formatDateForInput(state.meta.date || "");
   els.clinician.value = state.meta.clinician || "";
   els.informant.value = state.meta.informant || "";
   els.reason.value = state.context.reason || "";

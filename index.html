@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cotation DIVA</title>
-  <link rel="stylesheet" href="styles.css?v=20260605-2">
+  <link rel="stylesheet" href="styles.css?v=20260605-3">
   </head>
   <body>
     <main class="app-shell">
@@ -35,6 +35,8 @@
           <select id="saved-cases-select">
             <option value="">Aucun dossier chargé</option>
           </select>
+          <button class="sidebar-btn" id="new-case-btn" type="button">Nouveau dossier</button>
+          <button class="sidebar-btn" id="save-case-btn" type="button">Enregistrer le dossier</button>
           <button class="sidebar-btn" id="load-case-btn" type="button">Reprendre le dossier</button>
           <button class="sidebar-btn" id="save-file-btn" type="button">Choisir le fichier</button>
           <button class="sidebar-btn" id="download-save-btn" type="button">Télécharger</button>
@@ -66,7 +68,7 @@
           </label>
           <label>
             Date de naissance
-            <input id="patient-birthdate" type="date">
+            <input id="patient-birthdate" type="text" inputmode="numeric" placeholder="jj/mm/aaaa">
           </label>
           <label>
             Profession
@@ -74,7 +76,7 @@
           </label>
           <label>
             Date
-            <input id="assessment-date" type="date">
+            <input id="assessment-date" type="text" inputmode="numeric" placeholder="jj/mm/aaaa">
           </label>
           <label>
             Clinicien
@@ -132,7 +134,7 @@
       </section>
     </main>
 
-    <script src="app.js"></script>
-    <script src="adult-guidance-patch.js"></script>
+    <script src="app.js?v=20260606-2"></script>
+    <script src="adult-guidance-patch.js?v=20260605-4"></script>
   </body>
 </html>
