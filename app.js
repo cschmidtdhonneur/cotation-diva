@@ -56,7 +56,7 @@ const SCALES = {
     ]
   },
   young: {
-    title: "Young DIVA-5",
+    title: "Young DIVA-5 enfant / adolescent",
     periods: [
       { id: "current", label: "Actuel" },
       { id: "before12", label: "Avant 12 ans" }
@@ -65,48 +65,48 @@ const SCALES = {
     sections: [
       {
         id: "attention",
-        title: "Inattention",
+        title: "Inattention enfant / adolescent",
         summaryKey: "attention",
         items: [
-          ["A1", "Détails et fautes d’étourderie", "Erreurs, oublis, devoirs ou activités terminés trop vite."],
-          ["A2", "Attention soutenue", "Difficulté à rester attentif en classe, jeu, devoirs ou échange."],
-          ["A3", "Écoute", "Semble ailleurs quand on lui parle directement."],
-          ["A4", "Consignes et tâches", "Ne suit pas les consignes jusqu’au bout ou ne termine pas les devoirs."],
-          ["A5", "Organisation", "Matériel, cartable, devoirs, étapes ou temps difficiles à organiser."],
-          ["A6", "Effort mental", "Évite ou repousse les devoirs, lectures ou tâches longues."],
-          ["A7", "Pertes", "Perd matériel scolaire, vêtements, jouets, objets utiles."],
-          ["A8", "Distractibilité", "Facilement distrait par le bruit, l’environnement ou ses pensées."],
-          ["A9", "Oublis", "Oublie devoirs, affaires, consignes, activités ou messages."]
+          ["A1", "Attention aux détails dans le travail scolaire", "Erreurs d’étourderie, consignes lues trop vite, devoirs peu précis ou incomplets."],
+          ["A2", "Maintien de l’attention en classe, devoirs ou jeu", "Difficulté à rester attentif pendant les cours, les devoirs, une activité ou une conversation."],
+          ["A3", "Écoute quand on lui parle directement", "Semble ailleurs, rêveur ou préoccupé, nécessite des répétitions ou un contact visuel."],
+          ["A4", "Consignes, devoirs et tâches demandées", "Suit difficilement les consignes jusqu’au bout ou ne termine pas les devoirs et corvées."],
+          ["A5", "Organisation du matériel et du temps", "Cartable, chambre, documents, agenda, devoirs ou étapes d’une tâche difficiles à organiser."],
+          ["A6", "Effort mental scolaire soutenu", "Évite ou repousse les devoirs, lectures ou tâches demandant une concentration prolongée."],
+          ["A7", "Pertes d’affaires", "Perd matériel scolaire, papiers, vêtements, jouets ou objets nécessaires."],
+          ["A8", "Distractibilité en classe ou au quotidien", "Facilement distrait par les bruits, les discussions, l’environnement ou ses propres idées."],
+          ["A9", "Oublis dans les activités quotidiennes", "Oublie devoirs, affaires, consignes, rendez-vous, messages ou tâches demandées."]
         ]
       },
       {
         id: "hyper",
-        title: "Hyperactivité / impulsivité",
+        title: "Hyperactivité / impulsivité enfant / adolescent",
         summaryKey: "hyper",
         items: [
-          ["H1", "Bouge beaucoup", "Remue, se tortille, manipule ou cherche à bouger."],
-          ["H2", "Se lève", "Quitte sa place à l’école, à table ou dans les situations attendues."],
-          ["H3", "Court / grimpe / agitation", "Activité motrice excessive ou sensation d’agitation selon l’âge."],
-          ["H4", "Jeux calmes", "Difficulté à jouer ou participer calmement."],
-          ["H5", "Toujours en mouvement", "Rythme intense, fatigue l’entourage, semble poussé par un moteur."],
-          ["H6", "Parle trop", "Parole abondante ou difficile à interrompre."],
-          ["H7", "Répond trop vite", "Répond avant la fin, complète, coupe les questions."],
-          ["H8", "Attend son tour", "Difficulté à patienter dans les jeux, groupes, files ou conversations."],
-          ["H9", "Interrompt", "S’immisce, prend les objets, impose sa présence ou interrompt les autres."]
+          ["H1", "Agitation motrice observable", "Remue mains ou pieds, se tortille, manipule des objets ou bouge beaucoup sur sa chaise."],
+          ["H2", "Se lève quand il devrait rester assis", "Quitte sa place en classe, à table ou dans les situations où il est attendu de rester assis."],
+          ["H3", "Court, grimpe ou se sent agité", "Activité motrice excessive, grimpe, court, saute ou décrit une agitation intérieure selon l’âge."],
+          ["H4", "Jeux et activités calmes", "Difficulté à jouer, participer ou se détendre calmement."],
+          ["H5", "Toujours en mouvement", "Semble toujours actif, difficile à ralentir, fatigue l’entourage ou dépasse ses propres limites."],
+          ["H6", "Parole excessive", "Parle beaucoup, bavarde, monopolise ou a du mal à s’arrêter."],
+          ["H7", "Réponses précipitées", "Répond avant la fin des questions, coupe les phrases ou agit avant la consigne complète."],
+          ["H8", "Attente du tour", "Difficulté à attendre dans les jeux, en groupe, en classe, dans une file ou une conversation."],
+          ["H9", "Interruption ou intrusion", "Interrompt les autres, s’immisce dans les jeux, impose sa présence ou utilise les affaires d’autrui."]
         ]
       },
       {
         id: "contexts",
-        title: "Contextes et retentissement",
+        title: "Retentissement enfant / adolescent",
         summaryKey: "impact",
         responseMode: "single",
         items: [
-          ["C1", "Maison", "Retentissement familial, routines, devoirs, opposition secondaire ou conflits."],
-          ["C2", "École", "Retentissement en classe, apprentissages, comportement, devoirs ou relations."],
-          ["C3", "Pairs / loisirs", "Jeux, sport, activités, invitations, disputes ou intégration sociale."],
-          ["C4", "Plusieurs informateurs", "Concordance ou discordance entre enfant, parents, enseignant, autres sources."],
-          ["C5", "Début avant 12 ans", "Indices développementaux ou historiques compatibles."],
-          ["C6", "Gêne significative", "Souffrance, limitation fonctionnelle ou adaptation importante de l’environnement."]
+          ["C1", "Travail scolaire / études", "Retentissement sur les apprentissages, devoirs, résultats, concentration ou parcours scolaire."],
+          ["C2", "Relations familiales", "Conflits, tensions, besoin de structuration parentale ou retentissement dans la vie familiale."],
+          ["C3", "Socialisation", "Relations avec les pairs, intégration, disputes, moqueries, communication ou estime sociale."],
+          ["C4", "Temps libre / loisirs", "Retentissement dans les jeux, sports, loisirs, détente, prises de risque ou activités extrascolaires."],
+          ["C5", "Confiance en soi / image de soi", "Image de soi, peur de l’échec, découragement, retentissement émotionnel lié aux difficultés."],
+          ["C6", "Plusieurs environnements", "Gêne retrouvée dans au moins deux contextes ou rapportée par plusieurs sources."]
         ]
       }
     ]
@@ -214,75 +214,75 @@ const GUIDANCE = {
   },
   young: {
     A1: {
-      question: "Est-ce que l’enfant fait souvent des erreurs parce qu’il va trop vite, oublie des détails ou ne vérifie pas son travail ?",
+      question: "L’enfant ou l’adolescent a-t-il souvent du mal à prêter attention aux détails, ou fait-il des erreurs d’étourderie dans son travail scolaire ou ses activités ?",
       examples: ["erreurs d’étourderie dans le travail scolaire", "ne répond pas à des questions au recto ou au verso", "manque de soin reproché dans le travail", "ne vérifie pas ses réponses dans les devoirs", "doit travailler lentement pour éviter les erreurs", "travail peu précis", "lit les consignes trop vite ou les survole", "a besoin de plus de temps pour aller au bout", "fait trop d’erreurs parce qu’il travaille trop vite", "autre élément rapporté"]
     },
     A2: {
-      question: "A-t-il du mal à rester attentif pendant les devoirs, la classe, une histoire, un jeu ou une conversation ?",
+      question: "L’enfant ou l’adolescent a-t-il souvent du mal à maintenir son attention pendant les tâches, les cours, les devoirs, les jeux ou les échanges ?",
       examples: ["a du mal à maintenir longtemps son attention", "facilement distrait par l’environnement ou ses pensées", "a besoin d’une structure pour résister à la distraction", "a du mal à rester concentré pendant les cours ou les devoirs", "trouve difficile de regarder un film ou une activité jusqu’à la fin", "s’ennuie facilement", "pose des questions sur des sujets déjà discutés", "autre élément rapporté"]
     },
     A3: {
-      question: "Quand on lui parle directement, semble-t-il ne pas écouter ou être dans ses pensées ?",
+      question: "L’enfant ou l’adolescent donne-t-il souvent l’impression de ne pas entendre lorsqu’on lui parle directement ?",
       examples: ["ne sait pas ce que les parents ou enseignants viennent de dire", "est décrit comme rêveur ou préoccupé", "on lui dit que ses pensées sont ailleurs", "n’écoute que s’il y a contact visuel ou voix insistante", "il faut souvent l’appeler plusieurs fois ou reposer la question", "a du mal à se concentrer pendant une discussion", "ne se rappelle pas le sujet d’une conversation", "change souvent de sujet", "autre élément rapporté"]
     },
     A4: {
-      question: "Suit-il les consignes jusqu’au bout et termine-t-il ce qui est demandé ?",
+      question: "L’enfant ou l’adolescent a-t-il souvent du mal à suivre les instructions et à terminer les tâches, les devoirs ou les corvées ?",
       examples: ["a du mal à suivre les consignes", "difficulté avec les instructions en plusieurs étapes", "a du mal à aller au bout une fois la nouveauté passée", "a besoin de beaucoup de structure pour terminer", "fait les choses de manière confuse sans aller au bout", "commence puis se déconcentre très vite", "a besoin d’une échéance précise pour terminer", "du mal à terminer les tâches administratives ou scolaires", "autre élément rapporté"]
     },
     A5: {
-      question: "A-t-il du mal à organiser son matériel, ses devoirs, son cartable ou les étapes d’une tâche ?",
+      question: "L’enfant ou l’adolescent trouve-t-il souvent difficile d’organiser ses tâches, ses activités, son matériel ou son temps ?",
       examples: ["du mal à planifier les activités de la vie quotidienne", "du mal avec les tâches séquentielles", "objets, biens ou espace difficiles à garder en ordre", "difficulté à organiser les loisirs ou le jeu", "n’arrive pas à respecter les dates limites", "ne peut pas utiliser systématiquement agenda ou cahier de textes", "besoin de routines strictes pour ne pas se désorganiser", "faible sens du temps ou souvent en retard", "besoin que d’autres structurent les choses", "autre élément rapporté"]
     },
     A6: {
-      question: "Évite-t-il ou repousse-t-il les tâches qui demandent un effort mental, comme les devoirs ou la lecture ?",
+      question: "L’enfant ou l’adolescent évite-t-il, repousse-t-il ou montre-t-il une aversion pour les tâches qui demandent un effort mental soutenu ?",
       examples: ["fait d’abord les choses faciles ou amusantes", "reporte les tâches ennuyeuses ou difficiles", "évite le travail monotone", "n’aime pas lire à cause de l’effort mental", "évite les tâches demandant de la concentration", "déteste les matières scolaires demandant beaucoup d’effort", "a besoin d’un adulte à côté pour s’y mettre", "autre élément rapporté"]
     },
     A7: {
-      question: "Perd-il souvent ses affaires ?",
+      question: "L’enfant ou l’adolescent perd-il souvent des choses nécessaires à ses tâches, à l’école ou à ses activités ?",
       examples: ["perd papiers, devoirs, notes ou listes", "parents ou enseignants lui reprochent de perdre ses affaires", "perd beaucoup de temps à chercher ses affaires", "panique si d’autres déplacent ses affaires", "pose des objets au mauvais emplacement", "perd vêtements, lunettes, trousse ou matériel", "autre élément rapporté"]
     },
     A8: {
-      question: "Est-il facilement distrait par le bruit, les autres enfants, ce qu’il voit ou ses propres idées ?",
+      question: "L’enfant ou l’adolescent est-il souvent distrait par des stimuli extérieurs ?",
       examples: ["du mal à ignorer les stimuli externes", "en classe, regarde souvent au dehors", "du mal à reprendre le fil après interruption", "facilement distrait par les discussions des autres", "du mal à filtrer ou sélectionner les informations", "part vers un autre jeu ou une autre idée", "autre élément rapporté"]
     },
     A9: {
-      question: "Oublie-t-il souvent les choses du quotidien ?",
+      question: "L’enfant ou l’adolescent est-il souvent oublieux dans ses activités quotidiennes ?",
       examples: ["oublie rendez-vous, instructions ou obligations", "oublie clés, agenda ou matériel", "a besoin de nombreux rappels", "s’arrête à mi-chemin en oubliant ce qu’il devait faire", "utilise des listes de manière rigide pour ne rien oublier", "oublie de tenir à jour ou regarder son agenda", "oublie tâches ménagères, courses ou affaires à rapporter", "autre élément rapporté"]
     },
     H1: {
-      question: "Bouge-t-il souvent les mains, les pieds, se tortille-t-il ou manipule-t-il des objets ?",
+      question: "L’enfant ou l’adolescent remue-t-il souvent les mains ou les pieds, tapote-t-il des doigts ou se tortille-t-il sur sa chaise ?",
       examples: ["du mal à rester assis immobile", "remue les jambes", "tapote avec un crayon ou joue avec quelque chose", "tripote les cheveux ou ronge les ongles", "incapable de rester assis correctement", "contrôle sa nervosité au prix d’une tension interne", "autre élément rapporté"]
     },
     H2: {
-      question: "Se lève-t-il dans les situations où il devrait rester assis ?",
+      question: "L’enfant ou l’adolescent se lève-t-il souvent dans des situations où il est censé rester assis ?",
       examples: ["trouve très difficile de rester assis à l’école ou pendant une activité", "évite cours, conférences ou situations assises", "préfère marcher plutôt que rester assis", "ne reste jamais assis longtemps et se déplace", "tension liée à la difficulté de rester immobile", "trouve des excuses pour se déplacer", "autre élément rapporté"]
     },
     H3: {
-      question: "Court-il, grimpe-t-il ou bouge-t-il de façon excessive par rapport au contexte ou à son âge ?",
+      question: "L’enfant ou l’adolescent court-il, grimpe-t-il ou se sent-il souvent agité ou nerveux ?",
       examples: ["toujours à courir", "grimpe sur les meubles ou saute sur le canapé", "grimpe dans les arbres ou sur les structures", "se sent nerveux ou agité à l’intérieur", "sentiment constant d’avoir quelque chose à faire", "trouve difficile de se détendre", "autre élément rapporté"]
     },
     H4: {
-      question: "A-t-il du mal à jouer ou participer calmement ?",
+      question: "L’enfant ou l’adolescent trouve-t-il souvent difficile de participer à des jeux ou activités de manière calme ?",
       examples: ["parle fort dans les jeux ou en classe", "incapable de suivre silencieusement une émission", "on lui demande de se taire ou de se calmer", "parle pendant des activités où il faudrait se taire", "devient rapidement trop confiant en public", "parle fort dans plusieurs situations", "du mal à faire des activités en silence", "du mal à parler à voix basse", "autre élément rapporté"]
     },
     H5: {
-      question: "A-t-on l’impression qu’il est toujours en mouvement ou difficile à arrêter ?",
+      question: "L’enfant ou l’adolescent semble-t-il souvent ne jamais s’arrêter ou agir comme s’il était « monté sur des ressorts » ?",
       examples: ["excessivement actif à l’école ou à la maison", "toujours occupé à faire quelque chose", "inconfortable quand il doit rester calmement assis", "trop plein d’énergie", "agité ou difficile à suivre dans sa cadence", "dépasse ses propres limites", "difficile de laisser aller les choses, va trop loin", "autre élément rapporté"]
     },
     H6: {
-      question: "Parle-t-il beaucoup ou plus que les autres enfants de son âge ?",
+      question: "L’enfant ou l’adolescent parle-t-il souvent de manière excessive ?",
       examples: ["parle tellement que les autres trouvent cela fatigant", "connu comme moulin à paroles", "parents ou enseignants demandent souvent de se taire", "appréciations ou punitions liées au bavardage", "trouve difficile de s’arrêter de parler", "tendance à parler trop", "empêche les autres de travailler en parlant", "ne laisse pas aux autres la possibilité d’intervenir", "a besoin de beaucoup de mots pour dire quelque chose", "autre élément rapporté"]
     },
     H7: {
-      question: "Répond-il avant la fin des questions ou agit-il avant d’avoir entendu toute la consigne ?",
+      question: "L’enfant ou l’adolescent laisse-t-il souvent échapper une réponse avant que la question ait été totalement posée ?",
       examples: ["parle ou répond sans réfléchir", "veut être le premier à répondre en classe", "lâche une réponse même si elle est fausse", "interrompt ou répond avant la fin des phrases", "termine les phrases des autres", "donne l’impression de manquer de tact", "commence avant le signal", "autre élément rapporté"]
     },
     H8: {
-      question: "A-t-il du mal à attendre son tour ?",
+      question: "L’enfant ou l’adolescent trouve-t-il souvent difficile d’attendre son tour ?",
       examples: ["difficile d’attendre son tour dans les activités de groupe", "toujours le premier à parler ou agir", "traverse la route sans regarder", "du mal à attendre dans une file ou coupe la file", "impatient", "débute ou termine rapidement des relations par impulsivité", "frustration rapide", "autre élément rapporté"]
     },
     H9: {
-      question: "Interrompt-il les autres ou s’impose-t-il dans leurs jeux, conversations ou activités ?",
+      question: "L’enfant ou l’adolescent interrompt-il souvent les autres ou se montre-t-il intrusif ?",
       examples: ["s’immisce dans les jeux des autres", "interrompt les conversations", "réagit sur tout", "incapable d’attendre", "rapide à déranger les autres", "perturbe les activités des autres sans qu’on le lui demande", "du mal à respecter l’espace des autres", "a une opinion sur tout et la donne immédiatement", "autre élément rapporté"]
     },
     C1: {
@@ -703,7 +703,9 @@ function renderResponseRow(itemId, period) {
 }
 
 function getGuidance(code) {
-  return GUIDANCE[state.scale]?.[code] || GUIDANCE.adult[code] || null;
+  const scaleGuidance = GUIDANCE[state.scale] || {};
+  if (Object.prototype.hasOwnProperty.call(scaleGuidance, code)) return scaleGuidance[code];
+  return state.scale === "adult" ? GUIDANCE.adult[code] || null : null;
 }
 
 function renderGuidance(itemId, guidance, periods) {
