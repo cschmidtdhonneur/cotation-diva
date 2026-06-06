@@ -344,6 +344,7 @@ const els = {
   newCase: document.querySelector("#new-case-btn"),
   saveCase: document.querySelector("#save-case-btn"),
   loadCase: document.querySelector("#load-case-btn"),
+  deleteCase: document.querySelector("#delete-case-btn"),
   saveFile: document.querySelector("#save-file-btn"),
   downloadSave: document.querySelector("#download-save-btn"),
   importSave: document.querySelector("#import-save-btn"),
@@ -351,6 +352,7 @@ const els = {
   saveStatus: document.querySelector("#save-status"),
   notes: document.querySelector("#global-notes"),
   generatedReport: document.querySelector("#generated-report"),
+  printReport: document.querySelector("#print-report"),
   copyReport: document.querySelector("#copy-report-btn"),
   downloadReport: document.querySelector("#download-report-btn"),
   attention: document.querySelector("#attention-score"),
@@ -442,6 +444,7 @@ function createEmptyState(keepClinician = true) {
 }
 
 function replaceState(nextState) {
+  nextState = normalizeImportedState(nextState);
   state.scale = nextState.scale || "adult";
   state.meta = nextState.meta || {};
   state.context = nextState.context || {};
@@ -453,6 +456,55 @@ function replaceState(nextState) {
   if (!state.meta.date) state.meta.date = formatDateForInput(new Date());
   state.meta.date = formatDateForInput(state.meta.date);
   state.meta.birthdate = formatDateForInput(state.meta.birthdate || "");
+}
+
+function normalizeImportedState(imported) {
+  const data = imported?.data || imported || {};
+  const metaFromLabel = parseCaseLabel(imported?.label || "");
+  return {
+    scale: data.scale || metaFromLabel.scale || "adult",
+    meta: { ...metaFromLabel.meta, ...(data.meta || {}) },
+    context: data.context || {},
+    notes: data.notes || "",
+    sectionNotes: data.sectionNotes || {},
+    report: data.report || "",
+    evidence: data.evidence || {},
+    responses: data.responses || {}
+  };
+}
+
+function hasStoredCaseData(item) {
+  const data = item?.data;
+  if (!data || typeof data !== "object") return false;
+  return Boolean(
+    data.meta?.patient ||
+    data.meta?.birthdate ||
+    data.meta?.profession ||
+    data.context?.reason ||
+    data.context?.complaints ||
+    data.notes ||
+    data.report ||
+    Object.keys(data.responses || {}).length ||
+    Object.keys(data.evidence || {}).length ||
+    Object.keys(data.sectionNotes || {}).length
+  );
+}
+
+function dataForStoredCase(item) {
+  return hasStoredCaseData(item) ? item.data : item;
+}
+
+function parseCaseLabel(label) {
+  const parts = String(label || "").split(" - ");
+  const meta = {};
+  let scale = "";
+  if (parts.length >= 3) {
+    if (parts[0] && parts[0] !== "Dossier sans nom") meta.patient = parts[0];
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(parts[1])) meta.date = parts[1];
+    if (parts.slice(2).join(" - ").includes("Young")) scale = "young";
+    if (parts.slice(2).join(" - ").includes("adulte")) scale = "adult";
+  }
+  return { meta, scale };
 }
 
 function cloneState() {
@@ -494,6 +546,14 @@ function saveCurrentCaseToBrowser({ silent = false } = {}) {
   }
 
   const data = cloneState();
+  if (!hasMeaningfulContent() && activeCaseId) {
+    const existing = cases.find(item => item.id === activeCaseId);
+    if (hasStoredCaseData(existing)) {
+      renderSavedCases(activeCaseId);
+      if (!silent) setSaveStatus("Dossier vide non enregistré pour préserver l’ancien dossier.");
+      return;
+    }
+  }
   const nextCase = {
     id: activeCaseId,
     label: caseLabel(data),
@@ -782,11 +842,16 @@ function bindStaticFields() {
   });
 
   els.search.addEventListener("input", filterItems);
-  els.print.addEventListener("click", () => window.print());
+  els.print.addEventListener("click", exportPdfReport);
   els.report.addEventListener("click", generateReport);
+  els.report.addEventListener("click", () => setTimeout(renderPrintReport, 0));
   els.reset.addEventListener("click", resetCurrentScale);
   els.newCase?.addEventListener("click", createNewCase);
   els.saveCase?.addEventListener("click", () => saveCurrentCaseToBrowser());
+  els.deleteCase?.addEventListener("click", deleteSelectedCase);
+  els.savedCases.addEventListener("change", () => {
+    if (els.savedCases.value) loadSelectedCase();
+  });
   els.loadCase.addEventListener("click", loadSelectedCase);
   els.saveFile.addEventListener("click", chooseSaveFile);
   els.downloadSave.addEventListener("click", downloadBackup);
@@ -1082,6 +1147,85 @@ function downloadReport() {
   setSaveStatus("Compte rendu téléchargé.");
 }
 
+function exportPdfReport() {
+  generateReport();
+  renderPrintReport();
+  setSaveStatus("PDF prêt : choisissez Enregistrer en PDF dans la fenêtre d’impression.");
+  window.print();
+}
+
+function renderPrintReport() {
+  updateSummary();
+  const scale = SCALES[state.scale];
+  const checkedItems = collectCheckedResponses();
+  const evidenceItems = collectCheckedEvidence().slice(0, 60);
+  const reportText = state.report || els.generatedReport.value || "";
+  const generatedAt = new Date().toLocaleDateString("fr-FR");
+
+  els.printReport.innerHTML = `
+    <header class="print-header">
+      <p class="print-eyebrow">Cotation DIVA</p>
+      <h1>Résultats et compte rendu professionnel</h1>
+      <p>${escapeHtml(scale.title)} - document généré le ${escapeHtml(generatedAt)}</p>
+    </header>
+
+    <section class="print-section print-grid">
+      <div>
+        <h2>Patient</h2>
+        <p><strong>Nom / identifiant :</strong> ${escapeHtml(state.meta.patient || "Non renseigné")}</p>
+        <p><strong>Date de naissance :</strong> ${escapeHtml(formatDisplayDate(state.meta.birthdate) || "Non renseignée")}</p>
+        <p><strong>Profession / niveau scolaire :</strong> ${escapeHtml(state.meta.profession || "Non renseigné")}</p>
+      </div>
+      <div>
+        <h2>Entretien</h2>
+        <p><strong>Date :</strong> ${escapeHtml(formatDisplayDate(state.meta.date) || "Non renseignée")}</p>
+        <p><strong>Clinicien :</strong> ${escapeHtml(state.meta.clinician || "Non renseigné")}</p>
+        <p><strong>Source(s) :</strong> ${escapeHtml(state.meta.informant || "Non renseignée(s)")}</p>
+      </div>
+    </section>
+
+    <section class="print-section print-scores">
+      <article>
+        <span>${latestSummary.attention}</span>
+        <p>Inattention</p>
+      </article>
+      <article>
+        <span>${latestSummary.hyper}</span>
+        <p>Hyperactivité / impulsivité</p>
+      </article>
+      <article>
+        <span>${latestSummary.impact}</span>
+        <p>Retentissements</p>
+      </article>
+      <article>
+        <span>${escapeHtml(els.status.textContent || "À compléter")}</span>
+        <p>${escapeHtml(els.detail.textContent || "")}</p>
+      </article>
+    </section>
+
+    <section class="print-section">
+      <h2>Motif et plaintes rapportées</h2>
+      <p><strong>Motif :</strong> ${escapeHtml(state.context.reason || "Non renseigné.")}</p>
+      <p><strong>Plaintes :</strong> ${escapeHtml(state.context.complaints || "Non renseignées.")}</p>
+    </section>
+
+    <section class="print-section">
+      <h2>Items cotés positivement</h2>
+      ${checkedItems.length ? `<ul>${checkedItems.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucun item coté positivement dans les réponses renseignées.</p>"}
+    </section>
+
+    <section class="print-section">
+      <h2>Éléments cliniques cochés ou renseignés</h2>
+      ${evidenceItems.length ? `<ul>${evidenceItems.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucun élément clinique coché ou renseigné.</p>"}
+    </section>
+
+    <section class="print-section">
+      <h2>Compte rendu professionnel</h2>
+      <div class="print-report-text">${escapeHtml(reportText).replace(/\n/g, "<br>")}</div>
+    </section>
+  `;
+}
+
 async function chooseSaveFile() {
   if (!window.showSaveFilePicker) {
     setSaveStatus("Sauvegarde auto non disponible ici. Utilisez Télécharger.");
@@ -1190,6 +1334,40 @@ function renderSavedCases(selectedId = "") {
   }
 }
 
+function deleteSelectedCase() {
+  const selected = els.savedCases.value || activeCaseId;
+  if (!selected) {
+    setSaveStatus("Choisissez d’abord le dossier à supprimer.");
+    return;
+  }
+
+  const cases = readBrowserCases();
+  const caseToDelete = cases.find(item => item.id === selected);
+  if (!caseToDelete) {
+    setSaveStatus("Dossier introuvable dans la sauvegarde navigateur.");
+    renderSavedCases(activeCaseId);
+    return;
+  }
+
+  const confirmed = window.confirm(`Supprimer le dossier « ${caseToDelete.label} » ? Cette action supprime uniquement la sauvegarde locale de ce navigateur.`);
+  if (!confirmed) return;
+
+  const remaining = cases.filter(item => item.id !== selected);
+  writeBrowserCases(remaining);
+
+  if (activeCaseId === selected) {
+    activeCaseId = "";
+    localStorage.removeItem(ACTIVE_CASE_KEY);
+    replaceState(createEmptyState(true));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    bindMetaValues();
+    renderForm();
+  }
+
+  renderSavedCases(activeCaseId);
+  setSaveStatus(`Dossier supprimé : ${caseToDelete.label}.`);
+}
+
 async function loadSelectedCase() {
   const selected = els.savedCases.value;
   if (!selected) {
@@ -1201,9 +1379,10 @@ async function loadSelectedCase() {
   if (browserCase) {
     activeCaseId = browserCase.id;
     localStorage.setItem(ACTIVE_CASE_KEY, activeCaseId);
-    applyImportedState(browserCase.data, { skipCaseSave: true });
+    applyImportedState(dataForStoredCase(browserCase), { skipCaseSave: true });
     renderSavedCases(activeCaseId);
     setSaveStatus(`Dossier repris : ${browserCase.label}.`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     return;
   }
 
@@ -1291,8 +1470,7 @@ function hasMeaningfulContent() {
 }
 
 function applyImportedState(imported, options = {}) {
-  const nextState = imported.data || imported;
-  if (!nextState || !nextState.responses || !nextState.meta) throw new Error("Invalid backup");
+  const nextState = normalizeImportedState(imported);
 
   replaceState(nextState);
   if (options.skipCaseSave) {
@@ -1374,6 +1552,13 @@ async function init() {
   bindMetaValues();
   renderForm();
   await refreshSavedCases();
+  window.DivaApp = {
+    exportPdfReport,
+    renderPrintReport,
+    saveCurrentCaseToBrowser,
+    deleteSelectedCase,
+    loadSelectedCase
+  };
   await restoreFileHandle();
 }
 

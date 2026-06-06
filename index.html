@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cotation DIVA</title>
-  <link rel="stylesheet" href="styles.css?v=20260605-3">
+  <link rel="stylesheet" href="styles.css?v=20260606-5">
   </head>
   <body>
     <main class="app-shell">
@@ -38,6 +38,7 @@
           <button class="sidebar-btn" id="new-case-btn" type="button">Nouveau dossier</button>
           <button class="sidebar-btn" id="save-case-btn" type="button">Enregistrer le dossier</button>
           <button class="sidebar-btn" id="load-case-btn" type="button">Reprendre le dossier</button>
+          <button class="sidebar-btn danger-btn" id="delete-case-btn" type="button">Supprimer le dossier</button>
           <button class="sidebar-btn" id="save-file-btn" type="button">Choisir le fichier</button>
           <button class="sidebar-btn" id="download-save-btn" type="button">Télécharger</button>
           <button class="sidebar-btn" id="import-save-btn" type="button">Importer</button>
@@ -57,7 +58,7 @@
           <div class="actions">
             <button class="ghost" id="report-btn" type="button" title="Générer un compte rendu">Compte rendu</button>
             <button class="ghost" id="reset-btn" type="button" title="Effacer cette cotation">Réinitialiser</button>
-            <button class="primary" id="print-btn" type="button" title="Exporter en PDF">Exporter PDF</button>
+            <button class="primary" id="print-btn" type="button" title="Exporter les résultats et le compte rendu en PDF">Exporter PDF</button>
           </div>
         </header>
 
@@ -133,8 +134,9 @@
         <div id="form-root" class="form-root"></div>
       </section>
     </main>
+    <article id="print-report" class="print-report" aria-hidden="true"></article>
 
-    <script src="app.js?v=20260606-2"></script>
+    <script src="app.js?v=20260606-8"></script>
     <script src="adult-guidance-patch.js?v=20260605-4"></script>
   </body>
 </html>
