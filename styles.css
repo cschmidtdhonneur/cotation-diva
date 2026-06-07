@@ -114,6 +114,20 @@ p {
   min-height: 42px;
 }
 
+.scale-locked select {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.scale-locked::after {
+  content: "Type d’évaluation verrouillé pour ce dossier.";
+  display: block;
+  margin-top: 8px;
+  color: #d7e3e1;
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
 .sidebar-btn {
   width: 100%;
   min-height: 38px;

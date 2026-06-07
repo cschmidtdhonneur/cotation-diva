@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cotation DIVA</title>
-  <link rel="stylesheet" href="styles.css?v=20260606-6">
+  <link rel="stylesheet" href="styles.css?v=20260606-7">
   </head>
   <body>
     <main class="app-shell">
@@ -40,9 +40,9 @@
           <button class="sidebar-btn" id="load-case-btn" type="button">Reprendre le dossier</button>
           <button class="sidebar-btn danger-btn" id="delete-case-btn" type="button">Supprimer le dossier</button>
           <button class="sidebar-btn" id="save-file-btn" type="button">Choisir le fichier</button>
-          <button class="sidebar-btn" id="download-save-btn" type="button">Télécharger</button>
-          <button class="sidebar-btn" id="import-save-btn" type="button">Importer</button>
-          <input id="import-save-input" type="file" accept="application/json,.json" hidden>
+          <button class="sidebar-btn" id="download-save-btn" type="button">Exporter le dossier</button>
+          <button class="sidebar-btn" id="import-save-btn" type="button">Importer un dossier</button>
+          <input id="import-save-input" type="file" accept="application/json,.json,.diva" hidden>
           <p id="save-status" class="save-status">Sauvegarde navigateur active.</p>
         </section>
 
@@ -125,7 +125,7 @@
             <label for="generated-report">Compte rendu généré</label>
             <div class="report-actions">
               <button class="ghost" id="copy-report-btn" type="button">Copier</button>
-              <button class="ghost" id="download-report-btn" type="button">Télécharger</button>
+              <button class="ghost" id="download-report-btn" type="button">Télécharger le compte rendu</button>
             </div>
           </div>
           <textarea id="generated-report" rows="12" placeholder="Cliquez sur “Compte rendu” pour générer une synthèse éditable."></textarea>
@@ -136,7 +136,7 @@
     </main>
     <article id="print-report" class="print-report" aria-hidden="true"></article>
 
-    <script src="app.js?v=20260606-11"></script>
+    <script src="app.js?v=20260606-13"></script>
     <script src="adult-guidance-patch.js?v=20260605-5"></script>
   </body>
 </html>

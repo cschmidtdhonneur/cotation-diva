@@ -420,10 +420,25 @@ function loadState() {
 }
 
 function saveState() {
+  if (!activeCaseId && hasMeaningfulContent()) {
+    activeCaseId = makeCaseId();
+    localStorage.setItem(ACTIVE_CASE_KEY, activeCaseId);
+  }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateScaleLock();
   scheduleCaseSave();
   scheduleDiskSave();
   scheduleServerSave();
+}
+
+function updateScaleLock() {
+  if (!els?.scale) return;
+  const locked = Boolean(activeCaseId || hasMeaningfulContent());
+  els.scale.disabled = locked;
+  els.scale.title = locked
+    ? "Le type d’évaluation est fixé pour ce dossier. Créez un nouveau dossier pour choisir une autre grille."
+    : "Choisissez le type d’évaluation avant de commencer le dossier.";
+  els.scale.closest(".panel")?.classList.toggle("scale-locked", locked);
 }
 
 function createEmptyState(keepClinician = true) {
@@ -633,6 +648,7 @@ function renderForm() {
   const scale = SCALES[state.scale];
   els.scale.value = state.scale;
   els.title.textContent = scale.title;
+  updateScaleLock();
   renderNav(scale);
 
   els.root.innerHTML = scale.sections.map(section => {
@@ -838,6 +854,7 @@ function bindStaticFields() {
   });
 
   els.scale.addEventListener("change", () => {
+    if (els.scale.disabled) return;
     state.scale = els.scale.value;
     saveState();
     renderForm();
@@ -1093,7 +1110,14 @@ function backupFilename() {
   const patient = sanitizePart(state.meta.patient || "patient");
   const date = sanitizePart(formatDisplayDate(state.meta.date) || formatDateForInput(new Date()));
   const scale = sanitizePart(SCALES[state.scale].title);
-  return `${date}_${patient}_${scale}.json`;
+  return `${date}_${patient}_${scale}.diva`;
+}
+
+function reportFilename(extension = "html") {
+  const patient = sanitizePart(state.meta.patient || "patient");
+  const date = sanitizePart(formatDisplayDate(state.meta.date) || formatDateForInput(new Date()));
+  const scale = sanitizePart(SCALES[state.scale].title);
+  return `${date}_${patient}_${scale}_compte-rendu.${extension}`;
 }
 
 function sanitizePart(value) {
@@ -1113,7 +1137,7 @@ function downloadBackup() {
   link.download = backupFilename();
   link.click();
   URL.revokeObjectURL(url);
-  setSaveStatus("Sauvegarde téléchargée.");
+  setSaveStatus("Dossier exporté. Ce fichier .diva peut être réimporté dans l’application.");
 }
 
 async function copyReport() {
@@ -1139,14 +1163,40 @@ function downloadReport() {
     return;
   }
 
-  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const html = buildStandaloneReportHtml(text);
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = backupFilename().replace(/\.json$/, "_compte-rendu.txt");
+  link.download = reportFilename("html");
   link.click();
   URL.revokeObjectURL(url);
-  setSaveStatus("Compte rendu téléchargé.");
+  setSaveStatus("Compte rendu téléchargé en document lisible.");
+}
+
+function buildStandaloneReportHtml(reportText) {
+  const scale = SCALES[state.scale];
+  const generatedAt = formatDisplayDate(new Date());
+  return `<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>${escapeHtml(reportFilename("html").replace(/\.html$/, ""))}</title>
+  <style>
+    body { margin: 32px auto; max-width: 800px; color: #1f2933; font-family: Arial, sans-serif; line-height: 1.5; }
+    h1 { margin-bottom: 4px; font-size: 26px; }
+    .meta { color: #5f6b76; margin: 0 0 24px; }
+    .report { white-space: pre-wrap; font-size: 14px; }
+    .notice { border: 1px solid #c7d7d3; background: #f3faf8; padding: 14px; margin-top: 24px; }
+    @page { margin: 16mm; }
+  </style>
+</head>
+<body>
+  <h1>Compte rendu professionnel</h1>
+  <p class="meta">${escapeHtml(scale.title)} - ${escapeHtml(state.meta.patient || "Patient non renseigné")} - généré le ${escapeHtml(generatedAt)}</p>
+  <main class="report">${escapeHtml(reportText)}</main>
+</body>
+</html>`;
 }
 
 function exportPdfReport() {
@@ -1230,7 +1280,7 @@ function renderPrintReport() {
 
 async function chooseSaveFile() {
   if (!window.showSaveFilePicker) {
-    setSaveStatus("Sauvegarde auto non disponible ici. Utilisez Télécharger.");
+    setSaveStatus("Sauvegarde auto non disponible ici. Utilisez Exporter le dossier.");
     downloadBackup();
     return;
   }
@@ -1240,8 +1290,8 @@ async function chooseSaveFile() {
       suggestedName: backupFilename(),
       types: [
         {
-          description: "Sauvegarde DIVA",
-          accept: { "application/json": [".json"] }
+          description: "Dossier DIVA réimportable",
+          accept: { "application/json": [".diva", ".json"] }
         }
       ]
     });
@@ -1291,7 +1341,7 @@ async function writeServerBackup() {
     }
   } catch {
     if (!diskFileHandle) {
-      setSaveStatus("Sauvegarde navigateur active. Utilisez Télécharger pour un fichier.");
+      setSaveStatus("Sauvegarde navigateur active. Utilisez Exporter le dossier pour obtenir un fichier réimportable.");
     }
   }
 }
@@ -1446,21 +1496,23 @@ function createNewCase() {
     saveCurrentCaseToBrowser({ silent: true });
   }
 
-  activeCaseId = makeCaseId();
-  localStorage.setItem(ACTIVE_CASE_KEY, activeCaseId);
+  activeCaseId = "";
+  localStorage.removeItem(ACTIVE_CASE_KEY);
   replaceState(createEmptyState(true));
-  saveState();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   bindMetaValues();
   renderForm();
-  saveCurrentCaseToBrowser({ silent: true });
-  renderSavedCases(activeCaseId);
-  setSaveStatus("Nouveau dossier patient créé.");
+  renderSavedCases("");
+  setSaveStatus("Nouveau dossier prêt : choisissez DIVA adulte ou Young DIVA avant de commencer la saisie.");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function hasMeaningfulContent() {
   return Boolean(
     state.meta.patient ||
+    state.meta.birthdate ||
+    state.meta.profession ||
+    state.meta.informant ||
     state.context.reason ||
     state.context.complaints ||
     state.notes ||
