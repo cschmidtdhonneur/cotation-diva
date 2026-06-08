@@ -861,9 +861,8 @@ function bindStaticFields() {
   });
 
   els.search.addEventListener("input", filterItems);
-  els.print.addEventListener("click", exportPdfReport);
-  els.report.addEventListener("click", generateReport);
-  els.report.addEventListener("click", () => setTimeout(renderPrintReport, 0));
+  els.print.addEventListener("click", exportCotationPdf);
+  els.report.addEventListener("click", exportClinicalReportPdf);
   els.reset.addEventListener("click", resetCurrentScale);
   els.newCase?.addEventListener("click", createNewCase);
   els.saveCase?.addEventListener("click", () => saveCurrentCaseToBrowser());
@@ -1199,25 +1198,32 @@ function buildStandaloneReportHtml(reportText) {
 </html>`;
 }
 
-function exportPdfReport() {
-  generateReport();
-  renderPrintReport();
-  setSaveStatus("PDF prêt : choisissez Enregistrer en PDF dans la fenêtre d’impression.");
+function exportCotationPdf() {
+  renderCotationPrintReport();
+  setSaveStatus("PDF de cotation prêt : choisissez Enregistrer en PDF dans la fenêtre d’impression.");
   window.print();
 }
 
-function renderPrintReport() {
+function exportClinicalReportPdf() {
+  generateReport();
+  renderClinicalReportPrint();
+  setSaveStatus("PDF du compte rendu prêt : choisissez Enregistrer en PDF dans la fenêtre d’impression.");
+  window.print();
+}
+
+function renderCotationPrintReport() {
   updateSummary();
   const scale = SCALES[state.scale];
-  const checkedItems = collectCheckedResponses();
-  const evidenceItems = collectCheckedEvidence().slice(0, 60);
-  const reportText = state.report || els.generatedReport.value || "";
+  const responseRows = collectAllCotationResponses();
+  const evidenceItems = collectCheckedEvidence();
+  const responseComments = collectResponseComments();
+  const sectionNotes = collectSectionNotes();
   const generatedAt = new Date().toLocaleDateString("fr-FR");
 
   els.printReport.innerHTML = `
     <header class="print-header">
       <p class="print-eyebrow">Cotation DIVA</p>
-      <h1>Résultats et compte rendu professionnel</h1>
+      <h1>Dossier de cotation et notes d’entretien</h1>
       <p>${escapeHtml(scale.title)} - document généré le ${escapeHtml(generatedAt)}</p>
     </header>
 
@@ -1262,20 +1268,85 @@ function renderPrintReport() {
     </section>
 
     <section class="print-section">
-      <h2>Items cotés positivement</h2>
-      ${checkedItems.length ? `<ul>${checkedItems.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucun item coté positivement dans les réponses renseignées.</p>"}
+      <h2>Cotation complète</h2>
+      ${responseRows.length ? `<ul>${responseRows.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucune cotation renseignée.</p>"}
     </section>
 
     <section class="print-section">
-      <h2>Éléments cliniques cochés ou renseignés</h2>
+      <h2>Cases d’exemples cochées et éléments notés</h2>
       ${evidenceItems.length ? `<ul>${evidenceItems.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucun élément clinique coché ou renseigné.</p>"}
     </section>
 
     <section class="print-section">
-      <h2>Compte rendu professionnel</h2>
-      <div class="print-report-text">${escapeHtml(reportText).replace(/\n/g, "<br>")}</div>
+      <h2>Commentaires de cotation</h2>
+      ${responseComments.length ? `<ul>${responseComments.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucun commentaire spécifique renseigné.</p>"}
+    </section>
+
+    <section class="print-section">
+      <h2>Notes générales d’entretien</h2>
+      <div class="print-report-text">${escapeHtml(state.notes || "Non renseignées.").replace(/\n/g, "<br>")}</div>
+    </section>
+
+    <section class="print-section">
+      <h2>Notes cliniques par domaine</h2>
+      ${sectionNotes.length ? `<ul>${sectionNotes.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucune note par domaine renseignée.</p>"}
     </section>
   `;
+}
+
+function renderClinicalReportPrint() {
+  updateSummary();
+  const scale = SCALES[state.scale];
+  const reportText = state.report || els.generatedReport.value || "";
+  const generatedAt = new Date().toLocaleDateString("fr-FR");
+
+  els.printReport.innerHTML = `
+    <header class="print-header">
+      <p class="print-eyebrow">Cotation DIVA</p>
+      <h1>Compte rendu professionnel</h1>
+      <p>${escapeHtml(scale.title)} - document généré le ${escapeHtml(generatedAt)}</p>
+    </header>
+
+    <section class="print-section print-grid">
+      <div>
+        <h2>Patient</h2>
+        <p><strong>Nom / identifiant :</strong> ${escapeHtml(state.meta.patient || "Non renseigné")}</p>
+        <p><strong>Date de naissance :</strong> ${escapeHtml(formatDisplayDate(state.meta.birthdate) || "Non renseignée")}</p>
+        <p><strong>Profession / niveau scolaire :</strong> ${escapeHtml(state.meta.profession || "Non renseigné")}</p>
+      </div>
+      <div>
+        <h2>Entretien</h2>
+        <p><strong>Date :</strong> ${escapeHtml(formatDisplayDate(state.meta.date) || "Non renseignée")}</p>
+        <p><strong>Clinicien :</strong> ${escapeHtml(state.meta.clinician || "Non renseigné")}</p>
+        <p><strong>Source(s) :</strong> ${escapeHtml(state.meta.informant || "Non renseignée(s)")}</p>
+      </div>
+    </section>
+
+    <section class="print-section">
+      <h2>Synthèse rédigée</h2>
+      <div class="print-report-text">${escapeHtml(reportText || "Compte rendu non généré.").replace(/\n/g, "<br>")}</div>
+    </section>
+  `;
+}
+
+function collectAllCotationResponses() {
+  const scale = SCALES[state.scale];
+  const rows = [];
+
+  scale.sections.forEach(section => {
+    const periods = section.responseMode === "single" ? [{ id: "global", label: "Cotation" }] : scale.periods;
+    section.items.forEach(([code, title]) => {
+      periods.forEach(period => {
+        const response = getResponse(code, period.id);
+        if (!response.value && !response.comment) return;
+        const value = response.value ? responseLabel(response.value) : "Non coté";
+        const comment = response.comment ? ` - note : ${response.comment}` : "";
+        rows.push(`${section.title} - ${code} ${title} - ${period.label} : ${value}${comment}`);
+      });
+    });
+  });
+
+  return rows;
 }
 
 async function chooseSaveFile() {
@@ -1605,14 +1676,16 @@ async function init() {
   bindStaticFields();
   bindMetaValues();
   renderForm();
-  await refreshSavedCases();
   window.DivaApp = {
-    exportPdfReport,
-    renderPrintReport,
+    exportCotationPdf,
+    exportClinicalReportPdf,
+    renderCotationPrintReport,
+    renderClinicalReportPrint,
     saveCurrentCaseToBrowser,
     deleteSelectedCase,
     loadSelectedCase
   };
+  await refreshSavedCases();
   await restoreFileHandle();
 }
 

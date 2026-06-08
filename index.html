@@ -56,9 +56,9 @@
             <h2 id="scale-title">DIVA 2.0 adulte</h2>
           </div>
           <div class="actions">
-            <button class="ghost" id="report-btn" type="button" title="Générer un compte rendu">Compte rendu</button>
+            <button class="primary" id="print-btn" type="button" title="Exporter toute la cotation, les cases cochées et les notes en PDF">PDF cotation + notes</button>
+            <button class="ghost" id="report-btn" type="button" title="Générer puis exporter le compte rendu professionnel en PDF">PDF compte rendu</button>
             <button class="ghost" id="reset-btn" type="button" title="Effacer cette cotation">Réinitialiser</button>
-            <button class="primary" id="print-btn" type="button" title="Exporter les résultats et le compte rendu en PDF">Exporter PDF</button>
           </div>
         </header>
 
@@ -128,7 +128,7 @@
               <button class="ghost" id="download-report-btn" type="button">Télécharger le compte rendu</button>
             </div>
           </div>
-          <textarea id="generated-report" rows="12" placeholder="Cliquez sur “Compte rendu” pour générer une synthèse éditable."></textarea>
+          <textarea id="generated-report" rows="12" placeholder="Cliquez sur “PDF compte rendu” pour générer une synthèse éditable et l’exporter."></textarea>
         </section>
 
         <div id="form-root" class="form-root"></div>
@@ -136,7 +136,7 @@
     </main>
     <article id="print-report" class="print-report" aria-hidden="true"></article>
 
-    <script src="app.js?v=20260606-13"></script>
+    <script src="app.js?v=20260608-3"></script>
     <script src="adult-guidance-patch.js?v=20260605-5"></script>
   </body>
 </html>
