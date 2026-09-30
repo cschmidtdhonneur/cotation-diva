@@ -1,0 +1,21 @@
+{
+  "app": "Cotation DIVA",
+  "version": 2,
+  "savedAt": "2026-06-02T18:52:32.311Z",
+  "summary": {
+    "attention": 0,
+    "hyper": 0,
+    "impact": 0
+  },
+  "data": {
+    "scale": "young",
+    "meta": {
+      "date": "2026-05-28"
+    },
+    "context": {},
+    "notes": "",
+    "report": "Compte rendu de cotation Young DIVA-5\n\nInformations générales\nPatient : Non renseigné\nDate de naissance : Non renseignée\nProfession / niveau scolaire : Non renseigné\nDate de l’entretien : 2026-05-28\nClinicien : Non renseigné\nSource(s) : Non renseignée(s)\n\nMotif de consultation\nNon renseigné.\n\nPlaintes rapportées\nNon renseignées.\n\nRésultats de la cotation\nInattention : 0 item(s) coté(s) positivement.\nHyperactivité / impulsivité : 0 item(s) coté(s) positivement.\nRetentissements cochés : 0.\nÀ compléter : La synthèse se met à jour pendant la saisie.\n\nItems cotés positivement\nAucun item coté positivement pour le moment.\n\nÉléments cliniques cochés\nAucun élément coché pour le moment.\n\nCommentaires de cotation\nAucun commentaire spécifique renseigné.\n\nNotes générales d’entretien\nNon renseignées.",
+    "evidence": {},
+    "responses": {}
+  }
+}

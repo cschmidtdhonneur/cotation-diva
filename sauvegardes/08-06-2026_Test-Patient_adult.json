@@ -1,0 +1,31 @@
+{
+  "app": "Cotation DIVA",
+  "version": 2,
+  "savedAt": "2026-06-08T12:13:44.488Z",
+  "summary": {
+    "attention": 1,
+    "hyper": 0,
+    "impact": 0
+  },
+  "data": {
+    "scale": "adult",
+    "meta": {
+      "date": "08/06/2026",
+      "birthdate": "",
+      "patient": "Test Patient"
+    },
+    "context": {},
+    "notes": "Note generale test pendant entretien.",
+    "sectionNotes": {
+      "adult:attention": "Note domaine attention test."
+    },
+    "report": "",
+    "evidence": {},
+    "responses": {
+      "adult:A1:current": {
+        "value": "yes",
+        "comment": "Commentaire A1 test."
+      }
+    }
+  }
+}

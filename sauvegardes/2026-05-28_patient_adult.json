@@ -1,0 +1,29 @@
+{
+  "app": "Cotation DIVA",
+  "version": 2,
+  "savedAt": "2026-06-05T18:15:27.924Z",
+  "summary": {
+    "attention": 1,
+    "hyper": 0,
+    "impact": 0
+  },
+  "data": {
+    "scale": "adult",
+    "meta": {
+      "date": "2026-05-28"
+    },
+    "context": {},
+    "notes": "",
+    "report": "Compte rendu de cotation DIVA 2.0 adulte\n\nInformations générales\nPatient : Non renseigné\nDate de naissance : Non renseignée\nProfession / niveau scolaire : Non renseigné\nDate de l’entretien : 2026-05-28\nClinicien : Non renseigné\nSource(s) : Non renseignée(s)\n\nMotif de consultation\nNon renseigné.\n\nPlaintes rapportées\nNon renseignées.\n\nSynthèse de la cotation\nÀ l’âge adulte, 1/9 critère(s) d’inattention et 0/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.\nPendant l’enfance, 0/9 critère(s) d’inattention et 0/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.\nRetentissements/contextes cochés : 0. À interpréter : Repère courant: au moins 6 symptômes dans un domaine, avec retentissement et début ancien à discuter cliniquement.\n\nÉléments rapportés à l’âge adulte\nItems positifs : A1 Attention aux détails.\n- A1 Fait des erreurs d’étourderie\n\nÉléments rapportés dans l’enfance\nAucun item coté positivement pour l’enfance.\nAucun élément clinique d’enfance coché ou renseigné.\n\nCommentaires et verbatims associés aux cotations\nAucun commentaire spécifique renseigné dans les cotations.\n\nNotes générales d’entretien\nNon renseignées.\n\nConclusion à compléter cliniquement\nLes éléments ci-dessus doivent être interprétés en tenant compte de l’anamnèse, du retentissement fonctionnel, du caractère chronique des symptômes, de leur présence dans plusieurs contextes et des diagnostics différentiels.",
+    "evidence": {
+      "adult:A1:0:current": {
+        "checked": true
+      }
+    },
+    "responses": {
+      "adult:A1:current": {
+        "value": "yes"
+      }
+    }
+  }
+}

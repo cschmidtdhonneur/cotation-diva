@@ -1,0 +1,31 @@
+{
+  "app": "Cotation DIVA",
+  "version": 2,
+  "savedAt": "2026-06-05T19:31:42.248Z",
+  "summary": {
+    "attention": 0,
+    "hyper": 0,
+    "impact": 0
+  },
+  "data": {
+    "scale": "young",
+    "meta": {
+      "date": "28/05/2026",
+      "birthdate": ""
+    },
+    "context": {},
+    "notes": "",
+    "sectionNotes": {},
+    "report": "Compte rendu clinique - Young DIVA-5\n\n1. Informations générales\nPatient : Non renseigné\nDate de naissance : Non renseignée\nProfession / niveau scolaire : Non renseigné\nDate de l’entretien : 28/05/2026\nClinicien : Non renseigné\nSource(s) : Non renseignée(s)\n\n2. Motif et plaintes rapportées\nMotif de consultation\nNon renseigné.\nPlaintes rapportées\nNon renseignées.\n\n3. Résultats de la cotation\nPour la période actuelle, 0/9 critère(s) d’inattention et 0/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.\nPour la période avant 12 ans, 0/9 critère(s) d’inattention et 0/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.\nLes retentissements ou contextes cochés sont au nombre de 0. Statut de synthèse : À compléter. La synthèse se met à jour pendant la saisie.\n\n4. Synthèse descriptive des éléments renseignés\nActuel : aucun item n’est coté positivement dans les réponses renseignées.\nActuel : aucun exemple clinique n’a été coché ou renseigné pour cette période.\nAvant 12 ans : aucun item n’est coté positivement dans les réponses renseignées.\nAvant 12 ans : aucun exemple clinique n’a été coché ou renseigné pour cette période.\nLes précisions saisies dans les commentaires concernent principalement : Aucune précision complémentaire n’a été saisie dans les commentaires de cotation.\n\n5. Notes cliniques saisies\nNotes générales\nNon renseignées.\nNotes par domaine\nAucune note clinique par domaine n’a été renseignée.\n\n6. Conclusion descriptive à reprendre cliniquement\nCette synthèse restitue les cotations et éléments renseignés au cours de l’entretien. Elle ne constitue pas, à elle seule, une conclusion diagnostique et doit être articulée à l’anamnèse, au fonctionnement quotidien, aux informations collatérales disponibles, au contexte développemental et aux diagnostics différentiels.\n\nEncadré de référence clinique HAS\nConformément aux recommandations de bonne pratique publiées en septembre 2024 par la Haute Autorité de Santé, le diagnostic de Trouble Déficit de l’Attention avec ou sans Hyperactivité (TDAH) repose avant tout sur l’entretien clinique approfondi, l’analyse du parcours développemental et fonctionnel de la personne, ainsi que le recueil d’informations auprès de différentes sources.\n\nLa HAS précise que la réalisation d’un bilan neuropsychologique n’est pas une condition obligatoire pour poser un diagnostic de TDAH. Les outils standardisés (questionnaires, échelles, entretiens diagnostiques tels que la DIVA) viennent étayer l’évaluation clinique, sans s’y substituer.\n\nL’élément central du diagnostic demeure donc l’évaluation clinique menée par un professionnel formé, intégrant les critères diagnostiques, le retentissement fonctionnel et le contexte de vie de la personne évaluée.",
+    "evidence": {
+      "adult:A1:0:current": {
+        "checked": true
+      }
+    },
+    "responses": {
+      "adult:A1:current": {
+        "value": "yes"
+      }
+    }
+  }
+}

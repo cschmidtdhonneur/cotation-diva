@@ -1199,31 +1199,136 @@ function buildStandaloneReportHtml(reportText) {
 }
 
 function exportCotationPdf() {
+  const previewWindow = openPrintPreviewWindow();
   renderCotationPrintReport();
-  setSaveStatus("PDF de cotation prêt : choisissez Enregistrer en PDF dans la fenêtre d’impression.");
-  window.print();
+  if (showPrintPreview(previewWindow, "DIVA complétée")) {
+    setSaveStatus("Aperçu du PDF DIVA ouvert. Cliquez sur Imprimer / Enregistrer en PDF.");
+  }
 }
 
 function exportClinicalReportPdf() {
+  const previewWindow = openPrintPreviewWindow();
   generateReport();
   renderClinicalReportPrint();
-  setSaveStatus("PDF du compte rendu prêt : choisissez Enregistrer en PDF dans la fenêtre d’impression.");
-  window.print();
+  if (showPrintPreview(previewWindow, "Compte rendu DIVA")) {
+    setSaveStatus("Aperçu du compte rendu ouvert. Cliquez sur Imprimer / Enregistrer en PDF.");
+  }
+}
+
+function openPrintPreviewWindow() {
+  try {
+    return window.open("", "_blank");
+  } catch {
+    return null;
+  }
+}
+
+function showPrintPreview(previewWindow, title) {
+  if (!previewWindow) {
+    setSaveStatus("La fenêtre d’aperçu a été bloquée. Autorisez les fenêtres pop-up, puis réessayez.");
+    return false;
+  }
+
+  const stylesheetUrl = new URL("styles.css?v=20260930-2", window.location.href).href;
+  const documentHtml = els.printReport.innerHTML;
+  previewWindow.document.open();
+  previewWindow.document.write(`<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <link rel="stylesheet" href="${escapeHtml(stylesheetUrl)}">
+  <style>
+    body { margin: 0; background: #eef3f5; color: #172033; font: 10.5pt/1.42 Arial, sans-serif; }
+    .print-preview-toolbar { position: sticky; top: 0; z-index: 20; display: flex; justify-content: flex-end; gap: 10px; padding: 12px 18px; background: #152125; box-shadow: 0 2px 10px rgba(0,0,0,.18); }
+    .print-preview-toolbar button { border: 0; border-radius: 6px; padding: 11px 16px; background: #2f7d76; color: #fff; font: 700 15px Arial, sans-serif; cursor: pointer; }
+    .print-report { display: block; box-sizing: border-box; max-width: 210mm; min-height: 297mm; margin: 18px auto; padding: 14mm; background: #fff; box-shadow: 0 4px 24px rgba(25,39,45,.14); }
+    .print-header { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 5mm; margin-bottom: 7mm; padding-bottom: 5mm; border-bottom: 3px solid #173f88; }
+    .print-header > p:last-child { grid-column: 1 / -1; margin: 0; color: #516273; }
+    .print-diva-brand { display: grid; place-items: center; width: 22mm; height: 22mm; background: #173f88; color: #fff; font-size: 16pt; font-weight: 900; }
+    .print-header h1 { margin: 1mm 0; color: #173f88; font-size: 20pt; }
+    .print-eyebrow { margin: 0; color: #3977aa; font-size: 9pt; font-weight: 800; text-transform: uppercase; }
+    .print-section { margin-bottom: 7mm; break-inside: avoid; }
+    .print-section h2 { margin: 0 0 3mm; padding: 2.5mm 3mm; background: #d8edf8; color: #173f88; font-size: 12pt; }
+    .print-section p { margin: 1.5mm 0; }
+    .print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+    .diva-score-table { width: 100%; border-collapse: collapse; }
+    .diva-score-table th, .diva-score-table td { padding: 2.5mm 3mm; border: 1px solid #aebccc; text-align: center; }
+    .diva-score-table thead th { background: #173f88; color: #fff; }
+    .diva-score-table tbody th { background: #e9f4fa; text-align: left; }
+    .diva-score-note { font-size: 9pt; }
+    .diva-print-section { margin: 0 0 8mm; }
+    .diva-section-title { display: flex; align-items: center; justify-content: space-between; padding: 3mm 4mm; background: #173f88; color: #fff; break-after: avoid; }
+    .diva-section-title h2 { margin: 0; font-size: 14pt; }
+    .diva-section-title span { font-size: 9pt; font-weight: 700; }
+    .diva-print-item { margin-top: 4mm; border: 1px solid #aebccc; break-inside: avoid; }
+    .diva-item-heading { display: grid; grid-template-columns: 16mm 1fr; align-items: stretch; background: #d8edf8; }
+    .diva-item-code { display: grid; place-items: center; min-height: 18mm; background: #173f88; color: #fff; font-size: 14pt; font-weight: 900; }
+    .diva-item-heading > div { padding: 3mm 4mm; }
+    .diva-item-heading h3 { margin: 0 0 1mm; color: #173f88; font-size: 11pt; }
+    .diva-item-heading p { margin: 0; font-size: 9.5pt; }
+    .diva-periods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .diva-periods > .diva-period-box:only-child { grid-column: 1 / -1; }
+    .diva-period-box { padding: 3mm; border-top: 1px solid #aebccc; }
+    .diva-period-box + .diva-period-box { border-left: 1px solid #aebccc; }
+    .diva-period-head { display: flex; flex-wrap: wrap; align-items: center; gap: 2mm 3mm; padding-bottom: 2mm; border-bottom: 1px solid #d7dee7; }
+    .diva-period-head > strong { margin-right: auto; color: #173f88; }
+    .diva-choice { color: #66788a; font-size: 9pt; }
+    .diva-choice.selected { color: #173f88; font-weight: 800; }
+    .diva-evidence-list { margin: 3mm 0 0; padding-left: 5mm; }
+    .diva-evidence-list li { margin-bottom: 1.5mm; }
+    .diva-empty { color: #738294; font-style: italic; }
+    .diva-item-note, .diva-section-note, .print-report-text { margin-top: 3mm; padding: 3mm; border: 1px solid #9ec8df; background: #eef8fc; white-space: pre-wrap; }
+    .diva-section-note { border-left: 4px solid #173f88; }
+    .symptom-summary-page { break-before: page; page-break-before: always; padding-top: 2mm; }
+    .summary-page-title { margin-bottom: 8mm; padding: 3mm 4mm; background: #ef3f48; color: #fff; font-size: 15pt; font-weight: 800; }
+    .symptom-summary-page h2 { margin: 0 0 4mm; color: #173f88; font-size: 12pt; }
+    .symptom-summary-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 8.2pt; }
+    .symptom-summary-table th, .symptom-summary-table td { padding: 2mm; border: 1px solid #6e7c8c; vertical-align: middle; }
+    .symptom-summary-table thead th { background: #0b4995; color: #fff; text-align: left; }
+    .symptom-summary-table thead th:first-child { width: 14%; }
+    .symptom-summary-table thead th:nth-last-child(-n+2) { width: 13%; text-align: center; }
+    .symptom-summary-table tbody th { background: #c8e7f5; text-align: left; }
+    .symptom-summary-table tbody td:nth-child(2) { background: #c8e7f5; }
+    .symptom-summary-table .summary-mark { background: #fff; color: #506070; text-align: center; font-size: 14pt; }
+    .symptom-summary-table .summary-mark.positive { color: #173f88; font-weight: 900; }
+    .symptom-summary-table .summary-total th, .symptom-summary-table .summary-total td { background: #0aa8d5; color: #071d2c; font-size: 9pt; font-weight: 800; }
+    .symptom-summary-table .summary-total td { text-align: center; }
+    @media print {
+      @page { size: A4; margin: 12mm; }
+      body { background: #fff; }
+      .print-preview-toolbar { display: none !important; }
+      .print-report { max-width: none; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="print-preview-toolbar"><button type="button" onclick="window.print()">Imprimer / Enregistrer en PDF</button></div>
+  <article class="print-report">${documentHtml}</article>
+</body>
+</html>`);
+  previewWindow.document.close();
+  previewWindow.focus();
+  return true;
 }
 
 function renderCotationPrintReport() {
   updateSummary();
   const scale = SCALES[state.scale];
-  const responseRows = collectAllCotationResponses();
-  const evidenceItems = collectCheckedEvidence();
-  const responseComments = collectResponseComments();
-  const sectionNotes = collectSectionNotes();
   const generatedAt = new Date().toLocaleDateString("fr-FR");
+  const scoreRows = buildPeriodScoreRows(scale);
+  const symptomSections = scale.sections.filter(section => ["attention", "hyper"].includes(section.summaryKey));
+  const divaSections = symptomSections.map(renderDivaPrintSection).join("");
+  const symptomSummary = renderSymptomSummaryPage(symptomSections, scale.periods);
 
   els.printReport.innerHTML = `
     <header class="print-header">
-      <p class="print-eyebrow">Cotation DIVA</p>
-      <h1>Dossier de cotation et notes d’entretien</h1>
+      <div class="print-diva-brand">DIVA</div>
+      <div>
+        <p class="print-eyebrow">Entretien</p>
+        <h1>${escapeHtml(scale.title)}</h1>
+      </div>
       <p>${escapeHtml(scale.title)} - document généré le ${escapeHtml(generatedAt)}</p>
     </header>
 
@@ -1242,23 +1347,12 @@ function renderCotationPrintReport() {
       </div>
     </section>
 
-    <section class="print-section print-scores">
-      <article>
-        <span>${latestSummary.attention}</span>
-        <p>Inattention</p>
-      </article>
-      <article>
-        <span>${latestSummary.hyper}</span>
-        <p>Hyperactivité / impulsivité</p>
-      </article>
-      <article>
-        <span>${latestSummary.impact}</span>
-        <p>Retentissements</p>
-      </article>
-      <article>
-        <span>${escapeHtml(els.status.textContent || "À compléter")}</span>
-        <p>${escapeHtml(els.detail.textContent || "")}</p>
-      </article>
+    <section class="print-section">
+      <h2>Tableau des scores</h2>
+      <table class="diva-score-table">
+        <thead><tr><th>Période</th><th>Inattention</th><th>Hyperactivité / impulsivité</th></tr></thead>
+        <tbody>${scoreRows}</tbody>
+      </table>
     </section>
 
     <section class="print-section">
@@ -1267,31 +1361,126 @@ function renderCotationPrintReport() {
       <p><strong>Plaintes :</strong> ${escapeHtml(state.context.complaints || "Non renseignées.")}</p>
     </section>
 
-    <section class="print-section">
-      <h2>Cotation complète</h2>
-      ${responseRows.length ? `<ul>${responseRows.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucune cotation renseignée.</p>"}
-    </section>
-
-    <section class="print-section">
-      <h2>Cases d’exemples cochées et éléments notés</h2>
-      ${evidenceItems.length ? `<ul>${evidenceItems.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucun élément clinique coché ou renseigné.</p>"}
-    </section>
-
-    <section class="print-section">
-      <h2>Commentaires de cotation</h2>
-      ${responseComments.length ? `<ul>${responseComments.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucun commentaire spécifique renseigné.</p>"}
-    </section>
+    ${divaSections}
 
     <section class="print-section">
       <h2>Notes générales d’entretien</h2>
       <div class="print-report-text">${escapeHtml(state.notes || "Non renseignées.").replace(/\n/g, "<br>")}</div>
     </section>
 
-    <section class="print-section">
-      <h2>Notes cliniques par domaine</h2>
-      ${sectionNotes.length ? `<ul>${sectionNotes.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "<p>Aucune note par domaine renseignée.</p>"}
+    ${symptomSummary}
+
+  `;
+}
+
+function renderSymptomSummaryPage(sections, periods) {
+  const displayedPeriods = periods.slice(0, 2);
+  const periodHeadings = displayedPeriods.map(period => `<th>Présent ${escapeHtml(period.label.toLowerCase())}</th>`).join("");
+  const sectionBlocks = sections.map(section => {
+    const isAttention = section.summaryKey === "attention";
+    const dsmPrefix = isAttention ? "A1" : "A2";
+    const totalLabel = isAttention
+      ? "Nombre total de critères de Déficit Attentionnel"
+      : "Nombre total de critères d’Hyperactivité et d’Impulsivité";
+    const rows = section.items.map(([code, title], index) => {
+      const criterion = `${dsmPrefix}${String.fromCharCode(97 + index)}`;
+      const periodCells = displayedPeriods.map(period => {
+        const value = getResponse(code, period.id).value;
+        const mark = value === "yes" ? "☒" : value === "no" ? "☐" : "—";
+        return `<td class="summary-mark ${value === "yes" ? "positive" : ""}">${mark}</td>`;
+      }).join("");
+      return `<tr><th>${criterion}</th><td><strong>${escapeHtml(code)}.</strong> ${escapeHtml(title)}</td>${periodCells}</tr>`;
+    }).join("");
+    const totals = displayedPeriods.map(period => {
+      const total = section.items.filter(([code]) => getResponse(code, period.id).value === "yes").length;
+      return `<td><strong>${total}</strong> /9</td>`;
+    }).join("");
+    return `${rows}<tr class="summary-total"><th colspan="2">${totalLabel}</th>${totals}</tr>`;
+  }).join("");
+
+  return `
+    <section class="symptom-summary-page">
+      <header class="summary-page-title">Résumé des symptômes A et H/I</header>
+      <h2>Critères cotés dans les sections 1 et 2</h2>
+      <table class="symptom-summary-table">
+        <thead><tr><th>Critère DSM-5-TR</th><th>Symptôme</th>${periodHeadings}</tr></thead>
+        <tbody>${sectionBlocks}</tbody>
+      </table>
     </section>
   `;
+}
+
+function buildPeriodScoreRows(scale) {
+  const attention = scale.sections.find(section => section.summaryKey === "attention");
+  const hyper = scale.sections.find(section => section.summaryKey === "hyper");
+  return scale.periods.map(period => {
+    const attentionScore = attention ? attention.items.filter(([code]) => getResponse(code, period.id).value === "yes").length : 0;
+    const hyperScore = hyper ? hyper.items.filter(([code]) => getResponse(code, period.id).value === "yes").length : 0;
+    return `<tr><th>${escapeHtml(period.label)}</th><td><strong>${attentionScore}</strong> / ${attention?.items.length || 0}</td><td><strong>${hyperScore}</strong> / ${hyper?.items.length || 0}</td></tr>`;
+  }).join("");
+}
+
+function renderDivaPrintSection(section) {
+  const scale = SCALES[state.scale];
+  const periods = section.responseMode === "single" ? [{ id: "global", label: "Cotation" }] : scale.periods;
+  const sectionNote = getSectionNote(section.id).trim();
+  return `
+    <section class="diva-print-section">
+      <header class="diva-section-title">
+        <h2>${escapeHtml(section.title)}</h2>
+        <span>${section.items.length} critères</span>
+      </header>
+      ${section.items.map(item => renderDivaPrintItem(item, periods)).join("")}
+      ${sectionNote ? `<div class="diva-section-note"><strong>Notes du domaine</strong><p>${escapeHtml(sectionNote).replace(/\n/g, "<br>")}</p></div>` : ""}
+    </section>
+  `;
+}
+
+function renderDivaPrintItem([code, title, description], periods) {
+  const guidance = getGuidance(code);
+  return `
+    <article class="diva-print-item">
+      <div class="diva-item-heading">
+        <span class="diva-item-code">${escapeHtml(code)}</span>
+        <div>
+          <h3>${escapeHtml(title)}</h3>
+          <p>${escapeHtml(guidance?.question || description || "")}</p>
+        </div>
+      </div>
+      <div class="diva-periods">
+        ${periods.map(period => renderDivaPrintPeriod(code, period, guidance)).join("")}
+      </div>
+    </article>
+  `;
+}
+
+function renderDivaPrintPeriod(code, period, guidance) {
+  const response = getResponse(code, period.id);
+  const examples = guidance ? guidanceExamplesForPeriod(guidance, period.id) : [];
+  const selectedExamples = examples.flatMap((example, index) => {
+    const evidence = getEvidence(code, index, period.id);
+    if (!evidence.checked && !evidence.note) return [];
+    const note = evidence.note ? ` — ${evidence.note}` : "";
+    return [`${evidence.checked ? "☒" : "☐"} ${example}${note}`];
+  });
+  const comment = String(response.comment || "").trim();
+  return `
+    <section class="diva-period-box">
+      <div class="diva-period-head">
+        <strong>${escapeHtml(period.label)}</strong>
+        <span class="diva-choice ${response.value === "yes" ? "selected" : ""}">${response.value === "yes" ? "☒" : "☐"} Oui</span>
+        <span class="diva-choice ${response.value === "no" ? "selected" : ""}">${response.value === "no" ? "☒" : "☐"} Non</span>
+        <span class="diva-choice ${response.value === "na" ? "selected" : ""}">${response.value === "na" ? "☒" : "☐"} N/A</span>
+      </div>
+      ${selectedExamples.length ? `<ul class="diva-evidence-list">${selectedExamples.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : `<p class="diva-empty">Aucun exemple coché ou renseigné.</p>`}
+      ${comment ? `<p class="diva-item-note"><strong>Note :</strong> ${escapeHtml(comment).replace(/\n/g, "<br>")}</p>` : ""}
+    </section>
+  `;
+}
+
+function guidanceExamplesForPeriod(guidance, periodId) {
+  if (guidance.examplesByPeriod) return guidance.examplesByPeriod[periodId] || [];
+  return guidance.examples || [];
 }
 
 function renderClinicalReportPrint() {

@@ -911,9 +911,29 @@ button {
   }
 
   .print-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 5mm;
     padding-bottom: 10mm;
     border-bottom: 2px solid #0e5450;
     margin-bottom: 7mm;
+  }
+
+  .print-header > p:last-child {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  .print-diva-brand {
+    display: grid;
+    place-items: center;
+    width: 21mm;
+    height: 21mm;
+    background: #173f88;
+    color: #fff;
+    font-size: 15pt;
+    font-weight: 900;
   }
 
   .print-header h1 {
@@ -977,6 +997,175 @@ button {
 
   .print-section li {
     margin-bottom: 1.5mm;
+  }
+
+  .diva-score-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .diva-score-table th,
+  .diva-score-table td {
+    padding: 2.5mm 3mm;
+    border: 1px solid #b9c4d1;
+    text-align: center;
+  }
+
+  .diva-score-table thead th {
+    background: #173f88;
+    color: #fff;
+  }
+
+  .diva-score-table tbody th {
+    background: #edf4fb;
+    text-align: left;
+  }
+
+  .diva-score-note {
+    margin: 2.5mm 0 0;
+    font-size: 9.5pt;
+  }
+
+  .diva-print-section {
+    margin: 0 0 8mm;
+  }
+
+  .diva-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3mm 4mm;
+    background: #173f88;
+    color: #fff;
+    break-after: avoid;
+  }
+
+  .diva-section-title h2 {
+    margin: 0;
+    color: inherit;
+    font-size: 14pt;
+  }
+
+  .diva-section-title span {
+    font-size: 9pt;
+    font-weight: 700;
+  }
+
+  .diva-print-item {
+    margin-top: 4mm;
+    border: 1px solid #aebccc;
+    break-inside: avoid;
+  }
+
+  .diva-item-heading {
+    display: grid;
+    grid-template-columns: 15mm 1fr;
+    align-items: stretch;
+    background: #dcecf7;
+  }
+
+  .diva-item-code {
+    display: grid;
+    place-items: center;
+    min-height: 16mm;
+    background: #173f88;
+    color: #fff;
+    font-size: 14pt;
+    font-weight: 900;
+  }
+
+  .diva-item-heading > div {
+    padding: 2.5mm 3.5mm;
+  }
+
+  .diva-item-heading h3 {
+    margin: 0 0 1mm;
+    font-size: 11pt;
+  }
+
+  .diva-item-heading p {
+    margin: 0;
+    font-size: 9.5pt;
+  }
+
+  .diva-periods {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .diva-periods > .diva-period-box:only-child {
+    grid-column: 1 / -1;
+  }
+
+  .diva-period-box {
+    padding: 3mm;
+    border-top: 1px solid #aebccc;
+  }
+
+  .diva-period-box + .diva-period-box {
+    border-left: 1px solid #aebccc;
+  }
+
+  .diva-period-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2mm 3mm;
+    padding-bottom: 2mm;
+    border-bottom: 1px solid #d7dee7;
+  }
+
+  .diva-period-head > strong {
+    margin-right: auto;
+    color: #173f88;
+  }
+
+  .diva-choice {
+    color: #637083;
+    white-space: nowrap;
+  }
+
+  .diva-choice.selected {
+    color: #111827;
+    font-weight: 900;
+  }
+
+  .diva-evidence-list {
+    margin: 2mm 0 0;
+    padding-left: 5mm;
+    font-size: 9pt;
+  }
+
+  .diva-empty {
+    margin: 2mm 0 0;
+    color: #6b7280;
+    font-size: 8.5pt;
+    font-style: italic;
+  }
+
+  .diva-item-note,
+  .diva-section-note p {
+    white-space: normal;
+  }
+
+  .diva-item-note {
+    margin: 2.5mm 0 0;
+    padding: 2mm;
+    background: #f7f9fc;
+    border-left: 2px solid #173f88;
+    font-size: 9pt;
+  }
+
+  .diva-section-note {
+    margin-top: 4mm;
+    padding: 3mm 4mm;
+    border: 1px solid #9fb2c8;
+    background: #f2f7fb;
+    break-inside: avoid;
+  }
+
+  .diva-section-note p {
+    margin: 1.5mm 0 0;
   }
 
   @page {

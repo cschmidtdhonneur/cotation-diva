@@ -1,0 +1,31 @@
+{
+  "app": "Cotation DIVA",
+  "version": 2,
+  "savedAt": "2026-06-05T18:54:55.104Z",
+  "summary": {
+    "attention": 1,
+    "hyper": 0,
+    "impact": 0
+  },
+  "data": {
+    "scale": "adult",
+    "meta": {
+      "date": "28/05/2026",
+      "birthdate": ""
+    },
+    "context": {},
+    "notes": "",
+    "sectionNotes": {},
+    "report": "Compte rendu de cotation DIVA 2.0 adulte\n\nInformations générales\nPatient : Non renseigné\nDate de naissance : Non renseignée\nProfession / niveau scolaire : Non renseigné\nDate de l’entretien : 28/05/2026\nClinicien : Non renseigné\nSource(s) : Non renseignée(s)\n\nMotif de consultation\nNon renseigné.\n\nPlaintes rapportées\nNon renseignées.\n\nSynthèse de la cotation\nÂge adulte : 1/9 critère(s) d’inattention et 0/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.\nEnfance : 0/9 critère(s) d’inattention et 0/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.\nRetentissements/contextes cochés : 0. À interpréter : Repère courant: au moins 6 symptômes dans un domaine, avec retentissement et début ancien à discuter cliniquement.\n\nÉléments rapportés - Âge adulte\nItems positifs : A1 Attention aux détails.\n- A1 Fait des erreurs d’étourderie\n\nÉléments rapportés - Enfance\nAucun item coté positivement pour enfance.\nAucun élément clinique coché ou renseigné pour enfance.\n\nCommentaires et verbatims associés aux cotations\nAucun commentaire spécifique renseigné dans les cotations.\n\nNotes générales d’entretien\nNon renseignées.\n\nNotes par domaine\nAucune note par domaine renseignée.\n\nConclusion à compléter cliniquement\nLes éléments ci-dessus doivent être interprétés en tenant compte de l’anamnèse, du retentissement fonctionnel, du caractère chronique des symptômes, de leur présence dans plusieurs contextes et des diagnostics différentiels.\n\nEncadré de référence clinique\nConformément aux recommandations de bonne pratique publiées en septembre 2024 par la Haute Autorité de Santé, le diagnostic de Trouble Déficit de l’Attention avec ou sans Hyperactivité (TDAH) repose avant tout sur l’entretien clinique approfondi, l’analyse du parcours développemental et fonctionnel de la personne, ainsi que le recueil d’informations auprès de différentes sources.\n\nLa HAS précise que la réalisation d’un bilan neuropsychologique n’est pas une condition obligatoire pour poser un diagnostic de TDAH. Les outils standardisés (questionnaires, échelles, entretiens diagnostiques tels que la DIVA) viennent étayer l’évaluation clinique, sans s’y substituer.\n\nL’élément central du diagnostic demeure donc l’évaluation clinique menée par un professionnel formé, intégrant les critères diagnostiques, le retentissement fonctionnel et le contexte de vie de la personne évaluée.",
+    "evidence": {
+      "adult:A1:0:current": {
+        "checked": true
+      }
+    },
+    "responses": {
+      "adult:A1:current": {
+        "value": "yes"
+      }
+    }
+  }
+}
