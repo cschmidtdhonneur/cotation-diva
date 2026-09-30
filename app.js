@@ -1355,18 +1355,7 @@ function renderCotationPrintReport() {
       </table>
     </section>
 
-    <section class="print-section">
-      <h2>Motif et plaintes rapportées</h2>
-      <p><strong>Motif :</strong> ${escapeHtml(state.context.reason || "Non renseigné.")}</p>
-      <p><strong>Plaintes :</strong> ${escapeHtml(state.context.complaints || "Non renseignées.")}</p>
-    </section>
-
     ${divaSections}
-
-    <section class="print-section">
-      <h2>Notes générales d’entretien</h2>
-      <div class="print-report-text">${escapeHtml(state.notes || "Non renseignées.").replace(/\n/g, "<br>")}</div>
-    </section>
 
     ${symptomSummary}
 
@@ -1423,7 +1412,6 @@ function buildPeriodScoreRows(scale) {
 function renderDivaPrintSection(section) {
   const scale = SCALES[state.scale];
   const periods = section.responseMode === "single" ? [{ id: "global", label: "Cotation" }] : scale.periods;
-  const sectionNote = getSectionNote(section.id).trim();
   return `
     <section class="diva-print-section">
       <header class="diva-section-title">
@@ -1431,7 +1419,6 @@ function renderDivaPrintSection(section) {
         <span>${section.items.length} critères</span>
       </header>
       ${section.items.map(item => renderDivaPrintItem(item, periods)).join("")}
-      ${sectionNote ? `<div class="diva-section-note"><strong>Notes du domaine</strong><p>${escapeHtml(sectionNote).replace(/\n/g, "<br>")}</p></div>` : ""}
     </section>
   `;
 }
@@ -1459,11 +1446,9 @@ function renderDivaPrintPeriod(code, period, guidance) {
   const examples = guidance ? guidanceExamplesForPeriod(guidance, period.id) : [];
   const selectedExamples = examples.flatMap((example, index) => {
     const evidence = getEvidence(code, index, period.id);
-    if (!evidence.checked && !evidence.note) return [];
-    const note = evidence.note ? ` — ${evidence.note}` : "";
-    return [`${evidence.checked ? "☒" : "☐"} ${example}${note}`];
+    if (!evidence.checked) return [];
+    return [`☒ ${example}`];
   });
-  const comment = String(response.comment || "").trim();
   return `
     <section class="diva-period-box">
       <div class="diva-period-head">
@@ -1472,8 +1457,7 @@ function renderDivaPrintPeriod(code, period, guidance) {
         <span class="diva-choice ${response.value === "no" ? "selected" : ""}">${response.value === "no" ? "☒" : "☐"} Non</span>
         <span class="diva-choice ${response.value === "na" ? "selected" : ""}">${response.value === "na" ? "☒" : "☐"} N/A</span>
       </div>
-      ${selectedExamples.length ? `<ul class="diva-evidence-list">${selectedExamples.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : `<p class="diva-empty">Aucun exemple coché ou renseigné.</p>`}
-      ${comment ? `<p class="diva-item-note"><strong>Note :</strong> ${escapeHtml(comment).replace(/\n/g, "<br>")}</p>` : ""}
+      ${selectedExamples.length ? `<ul class="diva-evidence-list">${selectedExamples.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : `<p class="diva-empty">Aucun exemple coché.</p>`}
     </section>
   `;
 }
