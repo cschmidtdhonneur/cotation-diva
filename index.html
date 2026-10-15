@@ -20,7 +20,7 @@
         <section class="panel compact">
           <label for="scale-select">Évaluation</label>
           <select id="scale-select">
-            <option value="adult">DIVA 2.0 adulte</option>
+            <option value="adult">DIVA-5 — aide à la cotation (17 ans et plus)</option>
             <option value="young">Young DIVA-5 enfant / adolescent</option>
           </select>
         </section>
@@ -53,7 +53,7 @@
         <header class="topbar">
           <div>
             <p class="eyebrow">Grille clinique</p>
-            <h2 id="scale-title">DIVA 2.0 adulte</h2>
+            <h2 id="scale-title">DIVA-5 — aide à la cotation (17 ans et plus)</h2>
           </div>
           <div class="actions">
             <button class="primary" id="print-btn" type="button" title="Exporter la grille DIVA complétée avec les scores, les cases cochées et les notes">PDF DIVA complétée</button>
@@ -99,11 +99,11 @@
         <section class="summary-band" aria-label="Résumé de cotation">
           <article>
             <span id="attention-score">0</span>
-            <p>Inattention</p>
+            <p>Inattention actuelle /9</p>
           </article>
           <article>
             <span id="hyper-score">0</span>
-            <p>Hyperactivité / impulsivité</p>
+            <p>Hyperactivité / impulsivité actuelle /9</p>
           </article>
           <article>
             <span id="impact-score">0</span>
@@ -136,7 +136,8 @@
     </main>
     <article id="print-report" class="print-report" aria-hidden="true"></article>
 
-    <script src="app.js?v=20260930-7"></script>
-    <script src="adult-guidance-patch.js?v=20260930-7"></script>
+    <script src="app.js?v=20261015-1"></script>
+    <script src="adult-guidance-patch.js?v=20261015-1"></script>
   </body>
 </html>
+
