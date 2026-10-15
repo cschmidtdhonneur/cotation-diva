@@ -507,9 +507,9 @@
     lines.push(state.context.complaints || "Non renseignées.");
     lines.push("");
     lines.push("3. Résultats de la cotation");
-    lines.push(`Pour ${periodSentenceLabel(primaryPeriod.label)}, ${adultAttention}/9 critère(s) d’inattention et ${adultHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
-    lines.push(`Pour ${periodSentenceLabel(secondaryPeriod.label)}, ${childAttention}/9 critère(s) d’inattention et ${childHyper}/9 critère(s) d’hyperactivité-impulsivité sont cotés positivement.`);
-    lines.push(`Les retentissements ou contextes cochés sont au nombre de ${latestSummary.impact}. Statut de synthèse : ${els.status.textContent}. ${els.detail.textContent}`);
+    lines.push(`Pour ${periodSentenceLabel(primaryPeriod.label)}, inattention : ${domainScoreText(attention, primaryPeriod.id)} ; hyperactivité / impulsivité : ${domainScoreText(hyper, primaryPeriod.id)}.`);
+    lines.push(`Pour ${periodSentenceLabel(secondaryPeriod.label)}, inattention : ${domainScoreText(attention, secondaryPeriod.id)} ; hyperactivité / impulsivité : ${domainScoreText(hyper, secondaryPeriod.id)}.`);
+    lines.push(`Retentissements / contexte : ${domainScoreText(sectionForSummary("impact"), "global")}. Statut de synthèse : ${els.status.textContent}. ${els.detail.textContent}`);
     lines.push("");
     lines.push("4. Synthèse descriptive des éléments renseignés");
     lines.push(positiveItemSentence(primaryPeriod.label, adultPositiveCodes));
@@ -543,3 +543,4 @@
 
   renderForm();
 })();
+
