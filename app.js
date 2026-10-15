@@ -1,11 +1,11 @@
 const SCALES = {
   adult: {
-    title: "DIVA 2.0 adulte",
+    title: "DIVA-5 — aide à la cotation (17 ans et plus)",
     periods: [
-      { id: "current", label: "Âge adulte" },
+      { id: "current", label: "Actuel" },
       { id: "childhood", label: "Enfance" }
     ],
-    threshold: "Repère courant: au moins 6 symptômes dans un domaine, avec retentissement et début ancien à discuter cliniquement.",
+    threshold: "Seuil DSM-5 : 5/9 dès 17 ans, 6/9 avant 17 ans ; autres critères à examiner.",
     sections: [
       {
         id: "attention",
@@ -61,7 +61,7 @@ const SCALES = {
       { id: "current", label: "Actuel" },
       { id: "before12", label: "Avant 12 ans" }
     ],
-    threshold: "Repère DSM-5 enfant/adolescent: au moins 6 symptômes dans un domaine, plusieurs contextes et retentissement à apprécier.",
+    threshold: "Seuil DSM-5 : 6/9 avant 17 ans, 5/9 dès 17 ans ; autres critères à examiner.",
     sections: [
       {
         id: "attention",
@@ -821,6 +821,7 @@ function bindStaticFields() {
       state.meta[key] = key === "date" || key === "birthdate" ? formatDateForInput(el.value) : el.value;
       if (key === "date" || key === "birthdate") el.value = state.meta[key];
       saveState();
+      updateSummary();
     });
   });
 
@@ -909,30 +910,41 @@ function countYes(section, periodIds) {
   }, 0);
 }
 
+function ageAtInterview(meta) {
+  function parse(value) {
+    const text = formatDateForInput(value);
+    const match = text.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (!match) return null;
+    const [, day, month, year] = match.map(Number);
+    const date = new Date(year, month - 1, day);
+    return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day ? date : null;
+  }
+  const birth = parse(meta.birthdate), interview = parse(meta.date);
+  if (!birth || !interview || birth > interview) return null;
+  let age = interview.getFullYear() - birth.getFullYear();
+  if (interview.getMonth() < birth.getMonth() || (interview.getMonth() === birth.getMonth() && interview.getDate() < birth.getDate())) age--;
+  return age;
+}
+
 function updateSummary() {
   const scale = SCALES[state.scale];
   const sections = Object.fromEntries(scale.sections.map(section => [section.summaryKey, section]));
-  const symptomPeriods = scale.periods.map(period => period.id);
-  const attention = sections.attention ? countYes(sections.attention, symptomPeriods) : 0;
-  const hyper = sections.hyper ? countYes(sections.hyper, symptomPeriods) : 0;
+  // Never combine current and retrospective symptoms into one score.
+  const attention = sections.attention ? countYes(sections.attention, ["current"]) : 0;
+  const hyper = sections.hyper ? countYes(sections.hyper, ["current"]) : 0;
   const impact = sections.impact ? countYes(sections.impact, ["global"]) : 0;
   latestSummary = { attention, hyper, impact };
-
   els.attention.textContent = attention;
   els.hyper.textContent = hyper;
   els.impact.textContent = impact;
-
-  const meetsSymptomMarker = attention >= 6 || hyper >= 6;
-  if (meetsSymptomMarker && impact > 0) {
-    els.status.textContent = "Repère atteint";
-    els.detail.textContent = scale.threshold;
-  } else if (attention || hyper || impact) {
-    els.status.textContent = "À interpréter";
-    els.detail.textContent = scale.threshold;
-  } else {
-    els.status.textContent = "À compléter";
-    els.detail.textContent = "La synthèse se met à jour pendant la saisie.";
-  }
+  const age = ageAtInterview(state.meta);
+  const threshold = age === null ? null : age >= 17 ? 5 : 6;
+  els.status.textContent = threshold === null ? "Âge à renseigner" :
+    attention >= threshold || hyper >= threshold ? "Seuil actuel atteint" : "À compléter / interpréter";
+  const retrospective = scale.periods.find(period => period.id !== "current");
+  const pastAttention = sections.attention ? countYes(sections.attention, [retrospective.id]) : 0;
+  const pastHyper = sections.hyper ? countYes(sections.hyper, [retrospective.id]) : 0;
+  els.detail.textContent = `${threshold === null ? "Renseigner une naissance et une date d’entretien valides : seuil de 6/9 avant 17 ans, 5/9 dès 17 ans." : `À ${age} ans : seuil actuel de ${threshold}/9 dans un même domaine.`} ${retrospective.label} : inattention ${pastAttention}/9 ; hyperactivité / impulsivité ${pastHyper}/9. Périodes comptées séparément. Le seuil symptomatique ne suffit pas à conclure : durée ≥ 6 mois, plusieurs symptômes avant 12 ans, présence dans au moins deux contextes, retentissement et autres explications à examiner. Aucun nombre minimal d’exemples cochés : chaque symptôme est coté séparément en Oui / Non / N/A.`;
 }
 
 function generateReport() {
@@ -960,8 +972,8 @@ function generateReport() {
   lines.push(state.context.complaints || "Non renseignées.");
   lines.push("");
   lines.push("Résultats de la cotation");
-  lines.push(`Inattention : ${latestSummary.attention} item(s) coté(s) positivement.`);
-  lines.push(`Hyperactivité / impulsivité : ${latestSummary.hyper} item(s) coté(s) positivement.`);
+  lines.push(`Inattention actuelle : ${latestSummary.attention} item(s) coté(s) positivement.`);
+  lines.push(`Hyperactivité / impulsivité actuelle : ${latestSummary.hyper} item(s) coté(s) positivement.`);
   lines.push(`Retentissements cochés : ${latestSummary.impact}.`);
   lines.push(`${els.status.textContent} : ${els.detail.textContent}`);
   lines.push("");
@@ -1863,3 +1875,4 @@ async function init() {
 }
 
 init();
+
