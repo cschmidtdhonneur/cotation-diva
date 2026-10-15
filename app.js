@@ -371,7 +371,7 @@ let diskSaveTimer = null;
 let serverSaveTimer = null;
 let caseSaveTimer = null;
 let activeCaseId = "";
-let latestSummary = { attention: 0, hyper: 0, impact: 0 };
+let latestSummary = { attention: null, hyper: null, impact: 0 };
 
 const HAS_NOTICE = "Conformément aux recommandations de bonne pratique publiées en septembre 2024 par la Haute Autorité de Santé, le diagnostic de Trouble Déficit de l’Attention avec ou sans Hyperactivité (TDAH) repose avant tout sur l’entretien clinique approfondi, l’analyse du parcours développemental et fonctionnel de la personne, ainsi que le recueil d’informations auprès de différentes sources.\n\nLa HAS précise que la réalisation d’un bilan neuropsychologique n’est pas une condition obligatoire pour poser un diagnostic de TDAH. Les outils standardisés (questionnaires, échelles, entretiens diagnostiques tels que la DIVA) viennent étayer l’évaluation clinique, sans s’y substituer.\n\nL’élément central du diagnostic demeure donc l’évaluation clinique menée par un professionnel formé, intégrant les critères diagnostiques, le retentissement fonctionnel et le contexte de vie de la personne évaluée.";
 
@@ -926,6 +926,19 @@ function ageAtInterview(meta) {
   return age;
 }
 
+function domainScore(section, periodId) {
+  const values = (section?.items || []).map(([code]) => getResponse(code, periodId).value);
+  return { total: values.length, positive: values.filter(v => v === "yes").length,
+    rated: values.filter(v => v === "yes" || v === "no").length,
+    na: values.filter(v => v === "na").length };
+}
+
+function domainScoreText(section, periodId) {
+  const score = domainScore(section, periodId);
+  if (!score.rated) return score.na ? `Non évaluable (${score.na} N/A, ${score.total - score.na} non cotés)` : "Non coté";
+  return `${score.positive}/${score.total} positifs — ${score.rated}/${score.total} cotés Oui/Non${score.na ? `, ${score.na} N/A` : ""}${score.rated + score.na < score.total ? `, ${score.total - score.rated - score.na} non cotés` : ""}`;
+}
+
 function updateSummary() {
   const scale = SCALES[state.scale];
   const sections = Object.fromEntries(scale.sections.map(section => [section.summaryKey, section]));
@@ -933,10 +946,11 @@ function updateSummary() {
   const attention = sections.attention ? countYes(sections.attention, ["current"]) : 0;
   const hyper = sections.hyper ? countYes(sections.hyper, ["current"]) : 0;
   const impact = sections.impact ? countYes(sections.impact, ["global"]) : 0;
-  latestSummary = { attention, hyper, impact };
-  els.attention.textContent = attention;
-  els.hyper.textContent = hyper;
-  els.impact.textContent = impact;
+  latestSummary = { attention: domainScore(sections.attention, "current").rated ? attention : null, hyper: domainScore(sections.hyper, "current").rated ? hyper : null, impact,
+    attentionCompletion: domainScore(sections.attention, "current"), hyperCompletion: domainScore(sections.hyper, "current") };
+  els.attention.textContent = domainScoreText(sections.attention, "current");
+  els.hyper.textContent = domainScoreText(sections.hyper, "current");
+  els.impact.textContent = domainScoreText(sections.impact, "global");
   const age = ageAtInterview(state.meta);
   const threshold = age === null ? null : age >= 17 ? 5 : 6;
   els.status.textContent = threshold === null ? "Âge à renseigner" :
@@ -944,7 +958,7 @@ function updateSummary() {
   const retrospective = scale.periods.find(period => period.id !== "current");
   const pastAttention = sections.attention ? countYes(sections.attention, [retrospective.id]) : 0;
   const pastHyper = sections.hyper ? countYes(sections.hyper, [retrospective.id]) : 0;
-  els.detail.textContent = `${threshold === null ? "Renseigner une naissance et une date d’entretien valides : seuil de 6/9 avant 17 ans, 5/9 dès 17 ans." : `À ${age} ans : seuil actuel de ${threshold}/9 dans un même domaine.`} ${retrospective.label} : inattention ${pastAttention}/9 ; hyperactivité / impulsivité ${pastHyper}/9. Périodes comptées séparément. Le seuil symptomatique ne suffit pas à conclure : durée ≥ 6 mois, plusieurs symptômes avant 12 ans, présence dans au moins deux contextes, retentissement et autres explications à examiner. Aucun nombre minimal d’exemples cochés : chaque symptôme est coté séparément en Oui / Non / N/A.`;
+  els.detail.textContent = `${threshold === null ? "Renseigner une naissance et une date d’entretien valides : seuil de 6/9 avant 17 ans, 5/9 dès 17 ans." : `À ${age} ans : seuil actuel de ${threshold}/9 dans un même domaine.`} ${retrospective.label} : inattention : ${domainScoreText(sections.attention, retrospective.id)} ; hyperactivité / impulsivité : ${domainScoreText(sections.hyper, retrospective.id)}. Périodes comptées séparément. Le seuil symptomatique ne suffit pas à conclure : durée ≥ 6 mois, plusieurs symptômes avant 12 ans, présence dans au moins deux contextes, retentissement et autres explications à examiner. Aucun nombre minimal d’exemples cochés : chaque symptôme est coté séparément en Oui / Non / N/A.`;
 }
 
 function generateReport() {
@@ -972,9 +986,9 @@ function generateReport() {
   lines.push(state.context.complaints || "Non renseignées.");
   lines.push("");
   lines.push("Résultats de la cotation");
-  lines.push(`Inattention actuelle : ${latestSummary.attention} item(s) coté(s) positivement.`);
-  lines.push(`Hyperactivité / impulsivité actuelle : ${latestSummary.hyper} item(s) coté(s) positivement.`);
-  lines.push(`Retentissements cochés : ${latestSummary.impact}.`);
+  lines.push(`Inattention actuelle : ${domainScoreText(scale.sections.find(s => s.summaryKey === "attention"), "current")}.`);
+  lines.push(`Hyperactivité / impulsivité actuelle : ${domainScoreText(scale.sections.find(s => s.summaryKey === "hyper"), "current")}.`);
+  lines.push(`Retentissements / contexte : ${domainScoreText(scale.sections.find(s => s.summaryKey === "impact"), "global")}.`);
   lines.push(`${els.status.textContent} : ${els.detail.textContent}`);
   lines.push("");
   lines.push("Items cotés positivement");
@@ -1394,7 +1408,7 @@ function renderSymptomSummaryPage(sections, periods) {
     }).join("");
     const totals = displayedPeriods.map(period => {
       const total = section.items.filter(([code]) => getResponse(code, period.id).value === "yes").length;
-      return `<td><strong>${total}</strong> /9</td>`;
+      return `<td>${escapeHtml(domainScoreText(section, period.id))}</td>`;
     }).join("");
     return `${rows}<tr class="summary-total"><th colspan="2">${totalLabel}</th>${totals}</tr>`;
   }).join("");
@@ -1417,7 +1431,7 @@ function buildPeriodScoreRows(scale) {
   return scale.periods.map(period => {
     const attentionScore = attention ? attention.items.filter(([code]) => getResponse(code, period.id).value === "yes").length : 0;
     const hyperScore = hyper ? hyper.items.filter(([code]) => getResponse(code, period.id).value === "yes").length : 0;
-    return `<tr><th>${escapeHtml(period.label)}</th><td><strong>${attentionScore}</strong> / ${attention?.items.length || 0}</td><td><strong>${hyperScore}</strong> / ${hyper?.items.length || 0}</td></tr>`;
+    return `<tr><th>${escapeHtml(period.label)}</th><td>${escapeHtml(domainScoreText(attention, period.id))}</td><td>${escapeHtml(domainScoreText(hyper, period.id))}</td></tr>`;
   }).join("");
 }
 
