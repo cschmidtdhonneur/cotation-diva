@@ -936,7 +936,8 @@ function domainScore(section, periodId) {
 function domainScoreText(section, periodId) {
   const score = domainScore(section, periodId);
   if (!score.rated) return score.na ? `Non évaluable (${score.na} N/A, ${score.total - score.na} non cotés)` : "Non coté";
-  return `${score.positive}/${score.total} positifs — ${score.rated}/${score.total} cotés Oui/Non${score.na ? `, ${score.na} N/A` : ""}${score.rated + score.na < score.total ? `, ${score.total - score.rated - score.na} non cotés` : ""}`;
+  if (score.rated === score.total) return `${score.positive}/${score.total}`;
+  return `${score.positive}/${score.total} (partiel : ${score.rated}/${score.total} cotés${score.na ? `, ${score.na} N/A` : ""})`;
 }
 
 function updateSummary() {
